@@ -1,0 +1,134 @@
+
+body{
+margin:0;
+padding:0;
+line-height: 1.5em;
+}
+
+
+b{font-size: 110%;}
+em{color: red;}
+
+* {
+	font-family:Arial;
+	
+}
+
+.email span {
+	font-size: 0.9em;
+}
+
+#topsection{
+height: 90px; /*Height of top section*/
+}
+
+#topsection h1{
+margin: 0;
+padding-top: 15px;
+padding-left: 15px;
+}
+
+#contentwrapper{
+float: left;
+width: 100%;
+}
+
+#contentcolumn{
+margin-left: 200px; /*Set left margin to LeftColumnWidth*/
+
+}
+
+#email_list {
+	border: 1px solid grey ;
+	width:1120px;
+
+}
+
+#email_expanded {
+	display: none;		
+	width:1100px;
+	height: 530px;
+	padding: 15px;
+	background-color: #DAEDE1;
+	border: 1px inset grey;
+
+}
+#leftcolumn{
+float: left;
+width: 200px; /*Width of left column*/
+margin-left: -100%;
+
+
+}
+
+#footer{
+clear: left;
+width: 100%;
+background-color: #56A0D3;
+text-align: center;
+padding: 4px 0;
+}
+
+#footer a{
+color: #FFFF80;
+}
+
+#maincontainer {
+	background-color: #56A0D3;
+
+}
+ #new_email {
+ 	margin-left: 20px;
+ 	display: inline-block;
+ 	width:100px;
+}
+
+#navigation li, #navigation {
+	list-style: none;
+	padding-left: 10px;
+	margin-bottom: 10px;
+	margin-right: 10px;
+
+}
+
+#navigation li:hover {
+	background-color: white;
+	cursor:pointer;
+}
+.date {
+	float: right;
+	padding-right: 20px;
+}
+
+
+}
+.innertube{
+margin: 10px; /*Margins for inner DIV inside each column (to provide padding)*/
+margin-top: 0;
+}
+
+.sender {
+	font-weight: bold;
+	padding-left: 5px;
+	display: inline-block;
+	width:200px;
+}
+
+.preview {
+	color:#A3A3A0;
+}
+.email {
+	
+	padding-top: 10px;
+	padding-bottom: 10px;
+	margin-bottom: 1px;
+	background-color: #CADCE3;
+}
+
+.email:hover {
+	cursor: pointer;
+	background-color: #DAEDF5;
+}
+
+
+
