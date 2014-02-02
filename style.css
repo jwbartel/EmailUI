@@ -6,7 +6,7 @@ line-height: 1.5em;
 }
 
 
-b{font-size: 110%;}
+b{font-size: 100%;}
 em{color: red;}
 
 * {
@@ -53,6 +53,17 @@ margin-left: 200px; /*Set left margin to LeftColumnWidth*/
 	border: 1px inset grey;
 
 }
+
+#new_email_editor {
+	display: none;	
+	width:1100px;
+	height: 530px;
+	padding: 15px;
+	background-color: #DAEDE1;
+	border: 1px inset grey;
+
+}
+
 #leftcolumn{
 float: left;
 width: 200px; /*Width of left column*/
@@ -129,6 +140,15 @@ margin-top: 0;
 	cursor: pointer;
 	background-color: #DAEDF5;
 }
+input {
+	font-size: 110%;
+}
+input[type=text] {
+	border: 1px solid #DAEDE1;
+	background-color: #DAEDE1;
+	width:90%;
+}
 
-
-
+input[type=text]:focus {
+	outline: 0;
+}

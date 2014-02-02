@@ -22,16 +22,24 @@ $(document).ready(function() {
 		$("#email_expanded").append("<h3>" + email.subject +"</h3>");
 		$("#email_expanded").append("<strong>" + email.sender.name +"</strong>" + "&lt;" + email.sender.email +"&gt<br>");
 		$("#email_expanded").append("<p>" + email.content +"</p>");
-		$("#email_expanded").toggle();
-		$("#email_list").toggle();
+		$("#email_expanded").show();
+		$("#email_list").hide();
+
+
+	});
+
+	$("#new_email").click(function() {
+		$("#email_list").hide();
+		$("#new_email_editor").show();
+		
 
 
 	});
 
 	$("#inbox").click(function() {
 		$("#email_expanded").empty();
-		$("#email_expanded").toggle();
-		$("#email_list").toggle();
+		$("#email_expanded").hide();
+		$("#email_list").show();
 	});
 
 });
