@@ -1,5 +1,6 @@
 $(document).ready(function() {
 
+
 	Email.generate();
 
 	var maxSubjectAndPreviewLength = 130; //I calculated this number after testing the layout
@@ -22,6 +23,8 @@ $(document).ready(function() {
 		$("#email_expanded").append("<h3>" + email.subject +"</h3>");
 		$("#email_expanded").append("<strong>" + email.sender.name +"</strong>" + "&lt;" + email.sender.email +"&gt<br>");
 		$("#email_expanded").append("<p>" + email.content +"</p>");
+
+		$("#new_email_editor").hide();
 		$("#email_expanded").show();
 		$("#email_list").hide();
 
@@ -29,15 +32,16 @@ $(document).ready(function() {
 	});
 
 	$("#new_email").click(function() {
+		$("#new_email_editor").show();	
+		$("#email_expanded").hide();
 		$("#email_list").hide();
-		$("#new_email_editor").show();
-		
-
+			
 
 	});
 
 	$("#inbox").click(function() {
 		$("#email_expanded").empty();
+		$("#new_email_editor").hide();
 		$("#email_expanded").hide();
 		$("#email_list").show();
 	});

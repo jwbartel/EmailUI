@@ -37,7 +37,7 @@ Email.generate = function() {
     var subject_part4 = ["notes", "outline", "index", "table of contents", "references", "footnotes"];
 
 
-    for(var i=0; i<50; i++) {
+    for(var i=0; i<10; i++) {
 		var subject = subject_part1[Math.floor(6*Math.random())] + " " +
 	            subject_part2[Math.floor(6*Math.random())] + " " +
 	            subject_part3[Math.floor(6*Math.random())] + " " +

@@ -24,21 +24,27 @@
 			<div id="email_expanded">
 			</div>
 			<div id="new_email_editor">
-				<h3> New Message </h3>
 				<strong> To: </strong><input type="text" id="to_field" autofocus="autofocus"><br>
 				<hr>
 				<strong> Cc: </strong><input type="text" id="cc_field"><br>
 				<hr>
 				<strong> Subject: </strong><input type="text" id="subect_field"><br>
 				<hr>
-				<div id="message_field" contenteditable></div>
+				<div id="message_field" placeholder="Write your message here" contenteditable></div>
+				<hr>
+				<div id="new_email_options">
+					<button type="button" id="send"> Send </button>
+					<button type="button" id="save"> Save Draft</button>
+					<button type="button" id="discard"> Discard </button>
+					
+				</div>
 			</div>
 		</div>
 	</div>
 
 	<div id="leftcolumn">
 		<div class="innertube">
-			<button type="button" id="new_email" href="#"> New Email </button>
+			<button type="button" id="new_email" href="#"> New Message </button>
 			<ul id="navigation">
 				<li id="inbox"> Inbox </li>
 				<li> Important </li>
