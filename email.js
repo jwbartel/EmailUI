@@ -1,7 +1,11 @@
 var Contact = function(name, email) {
 	this.name = name;
 	this.email = email;
+
+	Contact.all.push(this);
 }
+
+Contact.all = new Array();
 
 var Email = function(sender, receivers, date, subject, content) {
 	this.sender = sender;

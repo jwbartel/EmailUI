@@ -120,6 +120,13 @@ color: #FFFF80;
 	background-color: white;
 	cursor:pointer;
 }
+
+#predictions {
+	display: none;
+	width: 100%;
+	margin-top: 5px;
+}
+
 .date {
 	float: right;
 	padding-right: 20px;
@@ -156,8 +163,8 @@ margin-top: 0;
 }
 
 input[type=text] {
-	border: 1px solid #DAEDE1;
-	background-color: #DAEDE1;
+	border: 1px solid black;
+	background-color: white;
 	width:90%;
 }
 
@@ -165,7 +172,12 @@ input[type=text]:focus {
 	outline: 0;
 }
 
+div[contenteditable] {
+	background-color: white;
+	border: 1px solid black;
+}
 div[contenteditable]:focus {
+
 	outline:0;
 } 
 
