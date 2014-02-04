@@ -46,4 +46,17 @@ $(document).ready(function() {
 		$("#email_list").show();
 	});
 
+	var time;
+	$("#new_email_editor").find('*').on("mouseenter", function() {
+
+		time = new Date().getTime() / 1000;
+	});
+
+	$("#new_email_editor").find('*').on("mouseleave", function() {
+
+		time = (new Date().getTime() / 1000) - time;
+		console.log("Hovered over " +$(this).prop("tagName") + "for " + time + "seconds");
+	});
+
+
 });
