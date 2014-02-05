@@ -2,6 +2,8 @@ $(document).ready(function() {
 
 
 	Email.generate();
+	var already_suggested = false;
+	var first_click = true;
 
 	var maxSubjectAndPreviewLength = 130; //I calculated this number after testing the layout
 	for (var i = 0; i < Email.all.length; i++) {
@@ -39,33 +41,47 @@ $(document).ready(function() {
 
 	$('#inbox').click(function() {
 		$('#email_expanded').empty();
+		
+		//Clear email editor of data
+
 		$('#new_email_editor').hide();
+		$('#new_email_editor').children('input').val('');
+		$('.contact_suggestion').remove();
+		$('#predictions').hide();
+		$('#message_field').empty();
+		already_suggested = false;
+
+
+
 		$('#email_expanded').hide();
 		$('#email_list').show();
 	});
 
 	var time;
-	$('#new_email_editor').find('*').on('mouseenter', function() {
+	$('#new_email_editor').find('input, #message_field, #predictions').on('mouseenter', function() {
 
 		time = new Date().getTime() / 1000;
 	});
 
-	$('#new_email_editor').find('*').on('mouseleave', function() {
+	$('#new_email_editor').find('input, #message_field, #predictions').on('mouseleave', function() {
 
 		time = (new Date().getTime() / 1000) - time;
-		//console.log('Hovered over ' +$(this).prop('tagName') + ' for ' + time + 'seconds');
+		console.log('Hovered over ' +$(this).prop('id') + ' for ' + time * 1000 + 'milliseconds');
 	});
 
 	$('#new_email_editor').find('button').on('click', function() {
 		time = new Date().getTime()/1000;
-		//console.log('Clicked ' + $(this).prop('id') +' at time' + time);
+		console.log('Clicked ' + $(this).prop('id') +' at time ' + time);
 	});
 
-	var already_suggested = false;
+	$(document).on('click','.contact_suggestion', function() {
+		time = new Date().getTime()/1000;
+		console.log('Clicked ' + $(this).text() +' at time ' + time);
+	});
+
+	
 	//Make random suggestions
 	$('#to_field').on('change keyup paste',function() {
-
-		console.log('change');
 		var content = $(this).val();
 
 		if (content.indexOf(",") != -1 && !already_suggested) { //if there's a comma on the field
@@ -82,9 +98,12 @@ $(document).ready(function() {
 		}
 	});
 
+	
 	$(document).on('click','.contact_suggestion', function() {
 		var email = $(this).data('email');
-		$('#to_field').val($('#to_field').val() + ' ,' + email); //append email to contents of to_field
+		var comma = (first_click) ? ' ': ', ';
+		$('#to_field').val($('#to_field').val() + comma + email); //append email to contents of to_field
+		first_click = false;
 	});
 
 
