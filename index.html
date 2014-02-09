@@ -7,10 +7,10 @@
 	<title> Sample Email </title>
 
 	<!-- Bootstrap -->
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="Bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom CSS 
-	<link rel="stylesheet" type="text/css" href="style.css">-->	
+    <!--Custom CSS-->
+	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
 <body>
@@ -18,58 +18,68 @@
 
 	<div class = "row" id="header">
 		<div class="col-md-12">
-			<h1> Email Prediction Test </h1>
+			<h2> Email Prediction Test </h2>
 		</div>
 	</div>
-	<div id="contentwrapper">
-		<div id="contentcolumn">
-			<div id="email_list">
+    <div class = "row" id="content">
+
+    	<div class="col-md-1" id="navigation">
+			<div class="btn-group-vertical tracked click" id="navigation">
+				<button type="button" class="btn btn-default" id="new_email">New Message</button>
+				<button type="button" class="btn btn-default" id="nav_inbox">Inbox</button>
+  				<button type="button" class="btn btn-default">Important</button>
+ 				<button type="button" class="btn btn-default">Sent</button>
+ 				<button type="button" class="btn btn-default">Drafts</button>
+  				<button type="button" class="btn btn-default">Spam</button>
+ 				<button type="button" class="btn btn-default">Trash</button>
 			</div>
-			<div id="email_expanded">
+		</div>
+
+        <div class ="col-md-10" id="email_list">
+        	<div class="panel panel-default">
+        		<ul class="list-group"></ul>
+        	</div>
+        </div>
+
+        <div class ="col-md-10" id="email_expanded_col">
+        	<div class="panel panel-default" id="email_expanded">
+  				<div class="panel-heading"><h3 class="panel-title"></h3></div>
+  				<div class="panel-body">
+  				</div>
 			</div>
-			<div id="new_email_editor">
-				<strong> To: </strong><input type="text" class="tracked text" id="to_field" autofocus="autofocus"><br>
-				<div id="predictions">
-					<span> Consider including: </span>
-				</div>
-				<hr>
-				<strong> Cc: </strong><input type="text" class="tracked text" id="cc_field"><br>
-				<hr>
-				<strong> Subject: </strong><input type="text" class="tracked text" id="subect_field"><br>
-				<hr>
-				<div class ="tracked text" id="message_field" placeholder="Write your message here" contenteditable></div>
-				<hr>
-				<div id="new_email_options">
-					<button type="button" class="tracked click" id="send"> Send </button>
-					<button type="button" class="tracked click" id="save"> Save Draft</button>
-					<button type="button" class="tracked click" id="discard"> Discard </button>
-					
-				</div>
-			</div>
+        </div>
+
+        <div class="col-md-5">
+        <div class ="panel panel-default"  id="new_email_editor">
+        	<div class="panel-heading">New Message</div>
+        	<div class="panel-body">
+            	<input type="text" class="form-control tracked text" id="to_field" autofocus="autofocus" placeholder="To"><br>
+            	<div id="predictions">
+                	<span> Consider including: </span>
+            	</div>
+            	<input type="text" class="form-control" id="cc_field" placeholder="Cc"><br>
+            	<input type="text" class="form-control tracked text" id="subect_field" placeholder="Subject">
+            	<br>
+            	<textarea rows="12" class ="form-control tracked text" id="message_field" placeholder="Write your message here"></textarea>
+            	<div id="new_email_options">
+                	<button type="button" class="btn btn-success tracked click" id="send"> Send </button>
+                	<button type="button" class="btn btn-warning tracked click" id="save"> Save Draft</button>
+                	<button type="button" class="btn btn-danger tracked click" id="discard"> Discard </button>
+           	 	</div>
+           	</div>
+		</div>
 		</div>
 	</div>
 
-	<div id="leftcolumn">
-		<div class="innertube">
-			<button type="button" class="click" id="new_email" href="#"> New Message </button>
-			<ul class="tracked click" id="navigation">
-				<li id="nav_inbox"> Inbox </li>
-				<li> Important </li>
-				<li> Sent </li>
-				<li> Drafts </li>
-				<li> Spam </li>
-				<li> Trash </li>
-			</ul>
 
-		</div>
+			
 
-	</div>
 <div id="footer"></div>
 </div>
 
     <!-- JS Files -->
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="Bootstrap/js/bootstrap.min.js"></script>
 	<script src="email.js"></script>
 	<script src="email_generator.js"></script>
 
