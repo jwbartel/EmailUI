@@ -4,8 +4,9 @@ $(document).ready(function() {
 	Email.generate();
 	var already_suggested = false;
 	var first_click = true;
+	var new_email_open = false;
 
-	var maxSubjectAndPreviewLength = 130; //I calculated this number after testing the layout
+	var maxSubjectAndPreviewLength = 150; //I calculated this number after testing the layout
 
 	// Append_Emails
 	for (var i = 0; i < Email.all.length; i++) {
@@ -14,7 +15,7 @@ $(document).ready(function() {
 		var previewSize = (subject.length + 1 >= maxSubjectAndPreviewLength) ? 0: maxSubjectAndPreviewLength - subject.length - 2;
 		var preview = email.content.substring(0, previewSize);
 
-		$('#email_list').append('<div class="email tracked click" id="email'+i+'"></div>');
+		$('ul.list-group').append('<li class="list-group-item email tracked click" id="email'+i+'"></li>');
 		$('#email'+i).append('<span class="sender">' + email.sender.name + '</span>  ' + '<span class="subject">' + subject + '</span>\
 							  <span class="preview"> &nbsp;&ndash;&nbsp;' + preview + '</span>' + '<span class="date">' + email.formattedDate() + '</span>');
 	}
@@ -28,16 +29,20 @@ $(document).ready(function() {
 
 	//Open email
 	$(document).on('click', '.email', function() {
+
+		if (new_email_open)
+			$('#email_expanded_col').attr('class','col-md-5')
+		else
+			$('#email_expanded_col').attr('class','col-md-10')
+
 		var id = $(this).attr('id');
 		var index = parseInt(id.substring(5)); //i.e, 'email5' will yield 5
 		var email = Email.all[index];
 
-		$('#email_expanded').append('<h3>' + email.subject +'</h3>');
-		$('#email_expanded').append('<strong>' + email.sender.name +'</strong>' + '&lt;' + email.sender.email +'&gt<br>');
-		$('#email_expanded').append('<p>' + email.content +'</p>');
-
-		$('#new_email_editor').hide();
-		$('#email_expanded').show();
+		$('.panel-title').text(email.subject);
+		$('#email_expanded > .panel-body').append('<strong>' + email.sender.name +'</strong>' + '&lt;' + email.sender.email +'&gt<hr>');
+		$('#email_expanded > .panel-body').append('<p>' + email.content +'</p>');
+		$('#email_expanded_col').show();
 		$('#email_list').hide();
 
 
@@ -45,27 +50,23 @@ $(document).ready(function() {
 
 	//Open New Email window
 	$('#new_email').click(function() {
+		new_email_open = true;
+		$('.preview').hide();
+		$('#email_list').attr('class','col-md-5')
 		$('#new_email_editor').show();	
-		$('#email_expanded').hide();
-		$('#email_list').hide();
 	});
 
 	//Return to the main inbox
 	$('#nav_inbox').click(function() {
-		$('#email_expanded').empty();
-		
-		//Clear email editor of data
+		$('#email_expanded > .panel-heading > .panel-title').empty();
+		$('#email_expanded > .panel-body').empty();
+		$('#email_expanded_col').hide();
 
-		$('#new_email_editor').hide();
-		$('#new_email_editor').children('input').val('');
-		$('.contact_suggestion').remove();
-		$('#predictions').hide();
-		$('#message_field').empty();
-		already_suggested = false;
+		if (new_email_open)
+			$('#email_list').attr('class','col-md-5')
+		else
+			$('#email_list').attr('class','col-md-10')
 
-
-
-		$('#email_expanded').hide();
 		$('#email_list').show();
 	});
 
