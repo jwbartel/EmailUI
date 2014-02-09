@@ -1,16 +1,20 @@
-<!doctype html>
-<html>
-<head>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title> Sample Email </title>
-	<link rel="stylesheet" type="text/css" href="style.css">
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script src="email.js"></script>
-	<script src="email_generator.js"></script>
-	
+
+	<!-- Bootstrap -->
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Files -->
+	<link rel="stylesheet" type="text/css" href="style.css">	
 </head>
 
 <body>
-<div id="maincontainer">
+<div id=".container">
 
 	<div id="topsection">
 		<div class="innertube">
@@ -24,21 +28,21 @@
 			<div id="email_expanded">
 			</div>
 			<div id="new_email_editor">
-				<strong> To: </strong><input type="text" id="to_field" autofocus="autofocus"><br>
+				<strong> To: </strong><input type="text" class="tracked text" id="to_field" autofocus="autofocus"><br>
 				<div id="predictions">
 					<span> Consider including: </span>
 				</div>
 				<hr>
-				<strong> Cc: </strong><input type="text" id="cc_field"><br>
+				<strong> Cc: </strong><input type="text" class="tracked text" id="cc_field"><br>
 				<hr>
-				<strong> Subject: </strong><input type="text" id="subect_field"><br>
+				<strong> Subject: </strong><input type="text" class="tracked text" id="subect_field"><br>
 				<hr>
-				<div id="message_field" placeholder="Write your message here" contenteditable></div>
+				<div class ="tracked text" id="message_field" placeholder="Write your message here" contenteditable></div>
 				<hr>
 				<div id="new_email_options">
-					<button type="button" id="send"> Send </button>
-					<button type="button" id="save"> Save Draft</button>
-					<button type="button" id="discard"> Discard </button>
+					<button type="button" class="tracked click" id="send"> Send </button>
+					<button type="button" class="tracked click" id="save"> Save Draft</button>
+					<button type="button" class="tracked click" id="discard"> Discard </button>
 					
 				</div>
 			</div>
@@ -47,9 +51,9 @@
 
 	<div id="leftcolumn">
 		<div class="innertube">
-			<button type="button" id="new_email" href="#"> New Message </button>
-			<ul id="navigation">
-				<li id="inbox"> Inbox </li>
+			<button type="button" class="click" id="new_email" href="#"> New Message </button>
+			<ul class="tracked click" id="navigation">
+				<li id="nav_inbox"> Inbox </li>
 				<li> Important </li>
 				<li> Sent </li>
 				<li> Drafts </li>
@@ -62,5 +66,12 @@
 	</div>
 <div id="footer"></div>
 </div>
+
+    <!-- JS Files -->
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="email.js"></script>
+	<script src="email_generator.js"></script>
+
 </body>
 </html>
