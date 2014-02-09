@@ -30,7 +30,7 @@ $(document).ready(function() {
 	//Open email
 	$(document).on('click', '.email', function() {
 
-		
+
 		if (new_email_open)
 			$('#email_expanded_col').attr('class','col-md-5')
 		else
@@ -56,8 +56,7 @@ $(document).ready(function() {
 		$('.preview').hide();
 		$('#email_expanded_col').attr('class', 'col-md-5');
 		$('#email_list').attr('class','col-md-5');
-		$('#new_email_editor').show();	
-		console.log("for real");
+		$('#new_email_editor').show();
 	});
 
 	//Return to the main inbox
