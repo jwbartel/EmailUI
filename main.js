@@ -2,7 +2,7 @@ $(document).ready(function() {
 
 
 	Email.generate();
-	var session_log = 'Session started ;timestamp: ' + new Date().getTime/1000; //
+	var session_log = 'Session started ;timestamp: ' + new Date().getTime/1000 + '\n'; 
 
 	var already_suggested = false;
 	var first_click = true;
