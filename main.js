@@ -2,11 +2,13 @@ $(document).ready(function() {
 
 
 	Email.generate();
+	var session_log = 'Session started ;timestamp: ' + new Date().getTime/1000; //
+
 	var already_suggested = false;
 	var first_click = true;
-	var new_email_open = false;
-
+	var email_editor_open = false;
 	var maxSubjectAndPreviewLength = 150; //I calculated this number after testing the layout
+
 
 	// Append_Emails
 	for (var i = 0; i < Email.all.length; i++) {
@@ -24,14 +26,14 @@ $(document).ready(function() {
 	outputting to the console, or any other way that seems reasonable */
 
 	var log_message = function(message) {
-		console.log(message);
+		session_log += (message + '\n');
 	}
 
-	//Open email
+	//Expand email
 	$(document).on('click', '.email', function() {
 
 
-		if (new_email_open)
+		if (email_editor_open)
 			$('#email_expanded_col').attr('class','col-md-5')
 		else
 			$('#email_expanded_col').attr('class','col-md-10')
@@ -41,22 +43,22 @@ $(document).ready(function() {
 		var email = Email.all[index];
 
 		$('.panel-title').text(email.subject);
-		$('#email_expanded > .panel-body').append('<strong>' + email.sender.name +'</strong>' + '&lt;' + email.sender.email +'&gt<hr>');
-		$('#email_expanded > .panel-body').append('<p>' + email.content +'</p>');
+		$('#email_expanded > .panel-body').append('<strong class="tracked" id="expanded_sender">' + email.sender.name +'</strong>' + '&lt;' + email.sender.email +'&gt<hr>');
+		$('#email_expanded > .panel-body').append('<p class="tracked" id="expanded_content">' + email.content +'</p>');
 		$('#email_expanded_col').show();
 		$('#email_list').hide();
 
 
 	});
 
-	//Open New Email window
-	$('#new_email').click(function() {
-		new_email_open = true;
+	//Open New Message editor
+	$('#nav_new_message').click(function() {
+		email_editor_open = true;
 
 		$('.preview').hide();
 		$('#email_expanded_col').attr('class', 'col-md-5');
 		$('#email_list').attr('class','col-md-5');
-		$('#new_email_editor').show();
+		$('#new_message_editor').show();
 	});
 
 	//Return to the main inbox
@@ -65,7 +67,7 @@ $(document).ready(function() {
 		$('#email_expanded > .panel-body').empty();
 		$('#email_expanded_col').hide();
 
-		if (new_email_open)
+		if (email_editor_open)
 			$('#email_list').attr('class','col-md-5')
 		else
 			$('#email_list').attr('class','col-md-10')
@@ -117,13 +119,25 @@ $(document).ready(function() {
 		}
 	});
 
+	//Clicked Suggestion
 	$(document).on('click','.contact_suggestion', function() {
+		stamp = new Date().getTime()/1000;
 		var email = $(this).prop('id');
 		var comma = (first_click) ? ' ': ', ';
 		$('#to_field').val($('#to_field').val() + comma + email); //append email to contents of to_field
-		log_message(email);
+		log_message('Changed content of to_field to ' + $('#to_field').val() + ';timestamp: ' + stamp);
 		first_click = false;
 	});
 
-
+	//End Session
+	$('#end_session').on('click', function() {
+		$.ajax({
+			type: 'POST',
+			url:"get_data.php",
+			data: session_log,
+			success: function(data, status, jqXHR) {
+				alert(data);
+			}
+		});
+	}
 });

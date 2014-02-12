@@ -30,12 +30,12 @@ width: 99%;
 	margin: 0px 40px 0px 10px;
 }
 
-#new_email_editor {
+#new_message_editor {
 	display: none;	
 	background-color: #DAEDE1;
 }
 
-#new_email_options {
+#new_message_options {
 	display:inline-block;
 	padding:0px 5px 5px 5px;
 	margin-top: 15px;

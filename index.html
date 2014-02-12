@@ -14,7 +14,7 @@
 </head>
 
 <body>
-<div id=".container">
+<div id="container">
 
 	<div class = "row" id="header">
 		<div class="col-md-12">
@@ -24,16 +24,19 @@
     <div class = "row" id="content">
 
     	<div class="col-md-1" id="navigation">
-			<div class="btn-group-vertical tracked click" id="navigation">
-				<button type="button" class="btn btn-default" id="new_email">New Message</button>
-				<button type="button" class="btn btn-default" id="nav_inbox">Inbox</button>
-  				<button type="button" class="btn btn-default">Important</button>
- 				<button type="button" class="btn btn-default">Sent</button>
- 				<button type="button" class="btn btn-default">Drafts</button>
-  				<button type="button" class="btn btn-default">Spam</button>
- 				<button type="button" class="btn btn-default">Trash</button>
+			<div class="btn-group-vertical" id="navigation">
+				<button type="button" class="btn btn-default tracked click" id="nav_new_message">New Message</button>
+				<button type="button" class="btn btn-default tracked click" id="nav_inbox">Inbox</button>
+  				<button type="button" class="btn btn-default tracked click" id="nav_important">Important</button>
+ 				<button type="button" class="btn btn-default tracked click" id="nave_sent">Sent</button>
+ 				<button type="button" class="btn btn-default tracked click" id="nav_drafts">Drafts</button>
+  				<button type="button" class="btn btn-default tracked click" id="nav_spam">Spam</button>
+ 				<button type="button" class="btn btn-default tracked click" id="nav_trash">Trash</button>
+                <button type="button" class="btn btn-danger tracked click" id="end_session">End Session</button>
 			</div>
+            
 		</div>
+
 
         <div class ="col-md-10" id="email_list">
         	<div class="panel panel-default">
@@ -43,14 +46,14 @@
 
         <div class ="col-md-10" id="email_expanded_col">
         	<div class="panel panel-default" id="email_expanded">
-  				<div class="panel-heading"><h3 class="panel-title"></h3></div>
+  				<div class="panel-heading"><h3 class="panel-title tracked" id="expanded_subject"></h3></div>
   				<div class="panel-body">
   				</div>
 			</div>
         </div>
 
         <div class="col-md-5">
-        <div class ="panel panel-default"  id="new_email_editor">
+        <div class ="panel panel-default"  id="new_message_editor">
         	<div class="panel-heading">New Message</div>
         	<div class="panel-body">
             	<input type="text" class="form-control tracked text" id="to_field" autofocus="autofocus" placeholder="To"><br>
@@ -61,7 +64,7 @@
             	<input type="text" class="form-control tracked text" id="subect_field" placeholder="Subject">
             	<br>
             	<textarea rows="12" class ="form-control tracked text" id="message_field" placeholder="Write your message here"></textarea>
-            	<div id="new_email_options">
+            	<div id="new_message_options">
                 	<button type="button" class="btn btn-success tracked click" id="send"> Send </button>
                 	<button type="button" class="btn btn-warning tracked click" id="save"> Save Draft</button>
                 	<button type="button" class="btn btn-danger tracked click" id="discard"> Discard </button>
