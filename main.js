@@ -133,7 +133,7 @@ $(document).ready(function() {
 		$.ajax({
 			type: 'POST',
 			url:"get_data.php",
-			data: {'data':session_log, 'file_name':session_log.getTime()}
+			data: {'data':session_log, 'file_name':String(session_log.getTime())}
 			success: function(data, status, jqXHR) {
 				alert(data);
 			}

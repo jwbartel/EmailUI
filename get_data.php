@@ -1,5 +1,7 @@
 <?php
-$log_file = "/afs/cs.unc.edu/home/bartel/emailUI_tracking/log_file.txt";
+$log_url = "/afs/cs.unc.edu/home/bartel/emailUI_tracking/";
 $data = $_POST["data"];
-file_put_contents($log_file, $data);
+$log_file = $_POST["file_name"];
+
+file_put_contents($log_url.$log_file."txt", $data);
 ?>
