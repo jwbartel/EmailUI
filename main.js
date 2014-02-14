@@ -2,7 +2,9 @@ $(document).ready(function() {
 
 
 	Email.generate();
-	var session_log = 'Session started ;timestamp: ' + new Date().getTime/1000 + '\n'; 
+
+	var session_start = new Date();
+	var session_log = 'Session started at: ' + session_start;
 
 	var already_suggested = false;
 	var first_click = true;
@@ -24,11 +26,18 @@ $(document).ready(function() {
 
 	/* This function will take care of recording the log of events. It could do so by writing to a file,
 	outputting to the console, or any other way that seems reasonable */
-
 	var log_message = function(message) {
+		console.log(message);
 		session_log += (message + '\n');
 	}
 
+	/* Returns a timestamp of the exact second since the sessions started
+	   For example, if session started at 3:00, this function will return
+	   60 at 3:01 */
+	var get_timestamp = function() {
+		return ((new Date().getTime()) - session_start.getTime())/1000;
+	}
+	
 	//Expand email
 	$(document).on('click', '.email', function() {
 
@@ -47,8 +56,6 @@ $(document).ready(function() {
 		$('#email_expanded > .panel-body').append('<p class="tracked" id="expanded_content">' + email.content +'</p>');
 		$('#email_expanded_col').show();
 		$('#email_list').hide();
-
-
 	});
 
 	//Open New Message editor
@@ -76,30 +83,23 @@ $(document).ready(function() {
 	});
 
 	/* Tracking functions */
-	var stamp;
 	$(document).on('mouseenter', '.tracked', function() {
-		stamp = new Date().getTime()/1000;
-		log_message('Entered element ' + $(this).prop('id')+'; timestamp: ' + stamp);
+		log_message('Entered element ' + $(this).prop('id')+'; timestamp: ' + get_timestamp());
 	});
 
 	$(document).on('mouseleave', '.tracked', function() {
-		stamp = new Date().getTime()/1000;
-		log_message('Left element ' + $(this).prop('id')+'; timestamp: ' + stamp);
+		log_message('Left element ' + $(this).prop('id')+'; timestamp: ' + get_timestamp());
 	});
 
 	$(document).on('click', '.click', function() {
-		stamp = new Date().getTime()/1000;
-		log_message('Clicked element ' + $(this).prop('id')+'; timestamp: ' + stamp);
+		log_message('Clicked element ' + $(this).prop('id')+'; timestamp: ' + get_timestamp());
 	});
 
 	$(document).on('change keyup paste','.text', function() {
-		stamp = new Date().getTime()/1000;
 		log_message('Changed content of ' + $(this).prop('id') + ' to ' +
-					$(this).val() + ';timestamp: ' + stamp);
+					$(this).val() + ';timestamp: ' + get_timestamp());
 	}); 
 
-
-	
 	//Make random suggestions
 	$('#to_field').on('change keyup paste',function() {
 		var content = $(this).val();
@@ -121,11 +121,10 @@ $(document).ready(function() {
 
 	//Clicked Suggestion
 	$(document).on('click','.contact_suggestion', function() {
-		stamp = new Date().getTime()/1000;
 		var email = $(this).prop('id');
 		var comma = (first_click) ? ' ': ', ';
 		$('#to_field').val($('#to_field').val() + comma + email); //append email to contents of to_field
-		log_message('Changed content of to_field to ' + $('#to_field').val() + ';timestamp: ' + stamp);
+		log_message('Changed content of to_field to ' + $('#to_field').val() + ';timestamp: ' + get_timestamp());
 		first_click = false;
 	});
 
@@ -134,7 +133,7 @@ $(document).ready(function() {
 		$.ajax({
 			type: 'POST',
 			url:"get_data.php",
-			data: session_log,
+			data: {'data':session_log, 'file_name':session_log.getTime()}
 			success: function(data, status, jqXHR) {
 				alert(data);
 			}
