@@ -130,6 +130,7 @@ $(document).ready(function() {
 
 	//End Session
 	$('#end_session').on('click', function() {
+        log_message('Session ended at ' + new Date()+'\n');
 		$.ajax({
 			type: 'POST',
 			url:"get_data.php",
