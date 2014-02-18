@@ -4,7 +4,7 @@ $(document).ready(function() {
 	Email.generate();
 
 	var session_start = new Date();
-	var session_log = 'Session started at: ' + session_start;
+	var session_log = 'Session started at: ' + session_start+'\n';
 
 	var already_suggested = false;
 	var first_click = true;

@@ -7,5 +7,7 @@ $result = file_put_contents($log_file, $data);
 if ($result === FALSE) {
 	echo "Could not write\n";
 }
-echo $log_file;
+session_destroy();
+header("Location: http://wwwx.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/thankyou.html")
+
 ?>
