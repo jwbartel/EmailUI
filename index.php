@@ -1,5 +1,6 @@
 <?php 
-if (!isset($_SESSION['login'])) {
+session_start();
+if (!isset($_SESSION["login"])) {
     header("Location: http://wwwx.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/login.html");
 }
 ?>

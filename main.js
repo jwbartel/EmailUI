@@ -135,7 +135,7 @@ $(document).ready(function() {
 			url:"get_data.php",
 			data: {'data':session_log, 'file_name':String(session_start.getTime())},
 			success: function(data, status, jqXHR) {
-				alert(data);
+				window.location.replace(data);i
 			}
 		});
 	});

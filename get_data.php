@@ -1,4 +1,5 @@
 <?php
+session_start();
 $log_url = "/afs/cs.unc.edu/home/bartel/emailUI_tracking/";
 $data = $_POST["data"];
 $log_name = $_POST["file_name"];
@@ -8,6 +9,6 @@ if ($result === FALSE) {
 	echo "Could not write\n";
 }
 session_destroy();
-header("Location: http://wwwx.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/thankyou.html")
+echo "http://wwwx.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/thankyou.html";
 
 ?>
