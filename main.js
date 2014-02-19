@@ -2,9 +2,19 @@ $(document).ready(function() {
 
 
 	Email.generate();
+	var session_log;
+
+	//Do an ajax call to get log from an existing session
+		$.ajax({
+			type: 'GET',
+			url:"save_session_log.php",
+			success: function(data, status, jqXHR) {
+				session_log = data; //data should be a long string
+			}
+		});
 
 	var session_start = new Date();
-	var session_log = 'Session started at: ' + session_start+'\n';
+	log_message('Resumed session on: ' + session_start);
 
 	var already_suggested = false;
 	var first_click = true;
@@ -129,15 +139,27 @@ $(document).ready(function() {
 	});
 
 	//End Session
-	$('#end_session').on('click', function() {
-        log_message('Session ended at ' + new Date()+'\n');
+	$('#save_session_log').on('click', function() {
+        log_message('Session ended on: ' + new Date()+'\n');
 		$.ajax({
 			type: 'POST',
-			url:"get_data.php",
-			data: {'data':session_log, 'file_name':String(session_start.getTime())},
+			url:"save_session_log.php",
+			data: {'data':session_log, 'end_session': true},
 			success: function(data, status, jqXHR) {
-				window.location.replace(data);i
+				window.location.replace(data); //load a thank you page
 			}
 		});
+	});
+
+	//Save session if window is closed
+	$(window).unload(function() {
+		$('#save_session_log').on('click', function() {
+        log_message('Session paused on: ' + new Date()+'\n');
+		$.ajax({
+			type: 'POST',
+			url:"save_session_log.php",
+			data: {'data':session_log, 'end_session':false},
+		});
+	});
 	});
 });
