@@ -14,7 +14,7 @@ $(document).ready(function() {
 		return ((new Date().getTime()) - session_start.getTime())/1000;
 	}
 	
-	var save_session_url = 'https://wwwx.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/php/save_session.php'
+	var save_session_url = 'https://wwwx.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/php/save_session_log.php'
 	Email.generate();
 	var session_log;
 
