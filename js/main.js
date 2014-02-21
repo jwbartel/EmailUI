@@ -1,6 +1,19 @@
 $(document).ready(function() {
 
+	/* This function will take care of recording the log of events. It could do so by writing to a file,
+	outputting to the console, or any other way that seems reasonable */
+	var log_message = function(message) {
+		console.log(message);
+		session_log += (message + '\n');
+	}
 
+	/* Returns a timestamp of the exact second since the sessions started
+	   For example, if session started at 3:00, this function will return
+	   60 at 3:01 */
+	var get_timestamp = function() {
+		return ((new Date().getTime()) - session_start.getTime())/1000;
+	}
+	
 	Email.generate();
 	var session_log;
 
@@ -34,20 +47,7 @@ $(document).ready(function() {
 							  <span class="preview"> &nbsp;&ndash;&nbsp;' + preview + '</span>' + '<span class="date">' + email.formattedDate() + '</span>');
 	}
 
-	/* This function will take care of recording the log of events. It could do so by writing to a file,
-	outputting to the console, or any other way that seems reasonable */
-	var log_message = function(message) {
-		console.log(message);
-		session_log += (message + '\n');
-	}
 
-	/* Returns a timestamp of the exact second since the sessions started
-	   For example, if session started at 3:00, this function will return
-	   60 at 3:01 */
-	var get_timestamp = function() {
-		return ((new Date().getTime()) - session_start.getTime())/1000;
-	}
-	
 	//Expand email
 	$(document).on('click', '.email', function() {
 
