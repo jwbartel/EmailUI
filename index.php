@@ -1,7 +1,7 @@
 <?php 
 session_start();
-if (!isset($_SESSION["login"])) {
-    header("Location: http://wwwx.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/login.html");
+if (!isset($_SESSION['id'])) {
+    header("Location: http://wwwx.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/html/consent.html");
 }
 ?>
 
@@ -17,7 +17,7 @@ if (!isset($_SESSION["login"])) {
     <link href="libs/Bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!--Custom CSS-->
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 
 <body>
@@ -84,8 +84,8 @@ if (!isset($_SESSION["login"])) {
     <script src="libs/jquery.min.js"></script>
     <script src="libs/Bootstrap/js/bootstrap.min.js"></script>
 
-	<script src="email.js"></script>
-	<script src="main.js"></script>
+	<script src="js/email.js"></script>
+	<script src="js/main.js"></script>
 
 </body>
 </html>
