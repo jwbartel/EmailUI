@@ -7,8 +7,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') { //trying to get existing log
 else { //POST request
 	$log_url = "/afs/cs.unc.edu/home/bartel/emailUI_tracking/";
 	$data = $_POST["data"];
-	$log_name = $_SERVER["file_name"];
-	$log_file = $log_url.$log_name.".txt";
+	$log_name = $_SERVER["id"];
+	$log_file = $log_url.$log_name;
 	$_SERVER["log"] = $_SERVER["log"].$data;
 
 	if ($_POST["end_session"]) {

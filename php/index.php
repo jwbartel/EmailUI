@@ -1,7 +1,7 @@
 <?php 
 session_start();
-if (!isset($_SESSION["login"])) {
-    header("Location: http://wwwx.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/html/login.html");
+if (!isset($_SESSION['id'])) {
+    header("Location: http://wwwx.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/html/consent.html");
 }
 ?>
 
