@@ -14,13 +14,14 @@ $(document).ready(function() {
 		return ((new Date().getTime()) - session_start.getTime())/1000;
 	}
 	
+	var save_session_url = 'https://wwwx.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/php/save_session.php'
 	Email.generate();
 	var session_log;
 
 	//Do an ajax call to get log from an existing session
 		$.ajax({
 			type: 'GET',
-			url:"php/save_session_log.php",
+			url:save_session_url,
 			success: function(data, status, jqXHR) {
 				session_log = data; //data should be a long string
 			}
@@ -143,7 +144,7 @@ $(document).ready(function() {
         log_message('Session ended on: ' + new Date()+'\n');
 		$.ajax({
 			type: 'POST',
-			url:"php/save_session_log.php",
+			url:save_session_url,
 			data: {'data':session_log, 'end_session': true},
 			success: function(data, status, jqXHR) {
 				window.location.replace(data); //load a thank you page
@@ -157,7 +158,7 @@ $(document).ready(function() {
         log_message('Session paused on: ' + new Date()+'\n');
 		$.ajax({
 			type: 'POST',
-			url:"php/save_session_log.php",
+			url:save_session_url,
 			data: {'data':session_log, 'end_session':false},
 		});
 	});
