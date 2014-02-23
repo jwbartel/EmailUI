@@ -3,7 +3,7 @@ $(document).ready(function() {
 	/* This function will take care of recording the log of events. It could do so by writing to a file,
 	outputting to the console, or any other way that seems reasonable */
 	var log_message = function(message) {
-		console.log(message);
+		//console.log(message);
 		session_log += (message + '\n');
 	}
 
@@ -16,17 +16,19 @@ $(document).ready(function() {
 	
 	var save_session_url = 'https://wwwx.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/php/save_session_log.php'
 	Email.generate();
-	var session_log;
+	var session_log = "\n";
 
 	//Do an ajax call to get log from an existing session
-		$.ajax({
+		/*
+        $.ajax({
 			type: 'GET',
 			url:save_session_url,
-			success: function(data, status, jqXHR) {
+			success: function(data) {
 				session_log = data; //data should be a long string
+                console.log(data);
 			}
 		});
-
+        */
 	var session_start = new Date();
 	log_message('Resumed session on: ' + session_start);
 
@@ -140,27 +142,31 @@ $(document).ready(function() {
 	});
 
 	//End Session
-	$('#save_session_log').on('click', function() {
-        log_message('Session ended on: ' + new Date()+'\n');
+	$('#end_session').on('click', function() {
+        log_message('Session ended on: ' + new Date());
 		$.ajax({
 			type: 'POST',
+            async:false,
 			url:save_session_url,
-			data: {'data':session_log, 'end_session': true},
+			data: {'data':session_log, 'end_session':true},
 			success: function(data, status, jqXHR) {
-				window.location.replace(data); //load a thank you page
+			    //console.log(data);
+                window.location.replace(data); //load a thank you page
 			}
 		});
 	});
 
 	//Save session if window is closed
 	$(window).unload(function() {
-		$('#save_session_log').on('click', function() {
-        log_message('Session paused on: ' + new Date()+'\n');
+        log_message('Session paused on: ' + new Date());
 		$.ajax({
 			type: 'POST',
+            async:false,
 			url:save_session_url,
 			data: {'data':session_log, 'end_session':false},
+            success: function(data) {
+                console.log(data);
+            }
 		});
-	});
 	});
 });

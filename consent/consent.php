@@ -5,13 +5,9 @@
 	$date = $_POST['date'];
 	$id = time();
 	$_SESSION['id'] = $id;
-	
-	$private_folder= '/afs/cs.unc.edu/home/bartel/emailUI_tracking/private_data/'.$id;
-	if (!file_exists ($private_folder)) {
-		mkdir($private_folder);
-	}
-	
-	$signatures_file= '/afs/cs.unc.edu/home/bartel/email_threads/private_data/signatures.txt';
+	$start_date = date(DATE_COOKIE);
+    $_SESSION['log'] = "Started Session on: ".$start_date."\n";
+    $signatures_file= '/afs/cs.unc.edu/home/bartel/emailUI_tracking/private_data/signatures.txt';
 	file_put_contents($signatures_file, "".$signature.", ".$date."=>".$id."\n" , FILE_APPEND | LOCK_EX);
 	
 	header( 'Location: https://wwwx.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/' ) ;
