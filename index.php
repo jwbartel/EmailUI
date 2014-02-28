@@ -39,7 +39,8 @@ if (!isset($_SESSION['id'])) {
  				<button type="button" class="btn btn-default tracked click" id="nav_drafts">Drafts</button>
   				<button type="button" class="btn btn-default tracked click" id="nav_spam">Spam</button>
  				<button type="button" class="btn btn-default tracked click" id="nav_trash">Trash</button>
-                <button type="button" class="btn btn-danger tracked click" id="end_session">End Session</button>
+                <button type="button" class="btn btn-warning tracked click" id="save_session">Quit and Save</button>
+                <button type="button" class="btn btn-danger tracked click" id="end_session">Quit</button>
 			</div>
             
 		</div>

@@ -15,7 +15,8 @@ $(document).ready(function() {
 	}
 	
 	var save_session_url = 'https://wwwx.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/php/save_session_log.php'
-	Email.generate();
+	var end_session_url = 'https://wwwx.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/php/end_session.php'
+    Email.generate();
 	var session_log = "\n";
 
 	//Do an ajax call to get log from an existing session
@@ -141,8 +142,8 @@ $(document).ready(function() {
 		first_click = false;
 	});
 
-	//End Session
-	$('#end_session').on('click', function() {
+	//Save Session
+	$('#save_session').on('click', function() {
         log_message('Session ended on: ' + new Date());
 		$.ajax({
 			type: 'POST',
@@ -155,6 +156,19 @@ $(document).ready(function() {
 			}
 		});
 	});
+
+    $('#end_session').on('click', function () {
+        var c = confirm("Are you sure?");
+        if (c==true) {
+            $.ajax({
+                type: 'POST',
+                url:end_session_url,
+                success:function(data) {
+                    window.location.replace(data);
+                }
+            });
+        }
+    });
 
 	//Save session if window is closed
 	$(window).unload(function() {
