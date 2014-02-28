@@ -1,12 +1,17 @@
-<?php
-session_start();
+<?php 
+	session_start();
 
-$_SESSION["login"]="Eliezer Encarnacion";
-$_SESSION["start_date"] = date(DATE_COOKIE);
-$_SESSION["filename"] = strval(time());
-$_SESSION["log"] = "Session started at: " + $_SESSION["start_date"]+'\n';
+	//$signature = $_POST['participantSig'];
+	//$date = $_POST['date'];
+	$id = time();
+	$_SESSION['id'] = $id;
+	$start_time = date(DATE_COOKIE);
 
-header("Location: http://wwwx.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/");
-die();
+    $_SESSION['log'] = "Session started on: " + $start_time +'\n';
+
+	//$signatures_file= '/afs/cs.unc.edu/home/bartel/emailUI_tracking/private_data/signatures.txt';
+	//file_put_contents($signatures_file, "".$signature.", ".$date."=>".$id."\n" , FILE_APPEND | LOCK_EX);
+	
+	header( 'Location: https://wwwx.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/' ) ;
+
 ?>
-
