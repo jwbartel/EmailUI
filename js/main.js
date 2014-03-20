@@ -3,7 +3,7 @@ $(document).ready(function() {
 	/* This function will take care of recording the log of events. It could do so by writing to a file,
 	outputting to the console, or any other way that seems reasonable */
 	var log_message = function(message) {
-		//console.log(message);
+//		console.log(message);
 		session_log += (message + '\n');
 	}
 
@@ -19,17 +19,6 @@ $(document).ready(function() {
     Email.generate();
 	var session_log = "\n";
 
-	//Do an ajax call to get log from an existing session
-		/*
-        $.ajax({
-			type: 'GET',
-			url:save_session_url,
-			success: function(data) {
-				session_log = data; //data should be a long string
-                console.log(data);
-			}
-		});
-        */
 	var session_start = new Date();
 	log_message('Resumed session on: ' + session_start);
 
@@ -121,26 +110,57 @@ $(document).ready(function() {
 		if (content.indexOf(",") != -1 && !already_suggested) { //if there's a comma on the field
 			already_suggested = true;
 
-			//Select 3 random contacts and attach each
-			for (var i = 0; i < 3; i++) {
+			//Select 3 random contacts and make a PredictionGroup with them 
+			var p1 = new PredictionGroup();
+            var p2 = new PredictionGroup();
 
+            for (var i = 0; i < 3; i++) {
 				var index = Math.floor(Math.random()*Contact.all.length);
 				var c = Contact.all[index];
-				$('#predictions').append('<a href="#" class="contact_suggestion tracked click" id="'+c.email+'">'+c.name+'</a>&nbsp');
-				log_message('Contact ' + JSON.stringify(c) + ' was suggested');			
+                p1.addContact(c);
+    			log_message('Contact ' + JSON.stringify(c) + ' was predicted');			
 			}
+
+            p2.addContact(Contact.all[0]);
+            p2.addSubgroup(p1);
+            $('#predictions').append(p2.buildInterface());
+
 			$('#predictions').show();
+
+            console.log(PredictionGroup.all);
 		}
 	});
 
-	//Clicked Suggestion
-	$(document).on('click','.contact_suggestion', function() {
-		var email = $(this).prop('id');
+	/* Attach prediction to 'To' field when selected */
+    var attachPrediction = function(email) {
 		var comma = (first_click) ? ' ': ', ';
 		$('#to_field').val($('#to_field').val() + comma + email); //append email to contents of to_field
 		log_message('Changed content of to_field to ' + $('#to_field').val() + ';timestamp: ' + get_timestamp());
 		first_click = false;
-	});
+    }
+    
+    var attachPredictionGroup = function(prediction_group) {
+        var groups = prediction_group.subgroups;
+        var contacts = prediction_group.contacts;
+
+        for (var i = 0; i < groups.length; i++) {
+            attachPredictionGroup(groups[i]);
+        }
+
+        for (var j = 0; j < contacts.length; j++) {
+            attachPrediction(contacts[j].email);
+        }
+    }
+    
+	$(document).on('click','.prediction', function() {
+        var email = $(this).prop('id');
+	    attachPrediction(email);
+    });
+
+    $(document).on('click','.prediction_group', function() {
+        var index = parseInt($(this).prop('id'));
+        attachPredictionGroup(PredictionGroup.all[index]);
+    });
 
 	//Save Session
 	$('#save_session').on('click', function() {

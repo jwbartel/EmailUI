@@ -1,3 +1,71 @@
+
+var StringBuilder = function (value) {
+    this.strings = new Array("");
+    this.append(value);
+}
+
+// Appends the given value to the end of this instance.
+StringBuilder.prototype.append = function (value)
+{
+    if (value)
+    {
+        this.strings.push(value);
+    }
+}
+
+// Clears the string buffer
+StringBuilder.prototype.clear = function ()
+{
+    this.strings.length = 1;
+}
+
+// Converts this instance to a String.
+StringBuilder.prototype.toString = function ()
+{
+    return this.strings.join("");
+}
+
+
+/* Global index value assigned to every prediction group so it can
+ * be easily indexed out of the 'all' array */
+var index = 0;
+
+var PredictionGroup = function() {
+    this.contacts = new Array();
+    this.subgroups = new Array();
+    this.index = index;
+
+    this.addContact = function(contact) {
+        this.contacts.push(contact);
+    }
+
+    this.addSubgroup = function(group) {
+        this.subgroups.push(group);
+    }
+
+    this.buildInterface = function() {
+        var sb = new StringBuilder();
+        sb.append('<a href="#" class="prediction_group tracked click" id="'+this.index+'"> ( </a>');
+        
+        for (var i = 0; i < this.subgroups.length; i++) {
+            sb.append(this.subgroups[i].buildInterface());
+        }
+
+        for (var j = 0; j < this.contacts.length; j++) {
+            var c = this.contacts[j];
+            sb.append('<a href="#"><span class="label label-info prediction tracked click" id="'+c.email+'">'+c.name+'</span></a>&nbsp');
+        }
+
+        sb.append('<a href="#" class="prediction_group tracked click" id="'+this.index+'"> ) </a>');
+        return sb.toString();
+    }
+
+    PredictionGroup.all.push(this);
+    index++;    
+}
+PredictionGroup.all = new Array();
+
+
 var Contact = function(name, email) {
 	this.name = name;
 	this.email = email;
