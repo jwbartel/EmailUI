@@ -60,7 +60,7 @@ if (!isset($_SESSION['id'])) {
 			</div>
         </div>
 
-        <div class="col-md-5">
+        <div class="col-md-6">
         <div class ="panel panel-default"  id="new_message_editor">
         	<div class="panel-heading">New Message</div>
         	<div class="panel-body">

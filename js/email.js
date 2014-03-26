@@ -33,6 +33,7 @@ var index = 0;
 var PredictionGroup = function() {
     this.contacts = new Array();
     this.subgroups = new Array();
+    var deleted = false; //a flag used to do lazy deletion
     this.index = index;
 
     this.addContact = function(contact) {
@@ -43,9 +44,14 @@ var PredictionGroup = function() {
         this.subgroups.push(group);
     }
 
+    this.deleteContact = function(index) {
+        this.contacts[index].deleted = true;
+    }
+
     this.buildInterface = function() {
         var sb = new StringBuilder();
-        sb.append('<a href="#" class="prediction_group tracked click" id="'+this.index+'"> ( </a>');
+        //Each parenthesis will have a class name group<id> for easy selection on jQuery
+        sb.append('<a href="#" class="prediction_group tracked click group'+this.index+'" data-group_id="'+this.index+'"> ( </a>');
         
         for (var i = 0; i < this.subgroups.length; i++) {
             sb.append(this.subgroups[i].buildInterface());
@@ -53,10 +59,15 @@ var PredictionGroup = function() {
 
         for (var j = 0; j < this.contacts.length; j++) {
             var c = this.contacts[j];
-            sb.append('<a href="#"><span class="label label-info prediction tracked click" id="'+c.email+'">'+c.name+'</span></a>&nbsp');
+            sb.append('<span class="contact_wrapper">')
+            sb.append('<a href="#"><span class="label label-info prediction tracked click" id="'+c.email+'">');
+            sb.append(c.name+'</span></a>');
+            //sb.append('<button class="close deleteContact" type="button">×</button></span>&nbsp;');
+            sb.append('<span class="glyphicon glyphicon-remove remove" data-group_id="'+this.index+'" data-contact_id="'+j+'"></span>');
+            sb.append('</span>&nbsp;');
         }
 
-        sb.append('<a href="#" class="prediction_group tracked click" id="'+this.index+'"> ) </a>');
+        sb.append('<a href="#" class="prediction_group tracked click group'+this.index+'" data-group_id="'+this.index+'"> ) </a>');
         return sb.toString();
     }
 

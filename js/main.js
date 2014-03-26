@@ -46,7 +46,7 @@ $(document).ready(function() {
 
 
 		if (email_editor_open)
-			$('#email_expanded_col').attr('class','col-md-5')
+			$('#email_expanded_col').attr('class','col-md-4')
 		else
 			$('#email_expanded_col').attr('class','col-md-10')
 
@@ -66,8 +66,8 @@ $(document).ready(function() {
 		email_editor_open = true;
 
 		$('.preview').hide();
-		$('#email_expanded_col').attr('class', 'col-md-5');
-		$('#email_list').attr('class','col-md-5');
+		$('#email_expanded_col').attr('class', 'col-md-4');
+		$('#email_list').attr('class','col-md-4');
 		$('#new_message_editor').show();
 	});
 
@@ -78,7 +78,7 @@ $(document).ready(function() {
 		$('#email_expanded_col').hide();
 
 		if (email_editor_open)
-			$('#email_list').attr('class','col-md-5')
+			$('#email_list').attr('class','col-md-4')
 		else
 			$('#email_list').attr('class','col-md-10')
 
@@ -102,7 +102,7 @@ $(document).ready(function() {
 		log_message('Changed content of ' + $(this).prop('id') + ' to ' +
 					$(this).val() + ';timestamp: ' + get_timestamp());
 	}); 
-
+    
 	//Make random suggestions
 	$('#to_field').on('change keyup paste',function() {
 		var content = $(this).val();
@@ -131,6 +131,17 @@ $(document).ready(function() {
 		}
 	});
 
+    $(document).on('mouseenter','.prediction_group', function() {
+        console.log('test');
+        var id = $(this).data('group_id');
+        $('.group'+id).css('color','#FF9966');
+    });
+
+    $(document).on('mouseleave','.prediction_group', function() {
+        var id = $(this).data('group_id');
+        $('.group'+id).css('color','#428bca');
+    });
+
 	/* Attach prediction to 'To' field when selected */
     var attachPrediction = function(email) {
 		var comma = (first_click) ? ' ': ', ';
@@ -148,7 +159,8 @@ $(document).ready(function() {
         }
 
         for (var j = 0; j < contacts.length; j++) {
-            attachPrediction(contacts[j].email);
+        	if (!contacts[j].deleted)
+            	attachPrediction(contacts[j].email);
         }
     }
     
@@ -158,11 +170,23 @@ $(document).ready(function() {
     });
 
     $(document).on('click','.prediction_group', function() {
-        var index = parseInt($(this).prop('id'));
+        var index = parseInt($(this).data('group_id'));
         attachPredictionGroup(PredictionGroup.all[index]);
     });
+    
+    $(document).on('click','span.remove', function() {
+        //first, delete the contact from the group
+        var group_index = parseInt($(this).data('group_id'));
+        var contact_index = parseInt($(this).data('contact_id'));
 
-	//Save Session
+        var group = PredictionGroup.all[group_index];
+        group.deleteContact(contact_index);
+    
+        //remove contact node from html
+        $(this).parent().remove();
+    });
+	
+    //Save Session
 	$('#save_session').on('click', function() {
         log_message('Session ended on: ' + new Date());
 		$.ajax({
