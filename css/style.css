@@ -60,16 +60,14 @@ color: #FFFF80;
     padding-bottom:10px;
 }
 
-
-.contact_wrapper > .close {
-    margin: -2px 0 0 10px;
-    font-size: 18px;
-}
 .contact_wrapper > a:hover {
     text-decoration: none;
 }
 
-.contact_wrapper  span.label-info:hover {
+.contact_wrapper span.prediction {
+    font-size:110%;
+}
+.contact_wrapper  span.prediction:hover {
     color: #FF9966;
 }
 
@@ -78,13 +76,14 @@ a.prediction_group:hover {
 }
 
 .contact_wrapper span.remove {
-    color:#666666;
-    font-size:8px;
+    color:#CCCCCC;
+    font-size:10px;
     position:inherit;
-    vertical-align:super;
+    vertical-align:middle;
+    margin-left:4px;
 }
 .contact_wrapper span.remove:hover {
-    color:red;
+    color:#666666;
     cursor:pointer;
 }
 
