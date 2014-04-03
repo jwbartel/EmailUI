@@ -103,6 +103,7 @@ $(document).ready(function() {
 					$(this).val() + ';timestamp: ' + get_timestamp());
 	}); 
     
+    var flat_interface = true;
 	//Make random suggestions
 	$('#to_field').on('change keyup paste',function() {
 		var content = $(this).val();
@@ -123,11 +124,15 @@ $(document).ready(function() {
 
             p2.addContact(Contact.all[0]);
             p2.addSubgroup(p1);
-            $('#predictions').append(p2.buildInterface());
+
+            if (flat_interface)
+            	$('#predictions').append(p2.buildFlatInterface());
+            else
+            	$('#predictions').append(p2.buildHierarchicalInterface());
 
 			$('#predictions').show();
 
-            console.log(PredictionGroup.all);
+            //console.log(PredictionGroup.all);
 		}
 	});
 

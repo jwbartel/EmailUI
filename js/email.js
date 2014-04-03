@@ -48,13 +48,27 @@ var PredictionGroup = function() {
         this.contacts[index].deleted = true;
     }
 
-    this.buildInterface = function() {
+    this.buildFlatInterface = function() {
+        var sb = new StringBuilder();
+        for (var i = 0; i < this.subgroups.length; i++) {
+            sb.append(this.subgroups[i].buildFlatInterface());
+        }
+
+        for (var i = 0; i < this.contacts.length; i++) {
+            var c = this.contacts[i];
+            sb.append('<a href="#" class="prediction tracked click" id="'+c.email+'">'+c.name+'</a>&nbsp');
+        }
+
+        return sb.toString();
+    }
+
+    this.buildHierarchicalInterface = function() {
         var sb = new StringBuilder();
         //Each parenthesis will have a class name group<id> for easy selection on jQuery
         sb.append('<a href="#" class="prediction_group tracked click group'+this.index+'" data-group_id="'+this.index+'"> ( </a>');
         
         for (var i = 0; i < this.subgroups.length; i++) {
-            sb.append(this.subgroups[i].buildInterface());
+            sb.append(this.subgroups[i].buildHierarchicalInterface());
         }
 
         for (var j = 0; j < this.contacts.length; j++) {
