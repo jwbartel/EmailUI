@@ -24,6 +24,7 @@ $(document).ready(function() {
 
 	var already_suggested = false;
 	var first_click = true;
+	var flat_interface = true;
 	var email_editor_open = false;
 	var maxSubjectAndPreviewLength = 150; //I calculated this number after testing the layout
 
@@ -40,7 +41,45 @@ $(document).ready(function() {
 							  <span class="preview"> &nbsp;&ndash;&nbsp;' + preview + '</span>' + '<span class="date">' + email.formattedDate() + '</span>');
 	}
 
+	var getPredictions = function() {
+		/* right now do it randomly */
+		//Select 3 random contacts and make a PredictionGroup with them 
+		var p1 = new PredictionGroup();
+        var p2 = new PredictionGroup();
 
+        for (var i = 0; i < 3; i++) {
+			var index = Math.floor(Math.random()*Contact.all.length);
+			var c = Contact.all[index];
+            p1.addContact(c);
+			log_message('Contact ' + JSON.stringify(c) + ' was predicted');			
+		}
+
+        p2.addContact(Contact.all[0]);
+        p2.addSubgroup(p1);
+        return p2;
+	}
+
+	/* Attach prediction to 'To' field when selected */
+    var attachPrediction = function(email) {
+		var comma = (first_click) ? ' ': ', ';
+		$('#to_field').val($('#to_field').val() + comma + email); //append email to contents of to_field
+		log_message('Changed content of to_field to ' + $('#to_field').val() + ';timestamp: ' + get_timestamp());
+		first_click = false;
+    }
+    
+    var attachPredictionGroup = function(prediction_group) {
+        var groups = prediction_group.subgroups;
+        var contacts = prediction_group.contacts;
+
+        for (var i = 0; i < groups.length; i++) {
+            attachPredictionGroup(groups[i]);
+        }
+
+        for (var j = 0; j < contacts.length; j++) {
+        	if (!contacts[j].deleted)
+            	attachPrediction(contacts[j].email);
+        }
+    }
 	//Expand email
 	$(document).on('click', '.email', function() {
 
@@ -103,36 +142,47 @@ $(document).ready(function() {
 					$(this).val() + ';timestamp: ' + get_timestamp());
 	}); 
     
-    var flat_interface = true;
 	//Make random suggestions
 	$('#to_field').on('change keyup paste',function() {
+		console.log($(this).val());
 		var content = $(this).val();
 
 		if (content.indexOf(",") != -1 && !already_suggested) { //if there's a comma on the field
 			already_suggested = true;
 
-			//Select 3 random contacts and make a PredictionGroup with them 
-			var p1 = new PredictionGroup();
-            var p2 = new PredictionGroup();
+			predictions = getPredictions();
 
-            for (var i = 0; i < 3; i++) {
-				var index = Math.floor(Math.random()*Contact.all.length);
-				var c = Contact.all[index];
-                p1.addContact(c);
-    			log_message('Contact ' + JSON.stringify(c) + ' was predicted');			
-			}
-
-            p2.addContact(Contact.all[0]);
-            p2.addSubgroup(p1);
-
+            $('#predictions').append('<span> Consider including: </span>');
             if (flat_interface)
-            	$('#predictions').append(p2.buildFlatInterface());
+            	$('#predictions').append(predictions.buildFlatInterface());
             else
-            	$('#predictions').append(p2.buildHierarchicalInterface());
+            	$('#predictions').append(predictions.buildHierarchicalInterface());
 
 			$('#predictions').show();
 
             //console.log(PredictionGroup.all);
+		}
+	});
+
+	$('#prediction_menu_options a').on('click', function() {
+
+		var id = $(this).prop('id');
+		if ( id === "flat" && !flat_interface) {
+			flat_interface = true;
+			$('a#hierarchical').removeClass('selected');
+			$(this).addClass('selected');
+			$('#predictions').empty();
+			$('#to_field').val('');
+			already_suggested = false;
+		}
+
+		else if (id === "hierarchical" && flat_interface) {
+			flat_interface = false;
+			$('a#flat').removeClass('selected');
+			$(this).addClass('selected');
+			$('#predictions').empty();
+			$('#to_field').val('');
+			already_suggested = false;			
 		}
 	});
 
@@ -147,27 +197,6 @@ $(document).ready(function() {
         $('.group'+id).css('color','#428bca');
     });
 
-	/* Attach prediction to 'To' field when selected */
-    var attachPrediction = function(email) {
-		var comma = (first_click) ? ' ': ', ';
-		$('#to_field').val($('#to_field').val() + comma + email); //append email to contents of to_field
-		log_message('Changed content of to_field to ' + $('#to_field').val() + ';timestamp: ' + get_timestamp());
-		first_click = false;
-    }
-    
-    var attachPredictionGroup = function(prediction_group) {
-        var groups = prediction_group.subgroups;
-        var contacts = prediction_group.contacts;
-
-        for (var i = 0; i < groups.length; i++) {
-            attachPredictionGroup(groups[i]);
-        }
-
-        for (var j = 0; j < contacts.length; j++) {
-        	if (!contacts[j].deleted)
-            	attachPrediction(contacts[j].email);
-        }
-    }
     
 	$(document).on('click','.prediction', function() {
         var email = $(this).prop('id');

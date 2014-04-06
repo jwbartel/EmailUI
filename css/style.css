@@ -60,6 +60,10 @@ color: #FFFF80;
     padding-bottom:10px;
 }
 
+#prediction_menu_options {
+	margin:0px 0px 10px 20px;
+}
+
 .contact_wrapper > a:hover {
     text-decoration: none;
 }
@@ -71,10 +75,25 @@ color: #FFFF80;
     color: #FF9966;
 }
 
+a.prediction {
+	padding-right: 6px;
+}
+
 a.prediction_group:hover {
     text-decoration: none;
 }
 
+a.selected {
+	color:#FA8816;
+}
+a#flat, a#hierarchical {
+	font-size: 110%;
+	font-weight: bold;
+}
+a#flat:hover, a#hierarchical:hover {
+	cursor:pointer;
+
+}
 .contact_wrapper span.remove {
     color:#CCCCCC;
     font-size:10px;

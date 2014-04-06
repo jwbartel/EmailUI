@@ -28,6 +28,12 @@ if (!isset($_SESSION['id'])) {
 			<h2> Email Prediction Test </h2>
 		</div>
 	</div>
+    <div class = "row" >
+        <div class="col-md-12" id="prediction_menu_options"> 
+            <span> Email Prediction Interface: </span>
+            <a class="selected" id="flat"> Flat </a> / <a id="hierarchical"> Hierarchical</a>
+        </div>
+    </div>
     <div class = "row" id="content">
 
     	<div class="col-md-1" id="navigation">
@@ -66,7 +72,6 @@ if (!isset($_SESSION['id'])) {
         	<div class="panel-body">
             	<input type="text" class="form-control tracked text" id="to_field" autofocus="autofocus" placeholder="To"><br>
             	<div id="predictions">
-                	<span> Consider including: </span>
             	</div>
             	<input type="text" class="form-control" id="cc_field" placeholder="Cc"><br>
             	<input type="text" class="form-control tracked text" id="subect_field" placeholder="Subject">
