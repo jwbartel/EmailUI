@@ -2,6 +2,7 @@ $(document).ready(function() {
 
 	/* This function will take care of recording the log of events. It could do so by writing to a file,
 	outputting to the console, or any other way that seems reasonable */
+	$('#instructions').modal('toggle');
 	var log_message = function(message) {
 //		console.log(message);
 		session_log += (message + '\n');
@@ -102,6 +103,8 @@ $(document).ready(function() {
 
 	//Open New Message editor
 	$('#nav_new_message').click(function() {
+
+		$("#testalert").alert();
 		email_editor_open = true;
 
 		$('.preview').hide();
@@ -144,9 +147,7 @@ $(document).ready(function() {
     
 	//Make random suggestions
 	$('#to_field').on('change keyup paste',function() {
-		console.log($(this).val());
 		var content = $(this).val();
-
 		if (content.indexOf(",") != -1 && !already_suggested) { //if there's a comma on the field
 			already_suggested = true;
 
