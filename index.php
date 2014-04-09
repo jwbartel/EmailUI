@@ -27,9 +27,30 @@ if (!isset($_SESSION['id'])) {
 		<div class="col-md-12">
 			<h2> Email Prediction Test </h2>
 		</div>
+            <div class="modal fade" id="instructions" role="dialog" tab-index="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title">Module 1</h3>
+                        </div>
+                        <div class="modal-body">
+                            <p>O"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Begin Test</button>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.modal -->
 	</div>
+    <div class = "row" >
+        <div class="col-md-12" id="prediction_menu_options"> 
+            <span> Email Prediction Interface: </span>
+            <a class="selected" id="flat"> Flat </a> / <a id="hierarchical"> Hierarchical</a>
+        </div>
+    </div>
     <div class = "row" id="content">
-
+        
     	<div class="col-md-1" id="navigation">
 			<div class="btn-group-vertical" id="navigation">
 				<button type="button" class="btn btn-default tracked click" id="nav_new_message">New Message</button>
@@ -44,14 +65,12 @@ if (!isset($_SESSION['id'])) {
 			</div>
             
 		</div>
-
-
         <div class ="col-md-10" id="email_list">
         	<div class="panel panel-default">
         		<ul class="list-group"></ul>
         	</div>
         </div>
-
+        
         <div class ="col-md-10" id="email_expanded_col">
         	<div class="panel panel-default" id="email_expanded">
   				<div class="panel-heading"><h3 class="panel-title tracked" id="expanded_subject"></h3></div>
@@ -64,9 +83,8 @@ if (!isset($_SESSION['id'])) {
         <div class ="panel panel-default"  id="new_message_editor">
         	<div class="panel-heading">New Message</div>
         	<div class="panel-body">
-            	<input type="text" class="form-control tracked text" id="to_field" autofocus="autofocus" placeholder="To"><br>
+                <input type="text" class="form-control" id="to_field" placeholder="To" autofocus><br>
             	<div id="predictions">
-                	<span> Consider including: </span>
             	</div>
             	<input type="text" class="form-control" id="cc_field" placeholder="Cc"><br>
             	<input type="text" class="form-control tracked text" id="subect_field" placeholder="Subject">
