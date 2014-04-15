@@ -2,7 +2,8 @@ $(document).ready(function() {
 
 	/* This function will take care of recording the log of events. It could do so by writing to a file,
 	outputting to the console, or any other way that seems reasonable */
-	$('#instructions').modal('toggle');
+
+	//$('#instructions').modal('toggle');
 	var log_message = function(message) {
 //		console.log(message);
 		session_log += (message + '\n');
@@ -144,8 +145,32 @@ $(document).ready(function() {
 		log_message('Changed content of ' + $(this).prop('id') + ' to ' +
 					$(this).val() + ';timestamp: ' + get_timestamp());
 	}); 
+
+	/* Trigger hover effect on input */
+	$('#to_field').on('focus', function() {
+		console.log("focus");
+		$('#to_field_outer').trigger('focus');
+	})
     
+    /* generate contact panels */
+    $('#to_field').on('change keyup paste', function() {
+    	var content = $(this).val();
+    	if (content.indexOf(",") != -1) {
+    		//generate panel
+    		var sb = new StringBuilder();
+    		sb.append('<span class="contact_wrapper">');
+            sb.append('<span class="label label-info">');
+            sb.append('<span class="tracked click">'+content.substring(0,content.length - 1)+'</span>');
+            sb.append('<span class="glyphicon glyphicon-remove remove tracked click></span>');
+            sb.append('</span>');
+            sb.append('</span>&nbsp;');
+            
+    		$('#to_field_outer div').append(sb.toString());
+    		$('#to_field').val('');
+    	}
+    });
 	//Make random suggestions
+	/*
 	$('#to_field').on('change keyup paste',function() {
 		var content = $(this).val();
 		if (content.indexOf(",") != -1 && !already_suggested) { //if there's a comma on the field
@@ -164,6 +189,7 @@ $(document).ready(function() {
             //console.log(PredictionGroup.all);
 		}
 	});
+*/
 
 	$('#prediction_menu_options a').on('click', function() {
 
