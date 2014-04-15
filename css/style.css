@@ -103,10 +103,11 @@ span#to_field_outer {
 
 span#to_field_outer div {
 	display: inline-block;
+	padding-right: 10px;
 }
 
 span#to_field_outer span.contact_wrapper {
-	padding-left: 5px;
+	padding-left: 10px;
 }
 
 input#to_field {
