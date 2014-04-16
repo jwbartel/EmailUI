@@ -1,5 +1,6 @@
 $(document).ready(function() {
 
+
 	/* This function will take care of recording the log of events. It could do so by writing to a file,
 	outputting to the console, or any other way that seems reasonable */
 
@@ -148,12 +149,13 @@ $(document).ready(function() {
 
 	/* Trigger hover effect on input */
 	$('#to_field').on('focus', function() {
-		console.log("focus");
 		$('#to_field_outer').trigger('focus');
 	})
     
     /* generate contact panels */
-    $('#to_field').on('change keyup paste', function() {
+    
+    var contacts_added = 0;
+    $(document).on('change keyup paste', '#to_field', function() {
     	var content = $(this).val();
     	if (content.indexOf(",") != -1) {
     		//generate panel
@@ -161,14 +163,15 @@ $(document).ready(function() {
     		sb.append('<span class="contact_wrapper">');
             sb.append('<span class="label label-info">');
             sb.append('<span class="tracked click">'+content.substring(0,content.length - 1)+'</span>');
-            sb.append('<span class="glyphicon glyphicon-remove remove tracked click></span>');
+            sb.append('<span class="glyphicon glyphicon-remove remove tracked click"></span>');
             sb.append('</span>');
-            sb.append('</span>&nbsp;');
-            
+            sb.append('</span>');
     		$('#to_field_outer div').append(sb.toString());
     		$('#to_field').val('');
+
     	}
     });
+
 	//Make random suggestions
 	/*
 	$('#to_field').on('change keyup paste',function() {

@@ -84,8 +84,13 @@ if (!isset($_SESSION['id'])) {
         	<div class="panel-heading">New Message</div>
         	<div class="panel-body">
                 <span class="form-control" id="to_field_outer">
-                    <div></div>
-                    <input type="text" id="to_field" placeholder="To" autofocus><br>
+                    <table>
+                        <tr>
+                            <td><div id="contact_box"></div></td>
+
+                            <td><input type="text" id="to_field" placeholder="To" autofocus><br></td>
+                        <tr>
+                    </table>
                 </span>
             	<div id="predictions">
             	</div>
