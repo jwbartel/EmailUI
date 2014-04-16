@@ -105,7 +105,7 @@ span#to_field_outer div {
 	padding-right: 10px;
 }
 
-span#to_field_outer span.contact_wrapper {
+span#to_field_outer span.wrapper {
 	padding-left: 10px;
 }
 
@@ -121,14 +121,14 @@ input#to_field {
 input#to_field:focus {
 	outline:0;
 }
-.contact_wrapper span.remove {
+.wrapper span.remove {
     color:#CCCCCC;
     font-size:10px;
     position:inherit;
     vertical-align:middle;
     margin-left:4px;
 }
-.contact_wrapper span.remove:hover {
+.wrapper span.remove:hover {
     color:#666666;
     cursor:pointer;
 }

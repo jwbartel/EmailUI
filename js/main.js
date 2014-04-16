@@ -153,14 +153,13 @@ $(document).ready(function() {
 	})
     
     /* generate contact panels */
-    
-    var contacts_added = 0;
+   
     $(document).on('change keyup paste', '#to_field', function() {
     	var content = $(this).val();
     	if (content.indexOf(",") != -1) {
     		//generate panel
     		var sb = new StringBuilder();
-    		sb.append('<span class="contact_wrapper">');
+    		sb.append('<span class="contact_wrapper wrapper">');
             sb.append('<span class="label label-info">');
             sb.append('<span class="tracked click">'+content.substring(0,content.length - 1)+'</span>');
             sb.append('<span class="glyphicon glyphicon-remove remove tracked click"></span>');
@@ -171,6 +170,10 @@ $(document).ready(function() {
 
     	}
     });
+
+    $(document).on('click', '.contact_wrapper span.remove', function() {
+    	$(this).parents('.contact_wrapper').remove();
+    })
 
 	//Make random suggestions
 	/*
@@ -238,7 +241,7 @@ $(document).ready(function() {
         attachPredictionGroup(PredictionGroup.all[index]);
     });
     
-    $(document).on('click','span.remove', function() {
+    $(document).on('click','prediction_wrapper span.remove', function() {
         //first, delete the contact from the group
         var group_index = parseInt($(this).data('group_id'));
         var contact_index = parseInt($(this).data('contact_id'));
