@@ -1,12 +1,13 @@
 $(document).ready(function() {
 
+	
 
 	/* This function will take care of recording the log of events. It could do so by writing to a file,
 	outputting to the console, or any other way that seems reasonable */
 
 	//$('#instructions').modal('toggle');
 	var log_message = function(message) {
-//		console.log(message);
+ 		//console.log(message);
 		session_log += (message + '\n');
 	}
 
@@ -27,7 +28,8 @@ $(document).ready(function() {
 
 	var already_suggested = false;
 	var first_click = true;
-	var flat_interface = true;
+	var flat_interface = false;
+	var include_modal = false;
 	var email_editor_open = false;
 	var maxSubjectAndPreviewLength = 150; //I calculated this number after testing the layout
 
@@ -63,10 +65,10 @@ $(document).ready(function() {
 	}
 
 	/* Attach prediction to 'To' field when selected */
-    var attachPrediction = function(email) {
+    var attachPrediction = function(contact) {
 		var comma = (first_click) ? ' ': ', ';
-		$('#to_field').val($('#to_field').val() + comma + email); //append email to contents of to_field
-		log_message('Changed content of to_field to ' + $('#to_field').val() + ';timestamp: ' + get_timestamp());
+		wrap_contact(contact) //append email to contents of to_field
+		log_message('Changed content of to_field to ' + contact + ';timestamp: ' + get_timestamp());
 		first_click = false;
     }
     
@@ -80,7 +82,7 @@ $(document).ready(function() {
 
         for (var j = 0; j < contacts.length; j++) {
         	if (!contacts[j].deleted)
-            	attachPrediction(contacts[j].email);
+            	attachPrediction(contacts[j].name);
         }
     }
 	//Expand email
@@ -147,77 +149,75 @@ $(document).ready(function() {
 					$(this).val() + ';timestamp: ' + get_timestamp());
 	}); 
 
+	/* Autocomplete contacts */
+	$(function() {
+		var test = [
+			"Lebron James",
+			"Luis Scola",
+			"Roy Hibbert",
+			"Kevin Durant",
+			"Russell Westbrook"
+		]
+		$('#to_field').autocomplete({
+			source:test
+		});
+	});
+	/* Wrap autocompleted contacts in the panel */
+	$(document).on('click','.ui-corner-all', function() {
+		var content = $('#to_field').val();
+		if (content !== '') {
+			wrap_contact(content);
+    		console.log("wrapping: " + content);
+    	}
+
+    	$('#to_field').val('');
+
+	});
 	/* Trigger hover effect on input */
 	$('#to_field').on('focus', function() {
 		$('#to_field_outer').trigger('focus');
 	})
-    
-    /* generate contact panels */
-   
-    $(document).on('change keyup paste', '#to_field', function() {
-    	var content = $(this).val();
-    	if (content.indexOf(",") != -1) {
-    		//generate panel
+
+    var wrap_contact = function(content) {
     		var sb = new StringBuilder();
     		sb.append('<span class="contact_wrapper wrapper">');
             sb.append('<span class="label label-info">');
-            sb.append('<span class="tracked click">'+content.substring(0,content.length - 1)+'</span>');
+            sb.append('<span class="tracked click">'+ content +'</span>');
             sb.append('<span class="glyphicon glyphicon-remove remove tracked click"></span>');
             sb.append('</span>');
             sb.append('</span>');
     		$('#to_field_outer div').append(sb.toString());
     		$('#to_field').val('');
-
-    	}
-    });
+    }
 
     $(document).on('click', '.contact_wrapper span.remove', function() {
     	$(this).parents('.contact_wrapper').remove();
     })
 
 	//Make random suggestions
-	/*
 	$('#to_field').on('change keyup paste',function() {
 		var content = $(this).val();
-		if (content.indexOf(",") != -1 && !already_suggested) { //if there's a comma on the field
-			already_suggested = true;
+		console.log(content);
+		if (content.indexOf(",") != -1) {
+			wrap_contact(content.substring(0,content.length - 1));
 
-			predictions = getPredictions();
+			if (!already_suggested) {
+				already_suggested = true;
 
-            $('#predictions').append('<span> Consider including: </span>');
-            if (flat_interface)
-            	$('#predictions').append(predictions.buildFlatInterface());
-            else
-            	$('#predictions').append(predictions.buildHierarchicalInterface());
+				predictions = getPredictions();
 
-			$('#predictions').show();
+	            $('#predictions').append('<span> Consider including: </span>');
+	            if (flat_interface)
+	            	$('#predictions').append(predictions.buildFlatInterface());
+	            else
+	            	$('#predictions').append(predictions.buildHierarchicalInterface());
 
-            //console.log(PredictionGroup.all);
+				$('#predictions').show();
+			}
+
 		}
 	});
-*/
 
-	$('#prediction_menu_options a').on('click', function() {
-
-		var id = $(this).prop('id');
-		if ( id === "flat" && !flat_interface) {
-			flat_interface = true;
-			$('a#hierarchical').removeClass('selected');
-			$(this).addClass('selected');
-			$('#predictions').empty();
-			$('#to_field').val('');
-			already_suggested = false;
-		}
-
-		else if (id === "hierarchical" && flat_interface) {
-			flat_interface = false;
-			$('a#flat').removeClass('selected');
-			$(this).addClass('selected');
-			$('#predictions').empty();
-			$('#to_field').val('');
-			already_suggested = false;			
-		}
-	});
 
     $(document).on('mouseenter','.prediction_group', function() {
         console.log('test');
@@ -232,8 +232,8 @@ $(document).ready(function() {
 
     
 	$(document).on('click','.prediction', function() {
-        var email = $(this).prop('id');
-	    attachPrediction(email);
+        var name = $(this).text();
+	    attachPrediction(name);
     });
 
     $(document).on('click','.prediction_group', function() {

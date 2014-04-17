@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class PredictionGroup {
 	private Contact[] contacts;
-	private PredictionGroup subgroups;
+	private PredictionGroup[] subgroups;
 	
 	public Contact[] getContacts() {
 		return contacts;
@@ -14,7 +14,7 @@ public class PredictionGroup {
 		this.contacts = contacts;
 	}
 
-	public PredictionGroup getSubgroups() {
+	public PredictionGroup[] getSubgroups() {
 		return subgroups;
 	}
 
@@ -22,7 +22,7 @@ public class PredictionGroup {
 		this.subgroups = subgroups;
 	}
 
-	public PredictionGroup(Contact[] contacts, PredictionGroup subgroups) {
+	public PredictionGroup(Contact[] contacts, PredictionGroup[] subgroups) {
 		super();
 		this.contacts = contacts;
 		this.subgroups = subgroups;
@@ -33,7 +33,5 @@ public class PredictionGroup {
 		return "{contacts:" + Arrays.toString(contacts)
 				+ ", subgroups:" + subgroups + "}";
 	}
-	
-	
-	
+		
 }

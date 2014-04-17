@@ -73,10 +73,9 @@ var PredictionGroup = function() {
 
         for (var j = 0; j < this.contacts.length; j++) {
             var c = this.contacts[j];
-            sb.append('<span class="contact_wrapper">')
+            sb.append('<span class="prediction_wrapper wrapper">')
             sb.append('<a href="#"><span class="label label-info">');
             sb.append('<span class="prediction tracked click" id="'+c.email+'">'+c.name+'</span>');
-            //sb.append('<button class="close deleteContact" type="button">×</button></span>&nbsp;');
             sb.append('<span class="glyphicon glyphicon-remove remove tracked click" data-group_id="'+this.index+'" data-contact_id="'+j+'"></span>');
             sb.append('</span></a>');
             sb.append('</span>&nbsp;');

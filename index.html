@@ -15,7 +15,8 @@ if (!isset($_SESSION['id'])) {
 
 	<!-- Bootstrap -->
     <link href="libs/Bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+    <!--jQuery UI-->
+    <link rel="stylesheet" type="text/css" href="libs/jqueryui/1.10.4/jquery-ui.css">
     <!--Custom CSS-->
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
@@ -43,12 +44,6 @@ if (!isset($_SESSION['id'])) {
                 </div>
             </div><!-- /.modal -->
 	</div>
-    <div class = "row" >
-        <div class="col-md-12" id="prediction_menu_options"> 
-            <span> Email Prediction Interface: </span>
-            <a class="selected" id="flat"> Flat </a> / <a id="hierarchical"> Hierarchical</a>
-        </div>
-    </div>
     <div class = "row" id="content">
         
     	<div class="col-md-1" id="navigation">
@@ -109,6 +104,7 @@ if (!isset($_SESSION['id'])) {
 	</div>
     <!-- JS Files -->
     <script src="libs/jquery.min.js"></script>
+    <script src="libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
     <script src="libs/Bootstrap/js/bootstrap.min.js"></script>
 
 	<script src="js/email.js"></script>
