@@ -10,7 +10,7 @@ public class Email {
 	private String content;
 	private String subject;
 	public Email(Contact sender, Contact[] receivers, Date dateSent,
-			String content, String subject) {
+			String subject, String content) {
 		super();
 		this.sender = sender;
 		this.receivers = receivers;
