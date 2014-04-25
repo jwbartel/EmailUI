@@ -25,7 +25,7 @@ var Contact = function(json) {
     this.name = json.name;
     this.emailAddress = json.emailAddress;
 
-    Contact[emailAddress] = this;
+    Contact.all[this.emailAddress] = this;
 }
 
 Contact.all = {}; 
@@ -34,8 +34,8 @@ Contact.all = {};
  * be easily indexed out of the 'all' array */
 var index = 0;
 
-var PredictionGroup = function() {
-    this.contacts = new Array();
+var PredictionGroup = function(json) {
+    this.contacts = json.contacts;
     this.subgroups = new Array();
     var deleted = false; //a flag used to do lazy deletion
     this.index = index;
@@ -57,10 +57,10 @@ var PredictionGroup = function() {
         for (var i = 0; i < this.subgroups.length; i++) {
             sb.append(this.subgroups[i].buildFlatInterface());
         }
-
+        
         for (var i = 0; i < this.contacts.length; i++) {
             var c = this.contacts[i];
-            sb.append('<a href="#" class="prediction tracked click" id="'+c.email+'">'+c.name+'</a>&nbsp');
+            sb.append('<a href="#" class="prediction tracked click" id="'+c.emailAddress+'">'+c.name+'</a>&nbsp');
         }
 
         return sb.toString();

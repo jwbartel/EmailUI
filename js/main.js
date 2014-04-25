@@ -15,13 +15,11 @@ $(document).ready(function() {
 	var end_session_url = 'https://wwwp.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/php/end_session.php'
 	var session_log = "\n";
 
-	var session_start = new Date();
-	log_message('Resumed session on: ' + session_start);
-
+	
 	var already_predicted = false;
 	var first_click = true;
 	var flat_interface = (predictionInterface === "flat")? true: false;
-	
+    var predictionGroup = new PredictionGroup(objects.predictionGroup);
 	var email_editor_open = false;
 	var maxSubjectAndPreviewLength = 150; //I calculated this number after testing the layout
 	
@@ -46,6 +44,9 @@ $(document).ready(function() {
  		//console.log(message);
 		session_log += (message + '\n');
 	}
+    
+    var session_start = new Date();
+	log_message('Resumed session on: ' + session_start);
 
 	/* Returns a timestamp of the exact second since the sessions started
 	   For example, if session started at 3:00, this function will return
@@ -157,11 +158,9 @@ $(document).ready(function() {
 
 	/* Autocomplete contacts */
 	$(function() {
-        
-        var test = new Array();
-
-        for (var key in Contact.all) {
-            test.push(Contact.all[key]);
+        var test = [];
+        for (var i = 0; i < objects.contacts.length; i++) {
+            test.push(objects.contacts[i].name);
         }
 
 		$('#to_field').autocomplete({
@@ -195,6 +194,19 @@ $(document).ready(function() {
             sb.append('</span>');
     		$('#to_field_outer div').append(sb.toString());
     		$('#to_field').val('');
+
+            /* Attach predictions */
+			if (!already_predicted) {
+				already_predicted = true;
+
+	            $('#predictions').append('<span> Consider including: </span>');
+	            if (flat_interface)
+	            	$('#predictions').append(predictionGroup.buildFlatInterface());
+	            else
+	            	$('#predictions').append(predictionGroup.buildHierarchicalInterface());
+
+				$('#predictions').show();
+			}
     }
 
     $(document).on('click', '.contact_wrapper span.remove', function() {
@@ -206,21 +218,6 @@ $(document).ready(function() {
 		var content = $(this).val();
 		if (content.indexOf(",") != -1) {
 			wrap_contact(content.substring(0,content.length - 1));
-
-			if (!already_predicted) {
-				already_predicted = true;
-
-				predictions = objects.predictionGroup;
-
-	            $('#predictions').append('<span> Consider including: </span>');
-	            if (flat_interface)
-	            	$('#predictions').append(predictions.buildFlatInterface());
-	            else
-	            	$('#predictions').append(predictions.buildHierarchicalInterface());
-
-				$('#predictions').show();
-			}
-
 		}
 	});
 
