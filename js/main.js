@@ -1,17 +1,47 @@
 $(document).ready(function() {
     
-    /* Get the initial data */
-    testData = testData.split(";");
-    var instructions = testData[0];
-    var interface = testData[1];
-    var objects = jQuery.parseJSON(testData[2]);
     
-    
+	/* Initialize the test case */
+		
+	testData = testData.split(";");
+	var instructions = testData[0];
+	var predictionInterface = testData[1];
+	var objects = jQuery.parseJSON(testData[2]);
 
-    /* This function will take care of recording the log of events. It could do so by writing to a file,
-	outputting to the console, or any other way that seems reasonable */
+	$('#instructions').find('p').text(instructions);
+	$('#instructions').modal('toggle');
 
-	//$('#instructions').modal('toggle');
+    var save_session_url = 'https://wwwp.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/php/save_session_log.php'
+	var end_session_url = 'https://wwwp.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/php/end_session.php'
+	var session_log = "\n";
+
+	var session_start = new Date();
+	log_message('Resumed session on: ' + session_start);
+
+	var already_predicted = false;
+	var first_click = true;
+	var flat_interface = (predictionInterface === "flat")? true: false;
+	
+	var email_editor_open = false;
+	var maxSubjectAndPreviewLength = 150; //I calculated this number after testing the layout
+	
+	/* Create contacts */
+	for (var i = 0; i < objects.contacts.length; i++) {
+        new Contact(objects.contacts[i]);
+    }
+
+    // Append_Emails
+	for (var i = 0; i < objects.inbox.length; i++) {
+        var email = new Email(objects.inbox[i]);
+		var subject = email.subject.substring(0,maxSubjectAndPreviewLength);
+		var previewSize = (subject.length + 1 >= maxSubjectAndPreviewLength) ? 0: maxSubjectAndPreviewLength - subject.length - 2;
+		var preview = email.content.substring(0, previewSize);
+
+		$('ul.list-group').append('<li class="list-group-item email tracked click" id="email'+i+'"></li>');
+		$('#email'+i).append('<span class="sender">' + email.sender.name + '</span>  ' + '<span class="subject">' + subject + '</span>\
+							  <span class="preview"> &nbsp;&ndash;&nbsp;' + preview + '</span>' + '<span class="date">' + email.formattedDate() + '</span>');
+	}
+
 	var log_message = function(message) {
  		//console.log(message);
 		session_log += (message + '\n');
@@ -24,38 +54,8 @@ $(document).ready(function() {
 		return ((new Date().getTime()) - session_start.getTime())/1000;
 	}
 	
-	var save_session_url = 'https://wwwp.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/php/save_session_log.php'
-	var end_session_url = 'https://wwwp.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/php/end_session.php'
-    //Email.generate();
-	var session_log = "\n";
-
-	var session_start = new Date();
-	log_message('Resumed session on: ' + session_start);
-
-	var already_suggested = false;
-	var first_click = true;
-	var flat_interface = false;
-	var include_modal = false;
-	var email_editor_open = false;
-	var maxSubjectAndPreviewLength = 150; //I calculated this number after testing the layout
-
-
-	// Append_Emails
-	for (var i = 0; i < objects.inbox.length; i++) {
-        var email = new Email(objects.inbox[i]);
-        console.log(email);
-		var subject = email.subject.substring(0,maxSubjectAndPreviewLength);
-		var previewSize = (subject.length + 1 >= maxSubjectAndPreviewLength) ? 0: maxSubjectAndPreviewLength - subject.length - 2;
-		var preview = email.content.substring(0, previewSize);
-
-		$('ul.list-group').append('<li class="list-group-item email tracked click" id="email'+i+'"></li>');
-		$('#email'+i).append('<span class="sender">' + email.sender.name + '</span>  ' + '<span class="subject">' + subject + '</span>\
-							  <span class="preview"> &nbsp;&ndash;&nbsp;' + preview + '</span>' + '<span class="date">' + email.formattedDate() + '</span>');
-	}
-
+	/*
 	var getPredictions = function() {
-		/* right now do it randomly */
-		//Select 3 random contacts and make a PredictionGroup with them 
 		var p1 = new PredictionGroup();
         var p2 = new PredictionGroup();
 
@@ -70,12 +70,12 @@ $(document).ready(function() {
         p2.addSubgroup(p1);
         return p2;
 	}
+	*/
 
 	/* Attach prediction to 'To' field when selected */
     var attachPrediction = function(contact) {
-		var comma = (first_click) ? ' ': ', ';
 		wrap_contact(contact) //append email to contents of to_field
-		log_message('Changed content of to_field to ' + contact + ';timestamp: ' + get_timestamp());
+		//log_message('Changed content of to_field to ' + contact + ';timestamp: ' + get_timestamp());
 		first_click = false;
     }
     
@@ -92,10 +92,9 @@ $(document).ready(function() {
             	attachPrediction(contacts[j].name);
         }
     }
+
 	//Expand email
 	$(document).on('click', '.email', function() {
-
-
 		if (email_editor_open)
 			$('#email_expanded_col').attr('class','col-md-4')
 		else
@@ -157,25 +156,19 @@ $(document).ready(function() {
 	}); 
 
 	/* Autocomplete contacts */
-    
-    for (var i = 0; i < objects.contacts.length; i++) {
-        /* all contacts are saved in global array Contact.all */
-        new Contact(objects.contacts[i]);
-    }
-    
-    console.log(Contact.all);
 	$(function() {
         
         var test = new Array();
 
-        for (var i = 0; i < Contact.all.length; i++) {
-            test.push(Contact.all[i].name);
+        for (var key in Contact.all) {
+            test.push(Contact.all[key]);
         }
 
 		$('#to_field').autocomplete({
 			source:test
 		});
 	});
+
 	/* Wrap autocompleted contacts in the panel */
 	$(document).on('click','.ui-corner-all', function() {
 		var content = $('#to_field').val();
@@ -186,6 +179,7 @@ $(document).ready(function() {
     	$('#to_field').val('');
 
 	});
+
 	/* Trigger hover effect on input */
 	$('#to_field').on('focus', function() {
 		$('#to_field_outer').trigger('focus');
@@ -207,14 +201,14 @@ $(document).ready(function() {
     	$(this).parents('.contact_wrapper').remove();
     })
 
-	//Make random suggestions
+    //Attach predictions
 	$('#to_field').on('change keyup paste',function() {
 		var content = $(this).val();
 		if (content.indexOf(",") != -1) {
 			wrap_contact(content.substring(0,content.length - 1));
 
-			if (!already_suggested) {
-				already_suggested = true;
+			if (!already_predicted) {
+				already_predicted = true;
 
 				predictions = objects.predictionGroup;
 

@@ -5,26 +5,30 @@ var StringBuilder = function (value) {
 }
 
 // Appends the given value to the end of this instance.
-StringBuilder.prototype.append = function (value)
-{
+StringBuilder.prototype.append = function (value) {
     if (value)
     {
         this.strings.push(value);
     }
-}
 
+}
 // Clears the string buffer
-StringBuilder.prototype.clear = function ()
-{
+StringBuilder.prototype.clear = function () {
     this.strings.length = 1;
 }
-
 // Converts this instance to a String.
-StringBuilder.prototype.toString = function ()
-{
+StringBuilder.prototype.toString = function () {
     return this.strings.join("");
 }
 
+var Contact = function(json) {
+    this.name = json.name;
+    this.emailAddress = json.emailAddress;
+
+    Contact[emailAddress] = this;
+}
+
+Contact.all = {}; 
 
 /* Global index value assigned to every prediction group so it can
  * be easily indexed out of the 'all' array */
@@ -90,22 +94,12 @@ var PredictionGroup = function() {
 }
 PredictionGroup.all = new Array();
 
-
-var Contact = function(json) {
-	this.name = json.name;
-	this.emailAddress = json.emailAddress;
-
-	Contact.all.push(this);
-}
-
-Contact.all = new Array();
-
 var Email = function(json) {
-	this.sender = new Contact(json.sender);
+	this.sender = Contact.all[json.sender.emailAddress];
     this.receivers = new Array();   
     
     for (var i = 0; i < json.receivers.length; i++) {
-        this.receivers.push(new Contact(json.receivers[i]));
+        this.receivers.push(Contact.all[json.receivers[i].emailAddress]);
     }
     
 	this.date = new Date(json.dateSent);
@@ -124,7 +118,7 @@ var Email = function(json) {
 
 Email.all = new Array();
 
-/*
+
 Email.generate = function() {
     var contacts = [new Contact("Prasun Dewan","dewan@cs.unc.edu"), 
     			   new Contact("John Doe", "foo@bar.com"),
@@ -166,6 +160,6 @@ Email.generate = function() {
 	}
 
 }
-*/
+
 
 
