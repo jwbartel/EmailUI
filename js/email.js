@@ -91,21 +91,26 @@ var PredictionGroup = function() {
 PredictionGroup.all = new Array();
 
 
-var Contact = function(name, email) {
-	this.name = name;
-	this.email = email;
+var Contact = function(json) {
+	this.name = json.name;
+	this.emailAddress = json.emailAddress;
 
 	Contact.all.push(this);
 }
 
 Contact.all = new Array();
 
-var Email = function(sender, receivers, date, subject, content) {
-	this.sender = sender;
-	this.receivers = receivers;
-	this.date = date;
-	this.content = content;
-	this.subject = subject;
+var Email = function(json) {
+	this.sender = new Contact(json.sender);
+    this.receivers = new Array();   
+    
+    for (var i = 0; i < json.receivers.length; i++) {
+        this.receivers.push(new Contact(json.receivers[i]));
+    }
+    
+	this.date = new Date(json.dateSent);
+	this.content = json.content;
+	this.subject = json.subject;
 
 	this.formattedDate = function() {
 		var monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun",
@@ -119,6 +124,7 @@ var Email = function(sender, receivers, date, subject, content) {
 
 Email.all = new Array();
 
+/*
 Email.generate = function() {
     var contacts = [new Contact("Prasun Dewan","dewan@cs.unc.edu"), 
     			   new Contact("John Doe", "foo@bar.com"),
@@ -160,6 +166,6 @@ Email.generate = function() {
 	}
 
 }
-
+*/
 
 

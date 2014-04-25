@@ -1,13 +1,23 @@
 <?php 
 session_start();
 if (!isset($_SESSION['id'])) {
-    header("Location: https://wwwx.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/consent/consent.html");
+    header("Location: https://wwwp.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/consent/consent.html");
 }
+
+//fetch the test data
+
+else {
+    $data = exec('php php/read_config.php');
+}
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
+  <script type="text/javascript">
+    var testData = '<?php echo $data; ?>';
+  </script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,7 +25,8 @@ if (!isset($_SESSION['id'])) {
 
 	<!-- Bootstrap -->
     <link href="libs/Bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+    <!--jQuery UI-->
+    <link rel="stylesheet" type="text/css" href="libs/jqueryui/1.10.4/jquery-ui.css">
     <!--Custom CSS-->
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
@@ -43,12 +54,6 @@ if (!isset($_SESSION['id'])) {
                 </div>
             </div><!-- /.modal -->
 	</div>
-    <div class = "row" >
-        <div class="col-md-12" id="prediction_menu_options"> 
-            <span> Email Prediction Interface: </span>
-            <a class="selected" id="flat"> Flat </a> / <a id="hierarchical"> Hierarchical</a>
-        </div>
-    </div>
     <div class = "row" id="content">
         
     	<div class="col-md-1" id="navigation">
@@ -84,11 +89,17 @@ if (!isset($_SESSION['id'])) {
         	<div class="panel-heading">New Message</div>
         	<div class="panel-body">
                 <span class="form-control" id="to_field_outer">
-                    <input type="text" class="form-control" id="to_field" placeholder="To" autofocus><br>
+                    <table>
+                        <tr>
+                            <td><div id="contact_box"></div></td>
+
+                            <td><input type="text" id="to_field" placeholder="To" autofocus><br></td>
+                        <tr>
+                    </table>
                 </span>
             	<div id="predictions">
             	</div>
-            	<input type="text" class="form-control" id="cc_field" placeholder="Cc"><br>
+            	<input type="text" class="form-control tracked text" id="cc_field" placeholder="Cc"><br>
             	<input type="text" class="form-control tracked text" id="subect_field" placeholder="Subject">
             	<br>
             	<textarea rows="12" class ="form-control tracked text" id="message_field" placeholder="Write your message here"></textarea>
@@ -103,6 +114,7 @@ if (!isset($_SESSION['id'])) {
 	</div>
     <!-- JS Files -->
     <script src="libs/jquery.min.js"></script>
+    <script src="libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
     <script src="libs/Bootstrap/js/bootstrap.min.js"></script>
 
 	<script src="js/email.js"></script>

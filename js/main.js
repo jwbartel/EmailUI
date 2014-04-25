@@ -1,8 +1,14 @@
 $(document).ready(function() {
+    
+    /* Get the initial data */
+    testData = testData.split(";");
+    var instructions = testData[0];
+    var interface = testData[1];
+    var objects = jQuery.parseJSON(testData[2]);
+    
+    
 
-	
-
-	/* This function will take care of recording the log of events. It could do so by writing to a file,
+    /* This function will take care of recording the log of events. It could do so by writing to a file,
 	outputting to the console, or any other way that seems reasonable */
 
 	//$('#instructions').modal('toggle');
@@ -18,9 +24,9 @@ $(document).ready(function() {
 		return ((new Date().getTime()) - session_start.getTime())/1000;
 	}
 	
-	var save_session_url = 'https://wwwx.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/php/save_session_log.php'
-	var end_session_url = 'https://wwwx.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/php/end_session.php'
-    Email.generate();
+	var save_session_url = 'https://wwwp.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/php/save_session_log.php'
+	var end_session_url = 'https://wwwp.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/php/end_session.php'
+    //Email.generate();
 	var session_log = "\n";
 
 	var session_start = new Date();
@@ -35,8 +41,9 @@ $(document).ready(function() {
 
 
 	// Append_Emails
-	for (var i = 0; i < Email.all.length; i++) {
-		var email = Email.all[i];
+	for (var i = 0; i < objects.inbox.length; i++) {
+        var email = new Email(objects.inbox[i]);
+        console.log(email);
 		var subject = email.subject.substring(0,maxSubjectAndPreviewLength);
 		var previewSize = (subject.length + 1 >= maxSubjectAndPreviewLength) ? 0: maxSubjectAndPreviewLength - subject.length - 2;
 		var preview = email.content.substring(0, previewSize);
@@ -99,7 +106,7 @@ $(document).ready(function() {
 		var email = Email.all[index];
 
 		$('.panel-title').text(email.subject);
-		$('#email_expanded > .panel-body').append('<strong class="tracked" id="expanded_sender">' + email.sender.name +'</strong>' + '&lt;' + email.sender.email +'&gt<hr>');
+		$('#email_expanded > .panel-body').append('<strong class="tracked" id="expanded_sender">' + email.sender.name +'</strong>' + '&lt;' + email.sender.emailAddress +'&gt<hr>');
 		$('#email_expanded > .panel-body').append('<p class="tracked" id="expanded_content">' + email.content +'</p>');
 		$('#email_expanded_col').show();
 		$('#email_list').hide();
@@ -150,14 +157,21 @@ $(document).ready(function() {
 	}); 
 
 	/* Autocomplete contacts */
+    
+    for (var i = 0; i < objects.contacts.length; i++) {
+        /* all contacts are saved in global array Contact.all */
+        new Contact(objects.contacts[i]);
+    }
+    
+    console.log(Contact.all);
 	$(function() {
-		var test = [
-			"Lebron James",
-			"Luis Scola",
-			"Roy Hibbert",
-			"Kevin Durant",
-			"Russell Westbrook"
-		]
+        
+        var test = new Array();
+
+        for (var i = 0; i < Contact.all.length; i++) {
+            test.push(Contact.all[i].name);
+        }
+
 		$('#to_field').autocomplete({
 			source:test
 		});
@@ -167,7 +181,6 @@ $(document).ready(function() {
 		var content = $('#to_field').val();
 		if (content !== '') {
 			wrap_contact(content);
-    		console.log("wrapping: " + content);
     	}
 
     	$('#to_field').val('');
@@ -197,14 +210,13 @@ $(document).ready(function() {
 	//Make random suggestions
 	$('#to_field').on('change keyup paste',function() {
 		var content = $(this).val();
-		console.log(content);
 		if (content.indexOf(",") != -1) {
 			wrap_contact(content.substring(0,content.length - 1));
 
 			if (!already_suggested) {
 				already_suggested = true;
 
-				predictions = getPredictions();
+				predictions = objects.predictionGroup;
 
 	            $('#predictions').append('<span> Consider including: </span>');
 	            if (flat_interface)
@@ -220,7 +232,6 @@ $(document).ready(function() {
 
 
     $(document).on('mouseenter','.prediction_group', function() {
-        console.log('test');
         var id = $(this).data('group_id');
         $('.group'+id).css('color','#FF9966');
     });
@@ -262,7 +273,6 @@ $(document).ready(function() {
 			url:save_session_url,
 			data: {'data':session_log, 'end_session':true},
 			success: function(data, status, jqXHR) {
-			    //console.log(data);
                 window.location.replace(data); //load a thank you page
 			}
 		});
@@ -290,7 +300,6 @@ $(document).ready(function() {
 			url:save_session_url,
 			data: {'data':session_log, 'end_session':false},
             success: function(data) {
-                console.log(data);
             }
 		});
 	});

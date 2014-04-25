@@ -20,7 +20,7 @@ else { //POST request
 			echo "Could not write\n";
 		else {
 		    session_destroy();
-		    echo "http://wwwx.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/html/thankyou.html";
+		    echo "http://wwwp.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/html/thankyou.html";
 	    }
     }
     
