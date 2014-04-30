@@ -60,10 +60,7 @@ else {
 			<div class="btn-group-vertical" id="navigation">
 				<button type="button" class="btn btn-default tracked click" id="nav_new_message">New Message</button>
 				<button type="button" class="btn btn-default tracked click" id="nav_inbox">Inbox</button>
-  				<button type="button" class="btn btn-default tracked click" id="nav_important">Important</button>
- 				<button type="button" class="btn btn-default tracked click" id="nave_sent">Sent</button>
- 				<button type="button" class="btn btn-default tracked click" id="nav_drafts">Drafts</button>
-  				<button type="button" class="btn btn-default tracked click" id="nav_spam">Spam</button>
+ 				<button type="button" class="btn btn-default tracked click" id="nav_sent">Sent</button>
  				<button type="button" class="btn btn-default tracked click" id="nav_trash">Trash</button>
                 <button type="button" class="btn btn-warning tracked click" id="save_session">Quit and Save</button>
                 <button type="button" class="btn btn-danger tracked click" id="end_session">Quit</button>

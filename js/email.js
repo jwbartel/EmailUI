@@ -95,7 +95,7 @@ var PredictionGroup = function(json) {
 PredictionGroup.all = new Array();
 
 var Email = function(json) {
-	this.sender = Contact.all[json.sender.emailAddress];
+	this.sender = json.sender;
     this.receivers = new Array();   
     
     for (var i = 0; i < json.receivers.length; i++) {

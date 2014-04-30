@@ -7,14 +7,15 @@ $(document).ready(function() {
 	var instructions = testData[0];
 	var predictionInterface = testData[1];
 	var objects = jQuery.parseJSON(testData[2]);
-
+    
+    var emails = objects.inbox;
 	$('#instructions').find('p').text(instructions);
 	$('#instructions').modal('toggle');
 
     var save_session_url = 'https://wwwp.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/php/save_session_log.php'
 	var end_session_url = 'https://wwwp.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/php/end_session.php'
 	var session_log = "\n";
-
+    
 	
 	var already_predicted = false;
 	var first_click = true;
@@ -29,17 +30,20 @@ $(document).ready(function() {
     }
 
     // Append_Emails
-	for (var i = 0; i < objects.inbox.length; i++) {
-        var email = new Email(objects.inbox[i]);
-		var subject = email.subject.substring(0,maxSubjectAndPreviewLength);
-		var previewSize = (subject.length + 1 >= maxSubjectAndPreviewLength) ? 0: maxSubjectAndPreviewLength - subject.length - 2;
-		var preview = email.content.substring(0, previewSize);
+    var append_emails = function(emails) {
+        $('.list-group').empty();
+        for (var i = 0; i < emails.length; i++) {
+            var email = new Email(emails[i]);
+            var subject = email.subject.substring(0,maxSubjectAndPreviewLength);
+            var previewSize = (subject.length + 1 >= maxSubjectAndPreviewLength) ? 0: maxSubjectAndPreviewLength - subject.length - 2;
+            var preview = email.content.substring(0, previewSize);
 
-		$('ul.list-group').append('<li class="list-group-item email tracked click" id="email'+i+'"></li>');
-		$('#email'+i).append('<span class="sender">' + email.sender.name + '</span>  ' + '<span class="subject">' + subject + '</span>\
-							  <span class="preview"> &nbsp;&ndash;&nbsp;' + preview + '</span>' + '<span class="date">' + email.formattedDate() + '</span>');
-	}
-
+            $('ul.list-group').append('<li class="list-group-item email tracked click" id="email'+i+'"></li>');
+            $('#email'+i).append('<span class="sender">' + email.sender.name + '</span>  ' + '<span class="subject">' + subject + '</span>\
+                                  <span class="preview"> &nbsp;&ndash;&nbsp;' + preview + '</span>' + '<span class="date">' + email.formattedDate() + '</span>');
+        }
+    }
+    append_emails(objects.inbox); 
 	var log_message = function(message) {
  		//console.log(message);
 		session_log += (message + '\n');
@@ -54,24 +58,6 @@ $(document).ready(function() {
 	var get_timestamp = function() {
 		return ((new Date().getTime()) - session_start.getTime())/1000;
 	}
-	
-	/*
-	var getPredictions = function() {
-		var p1 = new PredictionGroup();
-        var p2 = new PredictionGroup();
-
-        for (var i = 0; i < 3; i++) {
-			var index = Math.floor(Math.random()*Contact.all.length);
-			var c = Contact.all[index];
-            p1.addContact(c);
-			log_message('Contact ' + JSON.stringify(c) + ' was predicted');			
-		}
-
-        p2.addContact(Contact.all[0]);
-        p2.addSubgroup(p1);
-        return p2;
-	}
-	*/
 
 	/* Attach prediction to 'To' field when selected */
     var attachPrediction = function(contact) {
@@ -103,11 +89,12 @@ $(document).ready(function() {
 
 		var id = $(this).attr('id');
 		var index = parseInt(id.substring(5)); //i.e, 'email5' will yield 5
-		var email = Email.all[index];
-
+		var email = emails[index];
+        
+       
 		$('.panel-title').text(email.subject);
 		$('#email_expanded > .panel-body').append('<strong class="tracked" id="expanded_sender">' + email.sender.name +'</strong>' + '&lt;' + email.sender.emailAddress +'&gt<hr>');
-		$('#email_expanded > .panel-body').append('<p class="tracked" id="expanded_content">' + email.content +'</p>');
+        $('#email_expanded > .panel-body').append('<p class="tracked" id="expanded_content">' + email.content +'</p>');
 		$('#email_expanded_col').show();
 		$('#email_list').hide();
 	});
@@ -123,8 +110,22 @@ $(document).ready(function() {
 		$('#email_list').attr('class','col-md-4');
 		$('#new_message_editor').show();
 	});
+    
+    //Open Sent 
+    $('#nav_sent').click(function() {     
+		$('#email_expanded > .panel-heading > .panel-title').empty();
+		$('#email_expanded > .panel-body').empty();
+		$('#email_expanded_col').hide();
 
-	//Return to the main inbox
+		if (email_editor_open)
+			$('#email_list').attr('class','col-md-4')
+		else
+			$('#email_list').attr('class','col-md-10')
+        emails = objects.sent;
+        append_emails(objects.sent);
+		$('#email_list').show();
+	});
+    //Open inbox
 	$('#nav_inbox').click(function() {
 		$('#email_expanded > .panel-heading > .panel-title').empty();
 		$('#email_expanded > .panel-body').empty();
@@ -134,7 +135,9 @@ $(document).ready(function() {
 			$('#email_list').attr('class','col-md-4')
 		else
 			$('#email_list').attr('class','col-md-10')
-
+        
+        emails = objects.inbox;
+        append_emails(objects.inbox);
 		$('#email_list').show();
 	});
 
