@@ -36,15 +36,14 @@ public class Driver {
 		try {
 			
 			output = new FileOutputStream(file);
-			String json = gson.toJson(t1);
-			
-			prop.setProperty("jsonConfig", json);
-			prop.setProperty("interface", "flat");
-			
+			String json = gson.toJson(t1);			
 			String instructions = "For this first test, email your friends that have made it" +
 								  " into the NBA playoffs and wish them good luck! Make sure you message all " +
 								  " of them, but careful about including someone who did not make it to the postseason";
 			
+			
+			prop.setProperty("test_objects", json);
+			prop.setProperty("interface", "flat");
 			prop.setProperty("instructions"	, instructions);
 			
 			prop.store(output, null);
@@ -73,7 +72,7 @@ public class Driver {
 			
 			input = new FileInputStream(file);
 			prop.load(input);
-			String json = prop.getProperty("jsonConfig");
+			String json = prop.getProperty("test_objects");
 			String instructions = prop.getProperty("instructions");
 			String ui = prop.getProperty("interface");
 			System.out.println(instructions + ";" + ui +";" + json);
@@ -99,18 +98,28 @@ public class Driver {
 		c[1] = new Contact("Kevin Durant", "kd@ock.com");
 		c[2] = new Contact("Carmelo Anthony", "melo@nyk.com");
 		
+		Contact[] self = {new Contact("Eliezer Encarnacion", "encarnae@live.unc.edu")};
+		
 		PredictionGroup group = new PredictionGroup(c, null); //flat list
 		
-		Email[] inbox = new Email[1];
-		Contact sender = new Contact("Eli Encarnacion","eliezer@gmail.com");
+		Email[] sentMessages = new Email[1];
+		Email[] inbox = new Email[2];
+		
 		Date dateSent = new Date();
 		String subject = "Wanna play basketball today?";
-		String content = "Hey guys,\n Just wanted to see if any of you were up " +
-						"for a pickup game today. Let me know if you're available\n";
+		String content = "Hey guys, Just wanted to see if any of you were up " +
+						"for a pickup game today. Let me know if you're available";
 		
-		inbox[0] = new Email(sender, c, dateSent, subject, content);
- 							 
-		TestCase t = new TestCase(inbox,c,group);
+		sentMessages[0] = new Email(self[0], c, dateSent, subject, content);
+ 		
+		subject = "RE: Wanna play basketball today?";
+ 		content = "Eli, I'd love to but I have to get ready for the postseason!";
+ 		inbox[0] = new Email(c[0], self, dateSent, subject, content);
+ 		
+ 		content = "Hey man, I'll be flying to Memphis for the playoffs, sorry!";
+ 		inbox[1] = new Email(c[1], self, dateSent, subject, content);
+		
+		TestCase t = new TestCase(inbox, sentMessages, c,group);
 		
 		return t;
 		
