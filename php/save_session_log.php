@@ -2,8 +2,6 @@
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') { //trying to get existing log
-	//$data['log'] = $_SESSION['log'];
-    //print json_encode($_SESSION);
     echo $_SESSION['log'];
 }
 else { //POST request

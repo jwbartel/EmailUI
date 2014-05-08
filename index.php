@@ -8,6 +8,8 @@ if (!isset($_SESSION['id'])) {
 
 else {
     $data = exec('php php/read_config.php');
+    $data = explode(";",$data); //each test case is separated by semi colons
+    $data = $data[$_SESSION["current_test"]];
 }
 
 ?>
@@ -16,7 +18,7 @@ else {
 <html lang="en">
   <head>
   <script type="text/javascript">
-    var data = '<?php echo $data; ?>';
+    var data = '<?php echo json_encode($data); ?>';
   </script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
