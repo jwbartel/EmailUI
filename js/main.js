@@ -2,9 +2,8 @@ $(document).ready(function() {
     
     
 	/* Parse all the required data */
-	console.log(testData);
     
-    var emails = objects.inbox;
+    var emails = testData.inbox;
 	$('#instructions').find('p').text(instructions);
 	$('#instructions').modal('toggle');
 
@@ -15,14 +14,15 @@ $(document).ready(function() {
 	
 	var already_predicted = false;
 	var first_click = true;
-	var flat_interface = (predictionInterface === "flat")? true: false;
-    var predictionGroup = new PredictionGroup(objects.predictionGroup);
-	var email_editor_open = false;
+	var flat_interface = (testData.predictionInterface === "flat")? true: false;
+	console.log(testData)
+    var predictionGroup = new PredictionGroup(testData.predictionGroup);
+    var email_editor_open = false;
 	var maxSubjectAndPreviewLength = 150; //I calculated this number after testing the layout
 	
 	/* Create contacts */
-	for (var i = 0; i < objects.contacts.length; i++) {
-        new Contact(objects.contacts[i]);
+	for (var i = 0; i < testData.contacts.length; i++) {
+        new Contact(testData.contacts[i]);
     }
 
     // Append_Emails
@@ -39,7 +39,7 @@ $(document).ready(function() {
                                   <span class="preview"> &nbsp;&ndash;&nbsp;' + preview + '</span>' + '<span class="date">' + email.formattedDate() + '</span>');
         }
     }
-    append_emails(objects.inbox); 
+    append_emails(testData.inbox); 
 	var log_message = function(message) {
  		//console.log(message);
 		session_log += (message + '\n');
@@ -117,8 +117,8 @@ $(document).ready(function() {
 			$('#email_list').attr('class','col-md-4')
 		else
 			$('#email_list').attr('class','col-md-10')
-        emails = objects.sent;
-        append_emails(objects.sent);
+        emails = testData.sent;
+        append_emails(testData.sent);
 		$('#email_list').show();
 	});
     //Open inbox
@@ -132,8 +132,8 @@ $(document).ready(function() {
 		else
 			$('#email_list').attr('class','col-md-10')
         
-        emails = objects.inbox;
-        append_emails(objects.inbox);
+        emails = testData.inbox;
+        append_emails(testData.inbox);
 		$('#email_list').show();
 	});
 
@@ -158,8 +158,8 @@ $(document).ready(function() {
 	/* Autocomplete contacts */
 	$(function() {
         var test = [];
-        for (var i = 0; i < objects.contacts.length; i++) {
-            test.push(objects.contacts[i].name);
+        for (var i = 0; i < testData.contacts.length; i++) {
+            test.push(testData.contacts[i].name);
         }
 
 		$('#to_field').autocomplete({
