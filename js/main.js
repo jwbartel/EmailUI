@@ -1,8 +1,10 @@
 $(document).ready(function() {
     
     
-	/* Parse all the required data */
+    	/* Parse all the required data */
     
+    //var data = jQuery.parseJSON(testData);
+    console.log(testData);
     var emails = testData.inbox;
 	$('#instructions').find('p').text(instructions);
 	$('#instructions').modal('toggle');
