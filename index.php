@@ -16,7 +16,7 @@ else {
 <html lang="en">
   <head>
   <script type="text/javascript">
-    var testData = '<?php echo $data; ?>';
+    var data = '<?php echo $data; ?>';
   </script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">

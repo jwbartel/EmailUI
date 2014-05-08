@@ -3,8 +3,11 @@ $(document).ready(function() {
     
     	/* Parse all the required data */
     
-    //var data = jQuery.parseJSON(testData);
-    console.log(testData);
+    var tests = data.split(";");
+    for (var i = 0; i < tests.length-1;i++) {
+        tests[i] = jQuery.parseJSON(tests[i]);
+    }
+    var testData = tests[1]; //just an example
     var emails = testData.inbox;
 	$('#instructions').find('p').text(instructions);
 	$('#instructions').modal('toggle');
@@ -17,7 +20,6 @@ $(document).ready(function() {
 	var already_predicted = false;
 	var first_click = true;
 	var flat_interface = (testData.predictionInterface === "flat")? true: false;
-	console.log(testData)
     var predictionGroup = new PredictionGroup(testData.predictionGroup);
     var email_editor_open = false;
 	var maxSubjectAndPreviewLength = 150; //I calculated this number after testing the layout
