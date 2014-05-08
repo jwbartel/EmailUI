@@ -1,12 +1,8 @@
 $(document).ready(function() {
     
     
-	/* Initialize the test case */
-		
-	testData = testData.split(";");
-	var instructions = testData[0];
-	var predictionInterface = testData[1];
-	var objects = jQuery.parseJSON(testData[2]);
+	/* Parse all the required data */
+	console.log(testData);
     
     var emails = objects.inbox;
 	$('#instructions').find('p').text(instructions);
