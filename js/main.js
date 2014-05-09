@@ -1,22 +1,14 @@
 $(document).ready(function() {
     
-    
-    	/* Parse all the required data */
-    
-    var tests = data.split(";");
-    for (var i = 0; i < tests.length-1;i++) {
-        tests[i] = jQuery.parseJSON(tests[i]);
-    }
-    var testData = tests[1]; //just an example
+    /* Variables */
+    var testData = jQuery.parseJSON(data);
     var emails = testData.inbox;
-	$('#instructions').find('p').text(instructions);
-	$('#instructions').modal('toggle');
 
-    var save_session_url = 'https://wwwp.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/php/save_session_log.php'
-	var end_session_url = 'https://wwwp.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/php/end_session.php'
-	var session_log = "\n";
+    var save_session_url = 'https://wwwp.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/php/save_session_log.php';
+	var end_session_url = 'https://wwwp.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/php/end_session.php';
+	var submit_test_url = 'https://wwwp.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/php/submit_test.php';
+    var session_log = "\n";
     
-	
 	var already_predicted = false;
 	var first_click = true;
 	var flat_interface = (testData.predictionInterface === "flat")? true: false;
@@ -24,12 +16,21 @@ $(document).ready(function() {
     var email_editor_open = false;
 	var maxSubjectAndPreviewLength = 150; //I calculated this number after testing the layout
 	
+    /* Display test scenario instructions */
+	$('#instructions').find('p').text(testData.instructions);
+	$('#instructions').modal('toggle');
+
 	/* Create contacts */
 	for (var i = 0; i < testData.contacts.length; i++) {
         new Contact(testData.contacts[i]);
     }
-
-    // Append_Emails
+    
+    /* Main logging function. All messages are appended to a string that is sent over to server when the session ends */
+	var log_message = function(message) {
+ 		//console.log(message);
+		session_log += (message + '\n');
+	}
+    
     var append_emails = function(emails) {
         $('.list-group').empty();
         for (var i = 0; i < emails.length; i++) {
@@ -43,14 +44,11 @@ $(document).ready(function() {
                                   <span class="preview"> &nbsp;&ndash;&nbsp;' + preview + '</span>' + '<span class="date">' + email.formattedDate() + '</span>');
         }
     }
+    
     append_emails(testData.inbox); 
-	var log_message = function(message) {
- 		//console.log(message);
-		session_log += (message + '\n');
-	}
     
     var session_start = new Date();
-	log_message('Resumed session on: ' + session_start);
+	log_message('Started Test '+current_test+' on: ' + session_start);
 
 	/* Returns a timestamp of the exact second since the sessions started
 	   For example, if session started at 3:00, this function will return
@@ -65,7 +63,7 @@ $(document).ready(function() {
 		//log_message('Changed content of to_field to ' + contact + ';timestamp: ' + get_timestamp());
 		first_click = false;
     }
-    
+   
     var attachPredictionGroup = function(prediction_group) {
         var groups = prediction_group.subgroups;
         var contacts = prediction_group.contacts;
@@ -161,13 +159,13 @@ $(document).ready(function() {
 
 	/* Autocomplete contacts */
 	$(function() {
-        var test = [];
+        var contacts = [];
         for (var i = 0; i < testData.contacts.length; i++) {
-            test.push(testData.contacts[i].name);
+            contacts.push(testData.contacts[i].name);
         }
 
 		$('#to_field').autocomplete({
-			source:test
+			source:contacts
 		});
 	});
 
@@ -191,7 +189,7 @@ $(document).ready(function() {
     		var sb = new StringBuilder();
     		sb.append('<span class="contact_wrapper wrapper">');
             sb.append('<span class="label label-info">');
-            sb.append('<span class="tracked click">'+ content +'</span>');
+            sb.append('<span class="tracked click to_field_contact_name">'+ content +'</span>');
             sb.append('<span class="glyphicon glyphicon-remove remove tracked click"></span>');
             sb.append('</span>');
             sb.append('</span>');
@@ -257,8 +255,57 @@ $(document).ready(function() {
         //remove contact node from html
         $(this).parent().remove();
     });
-	
-    //Save Session
+    
+    $('#send').on('click', function() {
+        log_message('Ended Test ' + current_test + ' on: ' + new Date());
+        /* Collect the values on the to_field */
+        var contacts_selected = []
+        
+        $('span.to_field_contact_name').each(function() {
+            var contact = Contact.all[$(this).text()]; //get the contact object using the name as a key
+            if (!contact) { //nothing found
+                contact = $(this).text();
+            }
+            contacts_selected.push(contact);
+        });
+        console.log(contacts_selected);
+        
+        $.ajax({
+            type:'POST',
+            async:false,
+            url:submit_test_url,
+            data: {'data':session_log},
+            success: function(data) {
+                var selected = new StringBuilder();
+                var comma = " ";
+                
+                console.log(contacts_selected);
+                console.log(testData.correctSet);
+
+                for (var i = 0; i < contacts_selected.length;i++) {
+                    comma = (i == contacts_selected.length-1)?" ":", ";
+                    selected.append(contacts_selected[i].toString()+comma);
+                }
+                
+                var expected = new StringBuilder();
+                for (var i = 0; i < testData.correctSet.length;i++) {
+                    comma = (i == testData.correctSet.length-1)?" ":", ";
+                    selected.append(testData.correctSet[i].toString()+comma);
+                }
+                
+                /* Display test scenario instructions */
+                $('#results').find('p').text("Selected: " + selected.toString() + "\nExpected: " + expected.toString());
+                $('#results').modal('toggle');
+            }
+        });
+
+     });
+    
+    /* Once the modal is clicked, reload the site  */
+    $('#results').find('button').on('click', function() {
+        window.location.reload(true);
+    });
+
 	$('#save_session').on('click', function() {
         log_message('Session ended on: ' + new Date());
 		$.ajax({
@@ -283,6 +330,7 @@ $(document).ready(function() {
                 }
             });
         }
+        
     });
 
 	//Save session if window is closed

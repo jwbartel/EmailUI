@@ -18,7 +18,9 @@ else {
 <html lang="en">
   <head>
   <script type="text/javascript">
-    var data = '<?php echo json_encode($data); ?>';
+    var data = '<?php echo $data; ?>';
+    var current_test = '<?php echo $_SESSION["current_test"]; ?>' + 1;
+    var current_user = '<?php echo $_SESSION["signature"];?>';
   </script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -44,13 +46,29 @@ else {
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h3 class="modal-title">Module 1</h3>
+                            <h3 class="modal-title">Instructions</h3>
                         </div>
                         <div class="modal-body">
                             <p></p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-primary" data-dismiss="modal">Begin Test</button>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.modal -->
+
+            <div class="modal fade" id="results" role="dialog" tab-index="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title">Result</h3>
+                        </div>
+                        <div class="modal-body">
+                            <p></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Continue</button>
                         </div>
                     </div>
                 </div>

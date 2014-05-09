@@ -25,7 +25,11 @@ var Contact = function(json) {
     this.name = json.name;
     this.emailAddress = json.emailAddress;
 
-    Contact.all[this.emailAddress] = this;
+    Contact.all[this.name] = this;
+}
+
+Contact.prototype.toString = function () {
+    return this.name + "<" + this.emailAddress + ">";
 }
 
 Contact.all = {}; 
