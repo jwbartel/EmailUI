@@ -6,10 +6,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') { //trying to get existing log
 }
 else { //POST request
 	$log_url = "/afs/cs.unc.edu/home/bartel/emailUI_tracking/";
-	$data = $_POST["data"];
+	$submitted_log = $_POST["data"];
 	$log = $_SESSION["log"];
-    $_SESSION["log"] = $log.$data; 
+    $_SESSION["log"] = $log.$submitted_log; 
     $_SESSION["current_test"]++;
+    
+    if ($_SESSION["current_test"] == $_SESSION["number_of_tests"]) {
+		$log_file = $log_url.$_SESSION["id"];
+        $result = file_put_contents($log_file, $_SESSION["log"]);
+		    session_destroy();
+		    header('location: http://wwwp.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/html/thankyou.html');
+    }
 }
 
 ?>

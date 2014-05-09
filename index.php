@@ -9,6 +9,7 @@ if (!isset($_SESSION['id'])) {
 else {
     $data = exec('php php/read_config.php');
     $data = explode(";",$data); //each test case is separated by semi colons
+    $_SESSION["number_of_tests"] = count($data) - 1;
     $data = $data[$_SESSION["current_test"]];
 }
 

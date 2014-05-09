@@ -28,10 +28,6 @@ var Contact = function(json) {
     Contact.all[this.name] = this;
 }
 
-Contact.prototype.toString = function () {
-    return this.name + "<" + this.emailAddress + ">";
-}
-
 Contact.all = {}; 
 
 /* Global index value assigned to every prediction group so it can

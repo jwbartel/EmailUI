@@ -256,6 +256,17 @@ $(document).ready(function() {
         $(this).parent().remove();
     });
     
+    var contactsToString = function(contacts) {
+        var comma = " ";
+        var sb = new StringBuilder();
+        for (var i = 0; i < contacts.length; i++) {
+            comma = (i == contacts.length-1)?" ":", ";
+            sb.append(contacts[i].name + "<" + contacts[i].emailAddress + ">" + comma);
+        }
+
+        return sb.toString();
+    }
+    
     $('#send').on('click', function() {
         log_message('Ended Test ' + current_test + ' on: ' + new Date());
         /* Collect the values on the to_field */
@@ -281,20 +292,11 @@ $(document).ready(function() {
                 
                 console.log(contacts_selected);
                 console.log(testData.correctSet);
-
-                for (var i = 0; i < contacts_selected.length;i++) {
-                    comma = (i == contacts_selected.length-1)?" ":", ";
-                    selected.append(contacts_selected[i].toString()+comma);
-                }
-                
-                var expected = new StringBuilder();
-                for (var i = 0; i < testData.correctSet.length;i++) {
-                    comma = (i == testData.correctSet.length-1)?" ":", ";
-                    selected.append(testData.correctSet[i].toString()+comma);
-                }
+                var selected = contactsToString(contacts_selected);
+                var expected = contactsToString(testData.correctSet);
                 
                 /* Display test scenario instructions */
-                $('#results').find('p').text("Selected: " + selected.toString() + "\nExpected: " + expected.toString());
+                $('#results').find('p').text("Selected: " + selected + "<br>Expected: " + expected);
                 $('#results').modal('toggle');
             }
         });
@@ -305,7 +307,7 @@ $(document).ready(function() {
     $('#results').find('button').on('click', function() {
         window.location.reload(true);
     });
-
+    
 	$('#save_session').on('click', function() {
         log_message('Session ended on: ' + new Date());
 		$.ajax({
@@ -332,7 +334,7 @@ $(document).ready(function() {
         }
         
     });
-
+    
 	//Save session if window is closed
 	$(window).unload(function() {
         log_message('Session paused on: ' + new Date());
