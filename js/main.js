@@ -17,8 +17,8 @@ $(document).ready(function() {
 	var maxSubjectAndPreviewLength = 150; //I calculated this number after testing the layout
 	
     /* Display test scenario instructions */
-	$('#instructions').find('p').text(testData.instructions);
-	$('#instructions').modal('toggle');
+	//$('#instructions').find('p').text(testData.instructions);
+	//$('#instructions').modal('toggle');
 
 	/* Create contacts */
 	for (var i = 0; i < testData.contacts.length; i++) {
@@ -31,22 +31,29 @@ $(document).ready(function() {
 		session_log += (message + '\n');
 	}
     
+	var formattedDate = function(email) {
+		var monthNames = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    	"Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+        
+        var date = new Date(email.dateSent);
+    	return (monthNames[date.getMonth()] + " " + date.getDate());
+	}
+
     var append_emails = function(emails) {
         $('.list-group').empty();
         for (var i = 0; i < emails.length; i++) {
-            var email = new Email(emails[i]);
+            var email = emails[i];
             var subject = email.subject.substring(0,maxSubjectAndPreviewLength);
             var previewSize = (subject.length + 1 >= maxSubjectAndPreviewLength) ? 0: maxSubjectAndPreviewLength - subject.length - 2;
             var preview = email.content.substring(0, previewSize);
 
             $('ul.list-group').append('<li class="list-group-item email tracked click" id="email'+i+'"></li>');
-            $('#email'+i).append('<span class="sender">' + email.sender.name + '</span>  ' + '<span class="subject">' + subject + '</span>\
-                                  <span class="preview"> &nbsp;&ndash;&nbsp;' + preview + '</span>' + '<span class="date">' + email.formattedDate() + '</span>');
+            $('#email'+i).append('<span class="sender">' + email.sender.name + '</span>  ' + '<span class="subject">' + subject + '</span>');
+            $('#email'+i).append('<span class="preview"> &nbsp;&ndash;&nbsp;' + preview + '</span>'); 
+            $('#email'+i).append('<span class="date">' + formattedDate(email) + '</span>');
         }
     }
-    
     append_emails(testData.inbox); 
-    
     var session_start = new Date();
 	log_message('Started Test '+current_test+' on: ' + session_start);
 
@@ -91,7 +98,15 @@ $(document).ready(function() {
         
        
 		$('.panel-title').text(email.subject);
-		$('#email_expanded > .panel-body').append('<strong class="tracked" id="expanded_sender">' + email.sender.name +'</strong>' + '&lt;' + email.sender.emailAddress +'&gt<hr>');
+		$('#email_expanded > .panel-body').append('<strong class="tracked" id="expanded_sender">' + email.sender.name +'</strong>' + '&lt;' + email.sender.emailAddress + '&gt<br>');
+        var sb = new StringBuilder();
+            sb.append('<span class="receivers"> To ');
+            var comma = " ";
+            for (var j = 0; j < email.receivers.length; j++) {
+                comma = (j == email.receivers.length - 1)?" ":", ";
+                sb.append(email.receivers[j].name + comma);
+            }
+        $('#email_expanded > .panel-body').append(sb.toString() + '</span><hr>');
         $('#email_expanded > .panel-body').append('<p class="tracked" id="expanded_content">' + email.content +'</p>');
 		$('#email_expanded_col').show();
 		$('#email_list').hide();

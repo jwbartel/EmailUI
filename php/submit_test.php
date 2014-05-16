@@ -14,8 +14,6 @@ else { //POST request
     if ($_SESSION["current_test"] == $_SESSION["number_of_tests"]) {
 		$log_file = $log_url.$_SESSION["id"];
         $result = file_put_contents($log_file, $_SESSION["log"]);
-		    session_destroy();
-		    header('location: http://wwwp.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/html/thankyou.html');
     }
 }
 
