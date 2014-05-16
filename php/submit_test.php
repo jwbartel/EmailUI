@@ -11,10 +11,6 @@ else { //POST request
     $_SESSION["log"] = $log.$submitted_log; 
     $_SESSION["current_test"]++;
     
-    if ($_SESSION["current_test"] == $_SESSION["number_of_tests"]) {
-		$log_file = $log_url.$_SESSION["id"];
-        $result = file_put_contents($log_file, $_SESSION["log"]);
-    }
 }
 
 ?>
