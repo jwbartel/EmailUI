@@ -76,7 +76,6 @@ else {
                             <h3 class="modal-title">Result</h3>
                         </div>
                         <div class="modal-body">
-                            <p></p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-primary" data-dismiss="modal">Continue</button>

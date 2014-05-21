@@ -2,6 +2,7 @@ $(document).ready(function() {
     
     /* Variables */
     var testData = jQuery.parseJSON(data);
+    console.log(testData);
     var emails = testData.inbox;
 
     var save_session_url = 'https://wwwp.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/php/save_session_log.php';
@@ -17,8 +18,8 @@ $(document).ready(function() {
 	var maxSubjectAndPreviewLength = 150; //I calculated this number after testing the layout
 	
     /* Display test scenario instructions */
-	//$('#instructions').find('p').text(testData.instructions);
-	//$('#instructions').modal('toggle');
+	$('#instructions').find('p').text(testData.instructions);
+    $('#instructions').modal('toggle');
 
 	/* Create contacts */
 	for (var i = 0; i < testData.contacts.length; i++) {
@@ -27,7 +28,7 @@ $(document).ready(function() {
     
     /* Main logging function. All messages are appended to a string that is sent over to server when the session ends */
 	var log_message = function(message) {
- 		//console.log(message);
+ 		console.log(message);
 		session_log += (message + '\n');
 	}
     
@@ -67,7 +68,7 @@ $(document).ready(function() {
 	/* Attach prediction to 'To' field when selected */
     var attachPrediction = function(contact) {
 		wrap_contact(contact) //append email to contents of to_field
-		//log_message('Changed content of to_field to ' + contact + ';timestamp: ' + get_timestamp());
+	
 		first_click = false;
     }
    
@@ -210,7 +211,7 @@ $(document).ready(function() {
             sb.append('</span>');
     		$('#to_field_outer div').append(sb.toString());
     		$('#to_field').val('');
-
+            log_message('Added ' + content + ' to to_field;timestamp: ' + get_timestamp());
             /* Attach predictions */
 			if (!already_predicted) {
 				already_predicted = true;
@@ -220,7 +221,8 @@ $(document).ready(function() {
 	            	$('#predictions').append(predictionGroup.buildFlatInterface());
 	            else
 	            	$('#predictions').append(predictionGroup.buildHierarchicalInterface());
-
+                
+                log_message('Suggested contacts: ' + contactsToString(predictionGroup.contacts));
 				$('#predictions').show();
 			}
     }
@@ -294,7 +296,6 @@ $(document).ready(function() {
             }
             contacts_selected.push(contact);
         });
-        console.log(contacts_selected);
         
         $.ajax({
             type:'POST',
@@ -305,13 +306,12 @@ $(document).ready(function() {
                 var selected = new StringBuilder();
                 var comma = " ";
                 
-                console.log(contacts_selected);
-                console.log(testData.correctSet);
                 var selected = contactsToString(contacts_selected);
                 var expected = contactsToString(testData.correctSet);
                 
                 /* Display test scenario instructions */
-                $('#results').find('p').text("Selected: " + selected + "<br>Expected: " + expected);
+                $('#results').find('.modal-body').append("<strong>Selected</strong>: " + selected);
+                $('#results').find('.modal-body').append("<br><strong>Expected</strong>: " + expected);
                 $('#results').modal('toggle');
             }
         });
