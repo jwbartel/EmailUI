@@ -1,6 +1,5 @@
 package testInterface;
 
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -25,7 +24,7 @@ public class Driver {
 		else if (args[0].equals("read")) 
 			read(file);	
 	}
-	public static void write(String file) {
+	public static void write(String folder) {
 		
 		Properties prop = new Properties();
 		Gson gson = new Gson();
@@ -34,18 +33,15 @@ public class Driver {
 		TestCase t1 = generateTest();
 		
 		try {
-			
-			output = new FileOutputStream(file);
+		
+			output = new FileOutputStream(folder+"/test1");
 			String json = gson.toJson(t1);			
-			String instructions = "For this first test, email your friends that have made it" +
-								  " into the NBA playoffs and wish them good luck! Make sure you message all " +
-								  " of them, but careful about including someone who did not make it to the postseason";
+			prop.setProperty("json", json);
+			prop.store(output, null);
 			
-			
-			prop.setProperty("test_objects", json);
-			prop.setProperty("interface", "flat");
-			prop.setProperty("instructions"	, instructions);
-			
+			output = new FileOutputStream(folder+"/test2");
+			json = gson.toJson(t1);			
+			prop.setProperty("json", json);
 			prop.store(output, null);
 
 		} catch (IOException e) {
@@ -62,20 +58,33 @@ public class Driver {
 		}
 		
 	}
-	
+
 	public static void read(String file) {
 		
 		Properties prop = new Properties();
 		InputStream input = null;
-		
+		String testFolder;
+		String[] testFiles;
 		try {
 			
 			input = new FileInputStream(file);
 			prop.load(input);
-			String json = prop.getProperty("test_objects");
-			String instructions = prop.getProperty("instructions");
-			String ui = prop.getProperty("interface");
-			System.out.println(instructions + ";" + ui +";" + json);
+			String configTests = prop.getProperty("testFiles");
+			testFolder = prop.getProperty("testFolder");
+			testFiles = configTests.split(",");
+			
+			for (int i = 0; i < testFiles.length;i++) {
+				try{
+					input = new FileInputStream(testFolder+ "/" +testFiles[i]);
+					prop.load(input);
+					System.out.print(prop.getProperty("json"));
+					System.out.print(";");
+				}
+				catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -98,6 +107,11 @@ public class Driver {
 		c[1] = new Contact("Kevin Durant", "kd@ock.com");
 		c[2] = new Contact("Carmelo Anthony", "melo@nyk.com");
 		
+		Contact[] correctSet = {c[0],c[1]};
+		
+		String instructions = "For this first test, email your friends that have made it" +
+				  " into the NBA playoffs and wish them good luck! Make sure you message all " +
+				  " of them, but careful about including someone who did not make it to the postseason";
 		Contact[] self = {new Contact("Eliezer Encarnacion", "encarnae@live.unc.edu")};
 		
 		PredictionGroup group = new PredictionGroup(c, null); //flat list
@@ -113,13 +127,13 @@ public class Driver {
 		sentMessages[0] = new Email(self[0], c, dateSent, subject, content);
  		
 		subject = "RE: Wanna play basketball today?";
- 		content = "Eli, I'd love to but I have to get ready for the postseason!";
+ 		content = "Hey, I'd love to but I have to get ready for the postseason!";
  		inbox[0] = new Email(c[0], self, dateSent, subject, content);
  		
  		content = "Hey man, I'll be flying to Memphis for the playoffs, sorry!";
  		inbox[1] = new Email(c[1], self, dateSent, subject, content);
-		
-		TestCase t = new TestCase(inbox, sentMessages, c,group);
+
+		TestCase t = new TestCase(inbox, sentMessages, c,group, "flat", instructions, correctSet);
 		
 		return t;
 		
