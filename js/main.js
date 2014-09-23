@@ -5,9 +5,9 @@ $(document).ready(function() {
     console.log(testData);
     var emails = testData.inbox;
 
-    var save_session_url = 'https://wwwp.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/php/save_session_log.php';
-	var end_session_url = 'https://wwwp.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/php/end_session.php';
-	var submit_test_url = 'https://wwwp.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/php/submit_test.php';
+    var save_session_url = '../php/save_session_log.php';
+	var end_session_url = '../php/end_session.php';
+	var submit_test_url = '../php/submit_test.php';
     var session_log = "\n";
     
 	var already_predicted = false;

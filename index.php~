@@ -16,7 +16,7 @@ else {
 		$log_file = $log_url.$_SESSION["id"];
         $result = file_put_contents($log_file, $_SESSION["log"]);
         session_destroy();
-        header("Location: html/thankyou.html");
+        header("Location: https://wwwp.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/html/thankyou.html");
     }
 
     else
@@ -144,7 +144,7 @@ else {
     <script src="libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
     <script src="libs/Bootstrap/js/bootstrap.min.js"></script>
 
-	<script src="js/objects.js"></script>
+	<script src="js/email.js"></script>
 	<script src="js/main.js"></script>
 
 </body>
