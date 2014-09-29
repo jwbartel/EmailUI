@@ -144,7 +144,7 @@ else {
     <script src="libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
     <script src="libs/Bootstrap/js/bootstrap.min.js"></script>
 
-	<script src="js/email.js"></script>
+	<script src="js/objects.js"></script>
 	<script src="js/main.js"></script>
 
 </body>
