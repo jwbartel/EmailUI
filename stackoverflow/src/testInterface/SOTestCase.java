@@ -6,11 +6,17 @@ public class SOTestCase {
 	private SOQuestion[] questions;
 	private String[] tags;
 	private String instructions;
+	private int[] tagTimes;
 	
-	public SOTestCase(SOQuestion[] questions, String[] tags, String instructions) {
+	public SOTestCase(SOQuestion[] questions, String[] tags, int[] tagTimes, String instructions) {
 		this.questions = questions;
 		this.tags = tags;
 		this.instructions = instructions;
+		this.tagTimes = tagTimes;
+	}
+	
+	public int[] getTagTimes() {
+		return tagTimes;
 	}
 	public SOQuestion[] getQuestions() {
 		return questions;

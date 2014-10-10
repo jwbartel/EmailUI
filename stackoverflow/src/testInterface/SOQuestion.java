@@ -10,7 +10,8 @@ public class SOQuestion {
 	private String bodyText;
 	private String title;
 	private String[] tags;
-	public SOQuestion(Contact poster, SOAnswer[] answers, Date date, String title, String bodyText, String[] tags) {
+	private int score;
+	public SOQuestion(Contact poster, SOAnswer[] answers, Date date, String title, String bodyText, String[] tags, int score) {
 		super();
 		this.poster = poster;
 		this.answers = answers;
@@ -18,6 +19,10 @@ public class SOQuestion {
 		this.bodyText = bodyText;
 		this.title = title;
 		this.tags = tags;
+		this.score = score;
+	}
+	public int getScore() {
+		return score;
 	}
 	public Contact getPoster() {
 		return poster;
@@ -41,7 +46,7 @@ public class SOQuestion {
 	public String toString() {
 		return "{poster:" + poster + ", answers:"
 				+ Arrays.toString(answers) + ", date:" + date
-				+ ", bodyText:" + bodyText + ", title:" + title + ", tags:" + Arrays.toString(tags) + "}";
+				+ ", bodyText:" + bodyText + ", title:" + title + ", tags:" + Arrays.toString(tags) + ", score:" + score + "}";
 	}
 	
 	

@@ -105,7 +105,6 @@ public class Driver {
 	
 	public static SOTestCase generateTest() {
 		int numQuestions = 2;
-		//sc
 		String[] tagSet = {"java",
 						"php",
 						"javascript",
@@ -122,7 +121,23 @@ public class Driver {
 						"prolog",
 						"SAS",
 						"R"};
-		//ec
+		
+		int[] tagTimeSet = {1,
+							1,
+							3,
+							3,
+							2,
+							2,
+							4,
+							5,
+							4,
+							2,
+							1,
+							18,
+							100,
+							34,
+							56};
+
 		Random r = new Random();
 		
 		Contact[] posters = new Contact[numQuestions];
@@ -152,17 +167,19 @@ public class Driver {
 		responders[4] = new Contact("Mark Zuckerberg", "mark.zuckerberg@facebook.com");
 		
 		SOAnswer[][] answerSet = new SOAnswer[numQuestions][];
-		answerSet[0] = new SOAnswer[2];
+		answerSet[0] = new SOAnswer[3];
 		answerSet[1] = new SOAnswer[1];
-		answerSet[0][0] = new SOAnswer("Just add me as a friend and I'll give you the answer.", responders[4], 14, new Date(2014, 5, 22));
-		answerSet[0][1] = new SOAnswer("iMessage me at 555-123-456", responders[0], 20, new Date(2014, 8, 12));
-		answerSet[1][0] = new SOAnswer("+1 me and then we'll talk.", responders[2], 23, new Date(2013, 2, 28));
+		answerSet[0][0] = new SOAnswer("Just add me as a friend and I'll give you the answer.", responders[4], 14, new Date(1072915260L + (long) (Math.random() * (new Date().getTime() - 1072915260L))));
+		answerSet[0][1] = new SOAnswer("iMessage me at 555-123-456", responders[0], 20, new Date(1072915260L + (long) (Math.random() * (new Date().getTime() - 1072915260L))));
+		answerSet[0][2] = new SOAnswer("Try running `man array`.", responders[1], 2, new Date(1072915260L + (long) (Math.random() * (new Date().getTime() - 1072915260L))));
+		answerSet[1][0] = new SOAnswer("+1 me and then we'll talk.", responders[2], 23, new Date(1072915260L + (long) (Math.random() * (new Date().getTime() - 1072915260L))));
 		
 		
 		
 		SOQuestion[] questions = new SOQuestion[numQuestions];
 		for(int i = 0; i < numQuestions; i++) {
-			questions[i] = new SOQuestion(posters[i], answerSet[i], new Date(r.nextLong()), titles[i], bodyTexts[i], tags[i]);
+			long generatedLong = 1072915260L + (long) (Math.random() * (new Date().getTime() - 1072915260L));
+			questions[i] = new SOQuestion(posters[i], answerSet[i], new Date(generatedLong), titles[i], bodyTexts[i], tags[i], r.nextInt(50));
 		}
 		
 		
@@ -170,7 +187,7 @@ public class Driver {
 		
 		
 		String instructions = "I don't know what I should put here so this is just place holder text.";
-		SOTestCase testCase = new SOTestCase(questions, tagSet, instructions);
+		SOTestCase testCase = new SOTestCase(questions, tagSet, tagTimeSet, instructions);
 		
 		return testCase;
 		

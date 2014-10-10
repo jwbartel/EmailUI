@@ -24,8 +24,8 @@ StringBuilder.prototype.toString = function () {
 var Contact = function(json) {
     this.name = json.name;
     this.emailAddress = json.emailAddress;
-    this.username = json.username;
-    Contact.all[this.username] = this;
+
+    Contact.all[this.name] = this;
 }
 
 Contact.all = {}; 
@@ -94,8 +94,8 @@ var PredictionGroup = function(json) {
 }
 PredictionGroup.all = new Array();
 
-var Question = function(json) {
-	this.poster = json.poster;
+var Email = function(json) {
+	this.sender = json.sender;
     this.receivers = new Array();   
     
     for (var i = 0; i < json.receivers.length; i++) {
