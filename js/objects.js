@@ -32,11 +32,13 @@ Contact.all = {};
 
 /* Global index value assigned to every prediction group so it can
  * be easily indexed out of the 'all' array */
-var index = 0;
+//var colors = new Array();
 
+var index = 0;
+var colors = new Array("#4D4D4D","#9933FF","#FF0000", "#00CC66", "#CC9900");
 var PredictionGroup = function(json) {
     this.contacts = json.contacts;
-    this.subgroups = new Array();
+    this.subgroups = json.subgroups;
     var deleted = false; //a flag used to do lazy deletion
     this.index = index;
 
@@ -66,26 +68,45 @@ var PredictionGroup = function(json) {
         return sb.toString();
     }
 
-    this.buildHierarchicalInterface = function() {
+    this.buildHierarchicalInterface = function(recur) {
         var sb = new StringBuilder();
+		var parencolor = colors[this.index];
         //Each parenthesis will have a class name group<id> for easy selection on jQuery
-        sb.append('<a href="#" class="prediction_group tracked click group'+this.index+'" data-group_id="'+this.index+'"> ( </a>');
+        sb.append('<a href="#" class="prediction_group tracked click group'+this.index+'" data-group_id="'+this.index+'" style="color:'+parencolor+';font-weight:bold"> [ </a>');
         
         for (var i = 0; i < this.subgroups.length; i++) {
-            sb.append(this.subgroups[i].buildHierarchicalInterface());
+			var sg = new PredictionGroup(this.subgroups[i]);
+            //sb.append(this.subgroups[i].buildHierarchicalInterface());
+			var sgstr = sg.buildHierarchicalInterface(this.index);
+			sb.append(sgstr);
         }
 
         for (var j = 0; j < this.contacts.length; j++) {
             var c = this.contacts[j];
-            sb.append('<span class="prediction_wrapper wrapper">')
-            sb.append('<a href="#"><span class="label label-info">');
-            sb.append('<span class="prediction tracked click" id="'+c.email+'">'+c.name+'</span>');
-            sb.append('<span class="glyphicon glyphicon-remove remove tracked click" data-group_id="'+this.index+'" data-contact_id="'+j+'"></span>');
-            sb.append('</span></a>');
-            sb.append('</span>&nbsp;');
+            //sb.append('<span class="prediction_wrapper wrapper">')
+            //sb.append('<a href="#"><span class="label label-info">');
+            //sb.append('<span class="prediction tracked click" id="'+c.email+'">'+c.name+'</span>');
+            //sb.append('<span class="glyphicon glyphicon-remove remove tracked click" data-group_id="'+this.index+'" data-contact_id="'+j+'"></span>');
+            //sb.append('</span></a>');
+            //sb.append('</span>&nbsp;');
+			//data-group_id='
+			sb.append('<a href="#" class="prediction tracked click" id="');
+			//for(var k = this.index; k>-1; k--){
+				//sb.append(''+k+' ');
+				//}
+			if(recur==-1){
+				sb.append('0 ');
+				}
+			else if(recur==0){
+				sb.append('0 '+this.index+' ');
+				}
+			else{
+				sb.append('0 '+recur+' '+this.index+'');
+				}
+			sb.append(''+c.emailAddress+'"  class="prediction tracked click" >'+c.name+'</a>&nbsp');
         }
 
-        sb.append('<a href="#" class="prediction_group tracked click group'+this.index+'" data-group_id="'+this.index+'"> ) </a>');
+        sb.append('<a href="#" class="prediction_group tracked click group'+this.index+'" data-group_id="'+this.index+'" style="color:'+parencolor+';font-weight:bold">] </a>');
         return sb.toString();
     }
 

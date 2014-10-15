@@ -16,6 +16,7 @@ $(document).ready(function() {
     var predictionGroup = new PredictionGroup(testData.predictionGroup);
     var email_editor_open = false;
 	var maxSubjectAndPreviewLength = 150; //I calculated this number after testing the layout
+	var colors = new Array("#4D4D4D","#9933FF","#FF0000", "#00CC66", "#CC9900");
 	
     /* Display test scenario instructions */
 	$('#instructions').find('p').text(testData.instructions);
@@ -220,7 +221,7 @@ $(document).ready(function() {
 	            if (flat_interface)
 	            	$('#predictions').append(predictionGroup.buildFlatInterface());
 	            else
-	            	$('#predictions').append(predictionGroup.buildHierarchicalInterface());
+	            	$('#predictions').append(predictionGroup.buildHierarchicalInterface(-1));
                 
                 log_message('Suggested contacts: ' + contactsToString(predictionGroup.contacts));
 				$('#predictions').show();
@@ -242,14 +243,29 @@ $(document).ready(function() {
 
     $(document).on('mouseenter','.prediction_group', function() {
         var id = $(this).data('group_id');
+		var index = parseInt(id);
         $('.group'+id).css('color','#FF9966');
+		//var a = PredictionGroup.all[index]
+		//a.css('color','#FF9966');
+		//$("#predictions").find
+		$("a:visible[id*=" + index + "]").css("color",'#FF9966');
     });
 
     $(document).on('mouseleave','.prediction_group', function() {
         var id = $(this).data('group_id');
-        $('.group'+id).css('color','#428bca');
+		var index = parseInt(id);
+        //$('.group'+id).css('color','#428bca');
+		$('.group'+id).css('color',''+colors[id]+'');
+		$("a:visible[id*=" + index + "]").css("color","#428BCA");
     });
-
+	
+	$(document).on('mouseenter','.prediction', function() {
+        $(this).css("color",'#FF9966');
+    });
+	
+	$(document).on('mouseleave','.prediction', function() {
+        $(this).css("color","#428BCA");
+    });
     
 	$(document).on('click','.prediction', function() {
         var name = $(this).text();
