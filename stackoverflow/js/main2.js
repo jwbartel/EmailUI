@@ -1,13 +1,13 @@
 $(document).ready(function() {
     
     /* Variables */
-    var testData = jQuery.parseJSON(data);
+    testData = jQuery.parseJSON(data);
     console.log(testData);
     window.questions = testData.questions;
     console.log(questions);
-    var allTags = testData.tags;
+    allTags = testData.tags;
     var instructions = testData.instructions;
-    var tagTimes = testData.tagTimes;
+    tagTimes = testData.tagTimes;
 
     var save_session_url = '../php/save_session_log.php';
 	var end_session_url = '../php/end_session.php';
@@ -47,19 +47,16 @@ $(document).ready(function() {
 		return ((new Date().getTime()) - session_start.getTime())/1000;
 	}
 
-    /* Populate question list */
-    for(var questionNumber = 0; questionNumber < questions.length; questionNumber++) {
-        var currQuestion = questions[questionNumber];
-        var posterName = currQuestion.poster.name;
-        var timePosted = relativeDate(currQuestion.date);
-        var title = currQuestion.title;
-        var tags = currQuestion.tags;
-        var numAnswers = currQuestion.answers.length;
-        var score = currQuestion.score;
+    function makeQuestionListingString(score, numAnswers, questionNumber, title, tags, posterName, timePosted) {
         var tagString = "";
+        var currTimes = [];
         for(var tag = 0; tag < tags.length; tag++) {
-            tagString += '<span class="tag">' + tags[tag] + '</span>';
+            tagString += '<span class="tag" data-tagTime="' + tagTimes[allTags.indexOf(tags[tag])] + '">' + tags[tag] + '</span>';
+            currTimes.push(tagTimes[allTags.indexOf(tags[tag])]);
         }
+
+        questionTime = calculateQuestionTime(currTimes);
+
         var questionItem = ['<table class="questionLayout" cellpadding="10">',
                             '<tr>',
                                 '<td rowspan="4">',
@@ -80,7 +77,8 @@ $(document).ready(function() {
                             '<tr>',
                                 '<td>',
                                     '<div class="tags">',
-                                        tagString,                                         
+                                        tagString,
+                                        '<span class="questionTime">Estimated time: ' + questionTime,                                         
                                     '</div>',
                                 '</td>',
 
@@ -90,23 +88,19 @@ $(document).ready(function() {
                             '</tr>',
 
                     '</table>'].join('\n');
-
-        $("#questionList").append(questionItem);
+        return questionItem;
     }
 
-    function populatePost(postNumber) {
-        var currQuestion = questions[postNumber];
-        var title = currQuestion.title;
-        var postScore = currQuestion.score;
-        var tags = currQuestion.tags;
-        var timePosted = relativeDate(currQuestion.date);
-        var posterName = currQuestion.poster.name;
-        var postBodyText = currQuestion.bodyText;
-        var tagString = "";
-        var numAnswers = currQuestion.answers.length;
+    function makeQuestionDetailString(title, postScore, postBodyText, tags, timePosted, posterName, numAnswers) {
+        var tagString = '';
+        var currTimes = [];
+
         for(var tag = 0; tag < tags.length; tag++) {
-            tagString += '<span class="tag">' + tags[tag] + '</span>';
+            tagString += '<span class="tag" data-tagTime="' + tagTimes[allTags.indexOf(tags[tag])] + '">' + tags[tag] + '</span>';
+            currTimes.push(tagTimes[allTags.indexOf(tags[tag])]);
         }
+
+        questionTime = calculateQuestionTime(currTimes);
 
         var postString = ['<table class="questionDetailTable">',
             '<tr>',
@@ -134,6 +128,7 @@ $(document).ready(function() {
                 '<td>',
                     '<div class="detailTags">',
                         tagString,
+                        '<span class="questionTime">Estimated time: ' + questionTime,
                     '</div>',
                 '</td>',
                 '<td>',
@@ -146,15 +141,12 @@ $(document).ready(function() {
          '</table>',
          '<div class="numAnswersDisplay">' + numAnswers + ' ' + ((numAnswers == 1) ? 'answer' : 'answers') + '</div>',
          '<hr class="emphasisDivider">'].join('\n');
-    
-         var answersString = '';
-         for(var answer = 0; answer < numAnswers; answer++) {
-            var currAnswer = currQuestion.answers[answer];
-            var answerBodyText = currAnswer.bodyText;
-            var answerPosterName = currAnswer.poster.name;
-            var answerScore = currAnswer.score;
-            var answerDatePosted = relativeDate(currAnswer.date);
-            answersString += ['<table class="answersTable">',
+
+         return postString;
+    }
+
+    function makeAnswerString(answerScore, answerBodyText, answerDatePosted, answerPosterName) {
+        answersString = ['<table class="answersTable">',
                 '<tr class="answerContent">',
                     '<td valign="top" align="left" class="answerVotingCell">',
                     //'<td colspan="4" valign="top">',
@@ -182,37 +174,188 @@ $(document).ready(function() {
                 '</tr>',
              '</table>',
              '<hr class="spacer">'].join("\n");
-         }
-        
-        $("#questionDetailArea").html(postString + "\n" + answersString);
 
+        return answersString;
     }
 
-    $(".titleLink").click(function() {
-        var postNumber = $(this).attr("data-questionNumber");
-        populatePost(postNumber);
-        $("#backButton").css("display", "block");
-        $("#questionListArea").animate({
-            marginLeft: "-125%"
-        }, 250);
-
-        $("#questionDetailArea").animate({
-            marginLeft: "25%"
-        }, 250);
-    });
-
-    $("#backButton").click(function() {
-        $("#questionDetailArea").animate({
-            marginLeft: "175%"
-        }, 250);
-        $("#backButton").css("display", "none");
-        $("#questionListArea").animate({
-            marginLeft: "25%"
-        }, 250, function() {
+    /* Populate question list */
+    function populateQuestionList() {
+        console.log(questions);
+        $("#questionList").html("");
+        for(var questionNumber = 0; questionNumber < questions.length; questionNumber++) {
+            var currQuestion = questions[questionNumber];
+            var posterName = currQuestion.poster.name;
+            var timePosted = relativeDate(currQuestion.date);
+            var title = currQuestion.title;
+            var tags = currQuestion.tags;
+            var numAnswers = currQuestion.answers.length;
+            var score = currQuestion.score;
+            var tagString = "";
+            var currTimes = [];
+            var questionTime = 0;
             
+            questionItem = makeQuestionListingString(score, numAnswers, questionNumber, title, tags, posterName, timePosted);
+
+            $("#questionList").append(questionItem);
+        }
+        updateTooltips();
+        initTitles();
+    }
+    populateQuestionList();
+    function populatePost(postNumber) {
+        var currQuestion = questions[postNumber];
+        var title = currQuestion.title;
+        var postScore = currQuestion.score;
+        var tags = currQuestion.tags;
+        var timePosted = relativeDate(currQuestion.date);
+        var posterName = currQuestion.poster.name;
+        var postBodyText = currQuestion.bodyText;
+        var tagString = "";
+        var numAnswers = currQuestion.answers.length;
+        var currTimes = [];
+        var questionTime = 0;
+        
+        
+
+        postString = makeQuestionDetailString(title, postScore, postBodyText, tags, timePosted, posterName, numAnswers);
+        
+    
+         var answersString = '';
+         for(var answer = 0; answer < numAnswers; answer++) {
+            var currAnswer = currQuestion.answers[answer];
+            var answerBodyText = currAnswer.bodyText;
+            var answerPosterName = currAnswer.poster.name;
+            var answerScore = currAnswer.score;
+            var answerDatePosted = relativeDate(currAnswer.date);
+            answersString += makeAnswerString(answerScore, answerBodyText, answerDatePosted, answerPosterName);
+         }
+        
+        $("#mainDetailArea").html(postString + "\n" + answersString);
+        updateTooltips();
+
+    }
+    function initTitles() {
+        $(".titleLink").click(function() {
+            var postNumber = $(this).attr("data-questionNumber");
+            populatePost(postNumber);
+            $("#backButton").css("display", "block");
+            $("#questionListArea").animate({
+                marginLeft: "-125%"
+            }, 250);
+
+            $("#newQuestionButton").animate({
+                left: "-125%"
+            }, 250);
+
+            $("#questionDetailArea").animate({
+                marginLeft: "25%"
+            }, 250);
+
+            $("#newAnswerButton").animate({
+                left: "75%"
+            }, 250);
+            console.log("clicked");
         });
+    
+
+        $("#backButton").click(function() {
+            $("#questionDetailArea").animate({
+                marginLeft: "175%"
+            }, 250);
+
+            $("#newAnswerButton").animate({
+                left: "195%"
+            }, 250);
+
+            $("#backButton").css("display", "none");
+            $("#questionListArea").animate({
+                marginLeft: "25%"
+            }, 250);
+            $("#newQuestionButton").animate({
+                left: "75%"
+            }, 250);
+
+        });
+    }
+
+    function updateTooltips() {
+        $(".tag").each(function(){
+            $(this).qtip({
+                content: {
+                    text: '<strong>' + $(this).attr('data-tagTime') + ' minutes</strong>',
+                    title: '<strong>Expected Time</strong>'
+                },
+                style: {
+                    classes: 'qtip-bootstrap qtip-rounded'
+                },
+                position: {
+                    my: 'bottom center',
+                    at: 'top center',
+                    target: $(this)
+                }
+            });
+
+        });
+    }
+
+    function calculateQuestionTime(data) {
+        min = Math.min.apply(Math, data);
+        if(min ==  NaN || min == undefined) {
+            return "N/A";
+        } else {
+            return Math.min.apply(Math, data);
+        }
+    }
+
+    function newPostPopupUpdateTime(event, ui) {
+        enteredTags = $("#postTagsField").tagit("assignedTags");
+        var estimate;
+        times = [];
+        if(enteredTags.length == 0) {
+            estimate = 'N/A';
+        } else {
+            for(var i = 0; i < enteredTags.length; i++) {
+                tagTime = tagTimes[allTags.indexOf(enteredTags[i])];
+                if(tagTime != undefined) {
+                    times.push(tagTime);
+                }
+                
+            }
+            time = calculateQuestionTime(times);
+            if(time == Infinity) {
+                estimate = 'N/A';
+            } else {
+                estimate = time + ((time == 1) ? ' minute' : ' minutes');
+            }
+            
+        }
+        $("#newQuestionPopupEstimatedTime").text(estimate );
+    }
+
+    $("#newQuestionButton").magnificPopup({
+        type: 'inline',
+        midClick: true,
+        callbacks: {
+            afterClose: function() {
+                $("#postTagsField").tagit("removeAll");
+                $("#postTitleField, #postBodyField").val("");
+            }
+        }
     });
 
+    $("#postTagsField").tagit({
+        availableTags: allTags,
+        afterTagAdded: newPostPopupUpdateTime,
+        afterTagRemoved: newPostPopupUpdateTime,
+        tagLimit: 5
+    });
+
+    $("#newQuestionSubmitButton").click(function() {
+        console.log("clicked");
+        testData.questions.push({answers: [], bodyText: $("#postBodyField").val(), date: new Date(), poster: {emailAddress: "test@you.com", name: "You"}, score: 0, tags: $("#postTagsField").tagit("assignedTags"), title: $("#postTitleField").val()});
+        window.questions = testData.questions;
+        populateQuestionList();
+    });
 
 	/* Tracking functions */
 	$(document).on('mouseenter', '.tracked', function() {

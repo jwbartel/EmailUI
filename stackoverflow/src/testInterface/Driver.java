@@ -120,7 +120,25 @@ public class Driver {
 						"assembly",
 						"prolog",
 						"SAS",
-						"R"};
+						"R",
+						"OOP",
+						"hadoop",
+						"inheritance",
+						"memory",
+						"c#",
+						"android",
+						"jquery",
+						"ios",
+						"mysql",
+						"objective-c",
+						"iphone",
+						".net",
+						"ruby-on-rails",
+						"ruby",
+						"sql-server",
+						"ajax",
+						"xml",
+						"bash"};
 		
 		int[] tagTimeSet = {1,
 							1,
@@ -136,7 +154,26 @@ public class Driver {
 							18,
 							100,
 							34,
-							56};
+							56,
+							29,
+							23,
+							53,
+							18,
+							99,
+							12,
+							5,
+							9,
+							10,
+							84,
+							35,
+							201,
+							88,
+							29,
+							46,
+							64,
+							92,
+							13,
+							43};
 
 		Random r = new Random();
 		
@@ -153,11 +190,11 @@ public class Driver {
 		String[][] tags = new String[numQuestions][];
 		tags[0] = new String[2];
 		tags[1] = new String[3];
-		tags[0][0] = tagSet[r.nextInt(15)];
-		tags[0][1] = tagSet[r.nextInt(15)];
-		tags[1][0] = tagSet[r.nextInt(15)];
-		tags[1][1] = tagSet[r.nextInt(15)];
-		tags[1][2] = tagSet[r.nextInt(15)];
+		tags[0][0] = tagSet[r.nextInt(tagSet.length)];
+		tags[0][1] = tagSet[r.nextInt(tagSet.length)];
+		tags[1][0] = tagSet[r.nextInt(tagSet.length)];
+		tags[1][1] = tagSet[r.nextInt(tagSet.length)];
+		tags[1][2] = tagSet[r.nextInt(tagSet.length)];
 		
 		Contact[] responders = new Contact[5];
 		responders[0] = new Contact("Tim Cook", "tim.cook@apple.com");

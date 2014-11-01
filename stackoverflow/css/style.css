@@ -70,6 +70,7 @@ h2 {
 
 .questionLayout {
 	border-padding: 10px 10px;
+	width: 100%;
 }
 
 
@@ -113,6 +114,7 @@ h2 {
 
 .postInfo {
 	margin-bottom: 20px;
+	text-align: right;
 }
 
 
@@ -252,7 +254,7 @@ hr {
 	width: 10em;
 	font-size: 1.5em;
 	cursor: pointer;
-	position: absolute;
+	position: fixed;
 	padding: 5px 10px;
 }
 
@@ -274,4 +276,43 @@ hr {
 	color: #fff;
 	background-color: #fff;
 	height: 4px;
+}
+
+#newQuestionButton {
+	border: 3px solid #bbd5e7;
+	font-size: 2em;
+	font-weight: bold;
+	padding: 5px 10px;
+	position: fixed;
+	left: 75%;
+	top: 25%;
+	cursor: pointer;
+}
+
+#newAnswerButton {
+	border: 3px solid #bbd5e7;
+	font-size: 2em;
+	font-weight: bold;
+	padding: 5px 10px;
+	position: fixed;
+	left: 195%;
+	top: 25%;
+	cursor: pointer;
+}
+
+#newQuestionButton:hover, #newAnswerButton:hover {
+	background-color: #bbd5e7;
+}
+
+.white-popup {
+  position: relative;
+  background: #FFF;
+  padding: 20px;
+  width: auto;
+  max-width: 500px;
+  margin: 20px auto;
+}
+
+.tagit-autocomplete {
+	z-index: 100000;
 }
