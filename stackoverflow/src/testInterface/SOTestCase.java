@@ -7,12 +7,14 @@ public class SOTestCase {
 	private String[] tags;
 	private String instructions;
 	private int[] tagTimes;
+	private String algorithm;
 	
-	public SOTestCase(SOQuestion[] questions, String[] tags, int[] tagTimes, String instructions) {
+	public SOTestCase(SOQuestion[] questions, String[] tags, int[] tagTimes, String instructions, String algorithm) {
 		this.questions = questions;
 		this.tags = tags;
 		this.instructions = instructions;
 		this.tagTimes = tagTimes;
+		this.algorithm = algorithm;
 	}
 	
 	public int[] getTagTimes() {

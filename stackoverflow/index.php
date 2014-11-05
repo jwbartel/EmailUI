@@ -58,6 +58,7 @@ else {
     <div id="header">
             <div id="backButton">&#10094; Go back to list</div>
             <h1 id="title">Question Board</h1>
+            <div id="settingsIcon" href="#settingsPopup"></div>
     </div>
     <div id="questionListArea">
         
@@ -85,20 +86,30 @@ else {
     <div id="newQuestionPopup"  class="mfp-hide white-popup">
         <form class="pure-form pure-form-stacked">
             <fieldset>
-                <label for="title">Post title: </label>
-                <input type="text" name="title" id="postTitleField" placeholder="Post title" />
-                <br />
-                <label for="body">Post body: </label>
-                <textarea rows="5" cols="50" name="body" id="postBodyField" placeholder="Post body"></textarea>
-                <br>
-                <label for="tags">Tags: </label>
-                <ul id="postTagsField">
-
-                </ul>
+                    <label for="title">Post title: </label>
+                    <input type="text" name="title" id="postTitleField" placeholder="Post title" />
+                    <label for="body">Post body: </label>
+                    <textarea rows="5" cols="50" name="body" id="postBodyField" placeholder="Post body"></textarea>
+                
+                    <label for="tags" id="tags-label">Tags: </label>
+                    <ul id="postTagsField"></ul>
                 <strong>Estimated response time: </strong><span id="newQuestionPopupEstimatedTime">N/A</span>
                 <br><br>
                 <button type="button" id="newQuestionSubmitButton" class="pure-button pure-button-primary">Submit</button>
             </fieldset>
+        </form>
+    </div>
+
+    <div id="settingsPopup" class="mfp-hide white-popup">
+        <form class="pure-form pure-form-aligned">
+            <label for="algorithmDropdown">Algorithm: </label>
+            <select name="algorithmDropdown" id="algorithmDropdown">
+                <option value="minimum">Minimum</option>
+                <option value="average">Average</option>
+                <option value="maximum">Maximum</option>
+            </select>
+            <br><br>
+            <button type="button" id="changeAlgorithmButton" class="pure-button pure-button-primary">Set Prediction Algorithm</button>
         </form>
     </div>
 

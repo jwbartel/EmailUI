@@ -224,7 +224,8 @@ public class Driver {
 		
 		
 		String instructions = "I don't know what I should put here so this is just place holder text.";
-		SOTestCase testCase = new SOTestCase(questions, tagSet, tagTimeSet, instructions);
+		String algorithm = "minimum";
+		SOTestCase testCase = new SOTestCase(questions, tagSet, tagTimeSet, instructions, algorithm);
 		
 		return testCase;
 		

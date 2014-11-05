@@ -309,10 +309,23 @@ hr {
   background: #FFF;
   padding: 20px;
   width: auto;
-  max-width: 500px;
+  max-width: 750px;
   margin: 20px auto;
 }
 
 .tagit-autocomplete {
 	z-index: 100000;
+}
+
+#settingsIcon {
+	background-image: url("../img/gear-light.png");
+	height: 47px;
+	width: 47px;
+	position: fixed;
+	top: 0;
+	right: 0;
+}
+
+#settingsIcon:hover {
+	background-image: url("../img/gear.png");
 }

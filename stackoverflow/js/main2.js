@@ -8,12 +8,11 @@ $(document).ready(function() {
     allTags = testData.tags;
     var instructions = testData.instructions;
     tagTimes = testData.tagTimes;
-
     var save_session_url = '../php/save_session_log.php';
 	var end_session_url = '../php/end_session.php';
 	var submit_test_url = '../php/submit_test.php';
     var session_log = "\n";
-    
+    $("#algorithmDropdown").val(testData.algorithm);
 		
     /* Display test scenario instructions */
 	/*$('#instructions').find('p').text(instructions);
@@ -55,7 +54,7 @@ $(document).ready(function() {
             currTimes.push(tagTimes[allTags.indexOf(tags[tag])]);
         }
 
-        questionTime = calculateQuestionTime(currTimes);
+        questionTime = calculateQuestionTime(tags, currTimes);
 
         var questionItem = ['<table class="questionLayout" cellpadding="10">',
                             '<tr>',
@@ -100,7 +99,7 @@ $(document).ready(function() {
             currTimes.push(tagTimes[allTags.indexOf(tags[tag])]);
         }
 
-        questionTime = calculateQuestionTime(currTimes);
+        questionTime = calculateQuestionTime(tags, currTimes);
 
         var postString = ['<table class="questionDetailTable">',
             '<tr>',
@@ -200,6 +199,7 @@ $(document).ready(function() {
         }
         updateTooltips();
         initTitles();
+        console.log("repopulated");
     }
     populateQuestionList();
     function populatePost(postNumber) {
@@ -298,14 +298,7 @@ $(document).ready(function() {
         });
     }
 
-    function calculateQuestionTime(data) {
-        min = Math.min.apply(Math, data);
-        if(min ==  NaN || min == undefined) {
-            return "N/A";
-        } else {
-            return Math.min.apply(Math, data);
-        }
-    }
+    
 
     function newPostPopupUpdateTime(event, ui) {
         enteredTags = $("#postTagsField").tagit("assignedTags");
@@ -321,7 +314,7 @@ $(document).ready(function() {
                 }
                 
             }
-            time = calculateQuestionTime(times);
+            time = calculateQuestionTime(enteredTags, times);
             if(time == Infinity) {
                 estimate = 'N/A';
             } else {
@@ -343,6 +336,11 @@ $(document).ready(function() {
         }
     });
 
+    $("#settingsIcon").magnificPopup({
+        type: 'inline',
+        midClick: true
+    });
+
     $("#postTagsField").tagit({
         availableTags: allTags,
         afterTagAdded: newPostPopupUpdateTime,
@@ -350,13 +348,38 @@ $(document).ready(function() {
         tagLimit: 5
     });
 
+    $("input.ui-widget-content").addClass("tagField");
+
     $("#newQuestionSubmitButton").click(function() {
         console.log("clicked");
         testData.questions.push({answers: [], bodyText: $("#postBodyField").val(), date: new Date(), poster: {emailAddress: "test@you.com", name: "You"}, score: 0, tags: $("#postTagsField").tagit("assignedTags"), title: $("#postTitleField").val()});
         window.questions = testData.questions;
         populateQuestionList();
+        $.magnificPopup.close();
     });
 
+    function calculateQuestionTime(tags, times) {
+        var timeResult;
+        $.ajax({
+             type: "POST",
+             async: false,
+             url: "php/run_algorithm.php",
+             data: {algorithm: testData.algorithm, json:JSON.stringify({tags:tags,times:times})},
+             success: function(data) {
+                timeResult = data;
+                //console.log(timeResult);
+
+             }
+        });
+        
+        return timeResult;
+    }
+
+    $("#changeAlgorithmButton").click(function() {
+        testData.algorithm = $("#algorithmDropdown").val();
+        populateQuestionList();
+        $.magnificPopup.close();
+    });
 	/* Tracking functions */
 	$(document).on('mouseenter', '.tracked', function() {
 		log_message('Entered element ' + $(this).prop('id')+'; timestamp: ' + get_timestamp());
