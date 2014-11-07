@@ -57,7 +57,9 @@ var PredictionGroup = function(json) {
     this.buildFlatInterface = function() {
         var sb = new StringBuilder();
         for (var i = 0; i < this.subgroups.length; i++) {
-            sb.append(this.subgroups[i].buildFlatInterface());
+            var sg = new PredictionGroup(this.subgroups[i]);
+			var sgstr = sg.buildFlatInterface();
+			sb.append(sgstr);
         }
         
         for (var i = 0; i < this.contacts.length; i++) {
@@ -83,32 +85,87 @@ var PredictionGroup = function(json) {
 
         for (var j = 0; j < this.contacts.length; j++) {
             var c = this.contacts[j];
-            //sb.append('<span class="prediction_wrapper wrapper">')
-            //sb.append('<a href="#"><span class="label label-info">');
-            //sb.append('<span class="prediction tracked click" id="'+c.email+'">'+c.name+'</span>');
-            //sb.append('<span class="glyphicon glyphicon-remove remove tracked click" data-group_id="'+this.index+'" data-contact_id="'+j+'"></span>');
-            //sb.append('</span></a>');
-            //sb.append('</span>&nbsp;');
-			//data-group_id='
-			sb.append('<a href="#" class="prediction tracked click" id="');
-			//for(var k = this.index; k>-1; k--){
-				//sb.append(''+k+' ');
-				//}
+			sb.append('<a href="#" class="prediction tracked click"');
+//			if(recur==-1){
+//				sb.append('data-group_id="0"');
+//				}
+//			else if(recur==0){
+//				sb.append('data-group_id="0 '+this.index+'"');
+//				}
+//			else{
+//				sb.append('data-group_id="0 '+recur+' '+this.index+'"');
+//				}
 			if(recur==-1){
-				sb.append('0 ');
-				}
-			else if(recur==0){
-				sb.append('0 '+this.index+' ');
-				}
+				sb.append('id="'+c.emailAddress+' 0"');
+			}
+			else if(recur == 0){
+				sb.append('id="'+c.emailAddress+' 0 '+this.index+'"');
+			}
 			else{
-				sb.append('0 '+recur+' '+this.index+'');
-				}
-			sb.append(''+c.emailAddress+'"  class="prediction tracked click" >'+c.name+'</a>&nbsp');
+				sb.append('id="'+c.emailAddress+' 0 '+this.index+' '+recur+'"');
+			}	
+			sb.append('class="prediction tracked click" >'+c.name+'</a>&nbsp');
         }
 
         sb.append('<a href="#" class="prediction_group tracked click group'+this.index+'" data-group_id="'+this.index+'" style="color:'+parencolor+';font-weight:bold">] </a>');
         return sb.toString();
     }
+
+	this.buildTimeInterface = function() {
+		var sb = new StringBuilder();
+        for (var i = 0; i < this.subgroups.length; i++) {
+            var sg = new PredictionGroup(this.subgroups[i]);
+			var sgstr = sg.buildTimeInterface();
+			sb.append(sgstr);
+        }
+        
+        for (var i = 0; i < this.contacts.length; i++) {
+            var c = this.contacts[i];
+            var split = c.time.split(" ");
+            // time is split into two parts, value of time and the unit of time. split[1] is the days, minutes hours, ect.
+            if(split[1]=="Days" || split[1]=="days" || split[1] =="mo" || split[1] == "day" || split[1] == "Day"){
+                sb.append('<a href="#" class="prediction tracked click" id="'+c.emailAddress+'">' + c.name  +'<span class="longResponse">'+ " [" + c.time + "]" + " " +'</span>');
+            }else{
+                sb.append('<a href="#" class="prediction tracked click" id="'+c.emailAddress+'">' + c.name  +'<span class="fastResponse">'+ " [" + c.time + "]" +" " +'</span>');
+		   }
+		}
+        return sb.toString();
+	}
+	
+	this.buildHierachTimeInterface = function(recur)  {
+		var sb = new StringBuilder();
+		var parencolor = colors[this.index];
+        //Each parenthesis will have a class name group<id> for easy selection on jQuery
+        sb.append('<a href="#" class="prediction_group tracked click group'+this.index+'" data-group_id="'+this.index+'" style="color:'+parencolor+';font-weight:bold"> [ </a>');
+        for (var i = 0; i < this.subgroups.length; i++) {
+            var sg = new PredictionGroup(this.subgroups[i]);
+			var sgstr = sg.buildHierachTimeInterface();
+			sb.append(sgstr);
+        }
+		 for (var i = 0; i < this.contacts.length; i++) {
+            var c = this.contacts[i];
+            var split = c.time.split(" ");
+			sb.append('<a href="#" class="prediction tracked click"');
+			if(recur==-1){
+				sb.append('id="'+c.emailAddress+' 0"');
+			}
+			else if(recur == 0){
+				sb.append('id="'+c.emailAddress+' 0 '+this.index+'"');
+				}
+			else{
+				sb.append('id="'+c.emailAddress+' 0 '+this.index+' '+recur+'"');
+			}	
+            // time is split into two parts, value of time and the unit of time. split[1] is the days, minutes hours, ect.
+            if(split[1]=="Days" || split[1]=="days" || split[1] =="mo" || split[1] == "day" || split[1] == "Day"){
+                sb.append('class="prediction tracked click">' + c.name  +'<span class="longResponse">'+ " [" + c.time + "]" + " " +'</span>');
+            }else{
+                sb.append('class="prediction tracked click">' + c.name  +'<span class="fastResponse">'+ " [" + c.time + "]" +" " +'</span>');
+		   }
+		}
+		sb.append('<a href="#" class="prediction_group tracked click group'+this.index+'" data-group_id="'+this.index+'" style="color:'+parencolor+';font-weight:bold">] </a>');
+		
+        return sb.toString();
+	}
 
     PredictionGroup.all.push(this);
     index++;    

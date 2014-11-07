@@ -26,6 +26,14 @@ width: 99%;
 	margin-left: 20px;
 }
 
+#poke{
+	margin-top: 5px;
+}
+
+#reply{
+	margin-top: 5px;
+}
+
 #navigation {
 	margin: 0px 40px 0px 10px;
 }
@@ -55,9 +63,18 @@ color: #FFFF80;
 }
 
 #predictions {
-	display: none;
 	width: 100%;
     padding-bottom:10px;
+}
+
+.longResponse{
+	color:red;
+	padding-right: 5px;
+}
+.fastResponse{
+	color:green;
+	padding-right: 5px;
+
 }
 
 #prediction_menu_options {
@@ -153,6 +170,15 @@ input#to_field:focus {
 .email:hover {
 	cursor: pointer;
 	background-color: #DAEDF5;
+}
+
+.contact{
+	background-color: #FF9900;
+}
+
+.contact:hover {
+	cursor: pointer;
+	background-color: #993300;
 }
 
 textarea {
