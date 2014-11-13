@@ -4,7 +4,7 @@ $(document).ready(function() {
     testData = jQuery.parseJSON(data);
     console.log(testData);
     window.questions = testData.questions;
-    console.log(questions);
+    //console.log(questions);
     allTags = testData.tags;
     var instructions = testData.instructions;
     tagTimes = testData.tagTimes;
@@ -58,26 +58,26 @@ $(document).ready(function() {
 
         var questionItem = ['<table class="questionLayout" cellpadding="10">',
                             '<tr>',
-                                '<td rowspan="4">',
+                                '<td rowspan="4" class="stattd">',
                                     '<div class="stat">' + score + '</div>',
                                     '<div class="statLabel">' + ((score == 1) ? 'point' : 'points') + '</div>',
                                 '</td>',
 
-                                '<td rowspan=4">',
+                                '<td rowspan="4" class="stattd">',
                                     '<div class="stat">' + numAnswers + '</div>',
                                     '<div class="statLabel">' + ((numAnswers == 1) ? 'answer' : 'answers') + '</div>',
                                 '</td>',                              
                             '</tr>',
                             '<tr>',
-                                '<td>',
+                                '<td class="titletd">',
                                     '<div class="postTitle"><a data-questionNumber="' + questionNumber + '" class="titleLink">' + title + '</a></div>',
                                 '</td>',
                             '</tr>',
                             '<tr>',
-                                '<td>',
+                                '<td class="tagstd">',
                                     '<div class="tags">',
                                         tagString,
-                                        '<span class="questionTime">Estimated time: ' + questionTime,                                         
+                                        '<span class="questionTime">Estimated time: ' + questionTime + '</span>',                                         
                                     '</div>',
                                 '</td>',
 
@@ -179,7 +179,7 @@ $(document).ready(function() {
 
     /* Populate question list */
     function populateQuestionList() {
-        console.log(questions);
+        //console.log(questions);
         $("#questionList").html("");
         for(var questionNumber = 0; questionNumber < questions.length; questionNumber++) {
             var currQuestion = questions[questionNumber];
@@ -199,7 +199,7 @@ $(document).ready(function() {
         }
         updateTooltips();
         initTitles();
-        console.log("repopulated");
+        //console.log("repopulated");
     }
     populateQuestionList();
     function populatePost(postNumber) {
@@ -214,7 +214,7 @@ $(document).ready(function() {
         var numAnswers = currQuestion.answers.length;
         var currTimes = [];
         var questionTime = 0;
-        
+        $("#mainDetailArea").attr("questionNumber", postNumber);
         
 
         postString = makeQuestionDetailString(title, postScore, postBodyText, tags, timePosted, posterName, numAnswers);
@@ -240,7 +240,7 @@ $(document).ready(function() {
             populatePost(postNumber);
             $("#backButton").css("display", "block");
             $("#questionListArea").animate({
-                marginLeft: "-125%"
+                left: "-125%"
             }, 250);
 
             $("#newQuestionButton").animate({
@@ -248,19 +248,19 @@ $(document).ready(function() {
             }, 250);
 
             $("#questionDetailArea").animate({
-                marginLeft: "25%"
+                left: "25%"
             }, 250);
 
             $("#newAnswerButton").animate({
                 left: "75%"
             }, 250);
-            console.log("clicked");
+            //console.log("clicked");
         });
     
 
         $("#backButton").click(function() {
             $("#questionDetailArea").animate({
-                marginLeft: "175%"
+                left: "175%"
             }, 250);
 
             $("#newAnswerButton").animate({
@@ -269,7 +269,7 @@ $(document).ready(function() {
 
             $("#backButton").css("display", "none");
             $("#questionListArea").animate({
-                marginLeft: "25%"
+                left: "25%"
             }, 250);
             $("#newQuestionButton").animate({
                 left: "75%"
@@ -336,6 +336,16 @@ $(document).ready(function() {
         }
     });
 
+    $("#newAnswerButton").magnificPopup({
+        type: 'inline',
+        midClick: true,
+        callbacks: {
+            afterClose: function() {
+                $("#answerBodyField").val("");
+            }
+        }
+    })
+
     $("#settingsIcon").magnificPopup({
         type: 'inline',
         midClick: true
@@ -351,11 +361,25 @@ $(document).ready(function() {
     $("input.ui-widget-content").addClass("tagField");
 
     $("#newQuestionSubmitButton").click(function() {
-        console.log("clicked");
+        //console.log("clicked");
         testData.questions.push({answers: [], bodyText: $("#postBodyField").val(), date: new Date(), poster: {emailAddress: "test@you.com", name: "You"}, score: 0, tags: $("#postTagsField").tagit("assignedTags"), title: $("#postTitleField").val()});
         window.questions = testData.questions;
         populateQuestionList();
         $.magnificPopup.close();
+        $("html, body").animate({ scrollTop: $(document).height() }, "slow");
+        $(".questionLayout:last").effect("highlight", {color: "orange"}, 2000);
+        
+    });
+
+    $("#newAnswerSubmitButton").click(function() {
+        //console.log("clicked");
+        questionNumber = parseInt($("#mainDetailArea").attr("questionNumber"));
+        testData.questions[questionNumber].answers.push({bodyText: $("#answerBodyField").val(), date: new Date(), poster: {emailAddress: "test@you.com", name: "You"}, score: 0});
+        window.questions = testData.questions;
+        populatePost(questionNumber);
+        $.magnificPopup.close();
+        $("html, body").animate({ scrollTop: $(document).height() }, "slow");
+        $(".answersTable:last, .detailAnswerInfo:last").effect("highlight", {color: "orange"}, 2000);
     });
 
     function calculateQuestionTime(tags, times) {

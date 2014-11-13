@@ -12,7 +12,21 @@ html,body{
 	width: 50%;
 	margin: 0 auto;
 	background-color: #fff;
+	position: absolute;
+	left: 25%;
+	right: 25%;
+
 }
+
+#questionDetailArea {
+	margin-top: -12.5%;
+	margin-left: 175%;
+	width: 50%;
+	position: absolute;
+	margin: 0 auto;
+	left: 175%;
+}
+
 
 #title {
 	color: #56a0d3;
@@ -127,11 +141,6 @@ table.questionLayout:nth-child(odd) {
 	cursor: pointer;
 }
 
-#questionDetailArea {
-	margin-top: -12.5%;
-	margin-left: 175%;
-	width: 50%;
-}
 
 .questionDetailTitle {
 	font-size: 2em;
@@ -287,6 +296,7 @@ hr {
 	left: 75%;
 	top: 25%;
 	cursor: pointer;
+	margin-left: 1.5%;
 }
 
 #newAnswerButton {
@@ -298,6 +308,7 @@ hr {
 	left: 195%;
 	top: 25%;
 	cursor: pointer;
+	margin-left: 1.5%
 }
 
 #newQuestionButton:hover, #newAnswerButton:hover {
@@ -328,4 +339,8 @@ hr {
 
 #settingsIcon:hover {
 	background-image: url("../img/gear.png");
+}
+
+td.stattd {
+	width: 118px;
 }

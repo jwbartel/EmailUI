@@ -41,7 +41,7 @@ else {
 	<!-- Bootstrap -->
     <link href="libs/Bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!--jQuery UI-->
-    <link rel="stylesheet" type="text/css" href="libs/jqueryui/1.10.4/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="libs/jqueryui/1.11.2/jquery-ui.min.css">
     <!--qTip -->
     <link type="text/css" rel="stylesheet" href="libs/qTip/jquery.qtip.css" />
     <!--magnific popup -->
@@ -74,7 +74,7 @@ else {
     </div>
     <div id="questionDetailArea">
         <div id="mainDetailArea"></div>
-        <div id="newAnswerButton">
+        <div id="newAnswerButton" data-mfp-src="#newAnswerPopup">
             New Answer
         </div>
 
@@ -113,9 +113,20 @@ else {
         </form>
     </div>
 
+    <div id="newAnswerPopup" class="mfp-hide white-popup">
+        <form class="pure-form pure-form-stacked">
+            <fieldset>
+                    <label for="body">Answer body: </label>
+                    <textarea rows="5" cols="50" name="body" id="answerBodyField" placeholder="Answer body"></textarea>
+                <br><br>
+                <button type="button" id="newAnswerSubmitButton" class="pure-button pure-button-primary">Submit</button>
+            </fieldset>
+        </form>
+    </div>
+
     <!-- JS Files -->
     <script src="libs/jquery.min.js"></script>
-    <script src="libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <script src="libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
     <script src="libs/relativeTime.min.js"></script>
     <script type="text/javascript" src="libs/magnific/magnific-popup.js"></script>
     <script type="text/javascript" src="libs/tag-it/tag-it.min.js"></script>
