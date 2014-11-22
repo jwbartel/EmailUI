@@ -85,7 +85,7 @@ var PredictionGroup = function(json) {
 
         for (var j = 0; j < this.contacts.length; j++) {
             var c = this.contacts[j];
-			sb.append('<a href="#" class="prediction tracked click"');
+			sb.append('<a href="#" id="'+c.emailAddress+'"');
 //			if(recur==-1){
 //				sb.append('data-group_id="0"');
 //				}
@@ -96,13 +96,13 @@ var PredictionGroup = function(json) {
 //				sb.append('data-group_id="0 '+recur+' '+this.index+'"');
 //				}
 			if(recur==-1){
-				sb.append('id="'+c.emailAddress+' 0"');
+				sb.append('class="prediction tracked click 0"');
 			}
 			else if(recur == 0){
-				sb.append('id="'+c.emailAddress+' 0 '+this.index+'"');
+				sb.append('class="prediction tracked click 0 '+this.index+'"');
 			}
 			else{
-				sb.append('id="'+c.emailAddress+' 0 '+this.index+' '+recur+'"');
+				sb.append('class="prediction tracked click 0 '+this.index+' '+recur+'"');
 			}	
 			sb.append('class="prediction tracked click" >'+c.name+'</a>&nbsp');
         }
@@ -145,21 +145,21 @@ var PredictionGroup = function(json) {
 		 for (var i = 0; i < this.contacts.length; i++) {
             var c = this.contacts[i];
             var split = c.time.split(" ");
-			sb.append('<a href="#" class="prediction tracked click"');
+			sb.append('<a href="#" id="'+c.emailAddress+'"');
 			if(recur==-1){
-				sb.append('id="'+c.emailAddress+' 0"');
+				sb.append('class="prediction tracked click 0">');
 			}
 			else if(recur == 0){
-				sb.append('id="'+c.emailAddress+' 0 '+this.index+'"');
-				}
+				sb.append('class="prediction tracked click 0 '+this.index+'">');
+			}
 			else{
-				sb.append('id="'+c.emailAddress+' 0 '+this.index+' '+recur+'"');
-			}	
+				sb.append('class="prediction tracked click 0 '+this.index+' '+recur+'">');
+				}
             // time is split into two parts, value of time and the unit of time. split[1] is the days, minutes hours, ect.
             if(split[1]=="Days" || split[1]=="days" || split[1] =="mo" || split[1] == "day" || split[1] == "Day"){
-                sb.append('class="prediction tracked click">' + c.name  +'<span class="longResponse">'+ " [" + c.time + "]" + " " +'</span>');
+                sb.append('' + c.name  +'<span class="longResponse">'+ " [" + c.time + "]" + " " +'</span>');
             }else{
-                sb.append('class="prediction tracked click">' + c.name  +'<span class="fastResponse">'+ " [" + c.time + "]" +" " +'</span>');
+                sb.append('' + c.name  +'<span class="fastResponse">'+ " [" + c.time + "]" +" " +'</span>');
 		   }
 		}
 		sb.append('<a href="#" class="prediction_group tracked click group'+this.index+'" data-group_id="'+this.index+'" style="color:'+parencolor+';font-weight:bold">] </a>');

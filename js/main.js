@@ -85,7 +85,7 @@ $(document).ready(function() {
 
 	/* Attach prediction to 'To' field when selected */
     var attachPrediction = function(contact) {
-		if((interface_select=="time"||interface_select=="timeNparen")&&contact.contains("[")){
+		if((interface_select=="time"||interface_select=="timeNparen")&&contact.indexOf("[")>-1){
 			wrap_contact(contact.substring(0,contact.indexOf("[")-1 ));
 		}
 		else{
@@ -349,7 +349,8 @@ $(document).ready(function() {
 		//a.css('color','#FF9966');
 		//$("#predictions").find
 		//$("a:visible[data-group_id"*=" + index + "]").css("color",'#FF9966');
-		$("a:visible[id*=" + index + "]").css("color","#FF9966");
+		//$("a:visible[id*=" + index + "]").css("color","#FF9966");
+		$("a." + index).css("color", "#FF9966");
     });
 
     $(document).on('mouseleave','.prediction_group', function() {
@@ -357,7 +358,8 @@ $(document).ready(function() {
 		var index = parseInt(id);
         //$('.group'+id).css('color','#428bca');
 		$('.group'+id).css('color',''+colors[id]+'');
-		$("a:visible[id*=" + index + "]").css("color","#428BCA");
+		//$("a:visible[id*=" + index + "]").css("color","#428BCA");
+		$("a." + index).css("color","#428BCA");
     });
 	
 	$(document).on('mouseenter','.prediction', function() {
@@ -415,12 +417,12 @@ $(document).ready(function() {
             contacts_selected.push(contact);
         });
         
-        $.ajax({
-            type:'POST',
-            async:false,
-            url:submit_test_url,
-            data: {'data':session_log},
-            success: function(data) {
+//        $.ajax({
+//            type:'POST',
+//            async:false,
+//           url:submit_test_url,
+//          data: {'data':session_log},
+//           success: function(data) {
                 var selected = new StringBuilder();
                 var comma = " ";
                 
@@ -431,8 +433,8 @@ $(document).ready(function() {
                 $('#results').find('.modal-body').append("<strong>Selected</strong>: " + selected);
                 $('#results').find('.modal-body').append("<br><strong>Expected</strong>: " + expected);
                 $('#results').modal('toggle');
-            }
-        });
+            //}
+        //});
 
      });
     
