@@ -344,3 +344,8 @@ hr {
 td.stattd {
 	width: 118px;
 }
+
+.suggestedTag {
+	display: inline-block;
+	padding: 3px 3px;
+}

@@ -93,9 +93,11 @@ else {
                 
                     <label for="tags" id="tags-label">Tags: </label>
                     <ul id="postTagsField"></ul>
-                <strong>Estimated response time: </strong><span id="newQuestionPopupEstimatedTime">N/A</span>
-                <br><br>
-                <button type="button" id="newQuestionSubmitButton" class="pure-button pure-button-primary">Submit</button>
+                    <strong>Did you want to include: </strong><span id="newQuestionPopupSuggestions"></span>
+                    <br><br>
+                    <strong>Estimated response time: </strong><span id="newQuestionPopupEstimatedTime">N/A</span>
+                    <br><br>
+                    <button type="button" id="newQuestionSubmitButton" class="pure-button pure-button-primary">Submit</button>
             </fieldset>
         </form>
     </div>

@@ -13,7 +13,43 @@ $(document).ready(function() {
 	var submit_test_url = '../php/submit_test.php';
     var session_log = "\n";
     $("#algorithmDropdown").val(testData.algorithm);
-		
+	var relatedTags = {
+        'java': ['c', 'c++', 'OOP', 'inheritance', 'c#', 'android'],
+        'php': ['asp', 'mysql', '.net', 'ruby-on-rails', 'sql-server', 'ajax', 'xml'],
+        'javascript': ['css', 'html', 'jquery', 'ajax'],
+        'perl': ['ruby', 'python-2', 'python-3'],
+        'ruby': ['ruby-on-rails', 'perl'],
+        'python-2': ['python-3', 'java', 'inheritance'],
+        'python-3': ['python-2', 'java', 'inheritance'],
+        'asp': ['php', 'mysql', '.net', 'sql-server', 'xml'],
+        'c': ['java', 'c++', 'c#', 'inheritance', 'OOP'],
+        'c++': ['java', 'c', 'c#', 'inheritance', 'OOP'],
+        'css': ['html', 'javascript', 'jquery'],
+        'html': ['css', 'javascript', 'jquery', 'xml'],
+        'assembly': ['c', 'memory'],
+        'prolog': ['SAS', 'R', 'hadoop'],
+        'SAS': ['R', 'prolog', 'hadoop'],
+        'R': ['SAS', 'prolog', 'hadoop'],
+        'OOP': ['java', 'c', 'c++', 'inheritance'],
+        'hadoop': ['R', 'SAS', 'prolog'],
+        'inheritance': ['OOP', 'java', 'c', 'c++'],
+        'memory': ['java', 'c', 'c++', 'assembly'],
+        'c#': ['java', 'c', 'c++', 'OOP', 'inheritance'],
+        'android': ['java', 'ios', 'iphone'],
+        'jquery': ['javascript', 'ajax', 'css', 'html'],
+        'ios': ['objective-c', 'android', 'iphone'],
+        'mysql': ['php', 'asp', '.net', 'sql-server'],
+        'objective-c': ['iphone', 'ios', 'android', 'c', 'c++', 'java', 'inheritance', 'OOP'],
+        'iphone': ['ios', 'android', 'java', 'objective-c'],
+        '.net': ['asp', 'php', 'mysql'],
+        'ruby-on-rails': ['php', 'asp', '.net'],
+        'ruby': ['perl', 'ruby-on-rails'],
+        'sql-server': ['mysql', 'php', 'asp', '.net'], 
+        'ajax': ['php', 'javascript', 'jquery', 'asp'],
+        'xml': ['html'],
+        'bash': ['c']
+    }
+    console.log(relatedTags);
     /* Display test scenario instructions */
 	/*$('#instructions').find('p').text(instructions);
     $('#instructions').modal('toggle');*/
@@ -26,6 +62,43 @@ $(document).ready(function() {
     
     var relativeDate = function(date) {
         return $.timeago(Date.parse(date));
+    }
+
+    function intersect(array1, array2) {
+        res = array1.filter(function(n) {
+            return array2.indexOf(n) != -1
+        });
+
+        //console.log("intersect " + array1 + "\t" + array2 + "\t" + res);
+        return res;
+    }
+
+    function removeFromArray(source, target) {
+        arr = source.slice(0);
+        for(i = 0; i < target.length; i++) {
+            index = arr.indexOf(target[i]);
+            if(index != -1) {
+                arr.splice(index, 1);
+            }
+        }
+        //console.log("removeFromArray " + source + "\t" + target + "\t" + arr);
+        return arr;
+    }
+
+    function getSuggestions(tags) {
+        if(tags.length == 0) {
+            return [];
+        }
+        //console.log(tags);
+        res = relatedTags[tags[0]];
+        //console.log(res);
+        for(i = 1; i < tags.length; i++) {
+            res = intersect(res, relatedTags[tags[i]]);
+        }
+
+        res = removeFromArray(res, tags);
+        //console.log("getSuggestions " + res);
+        return res;
     }
 
 	var formattedDate = function(email) {
@@ -77,7 +150,7 @@ $(document).ready(function() {
                                 '<td class="tagstd">',
                                     '<div class="tags">',
                                         tagString,
-                                        '<span class="questionTime">Estimated time: ' + questionTime + '</span>',                                         
+                                        '<span class="questionTime">Estimated time: ' + questionTime + ' minutes</span>',                                         
                                     '</div>',
                                 '</td>',
 
@@ -127,7 +200,7 @@ $(document).ready(function() {
                 '<td>',
                     '<div class="detailTags">',
                         tagString,
-                        '<span class="questionTime">Estimated time: ' + questionTime,
+                        '<span class="questionTime">Estimated time: ' + questionTime + ' minutes',
                     '</div>',
                 '</td>',
                 '<td>',
@@ -282,7 +355,7 @@ $(document).ready(function() {
         $(".tag").each(function(){
             $(this).qtip({
                 content: {
-                    text: '<strong>' + $(this).attr('data-tagTime') + ' minutes</strong>',
+                    text: '<strong>' + $(this).attr('data-tagTime') + (($(this).attr('data-tagTime') == 1) ? ' minute' : ' minutes') + '</strong>',
                     title: '<strong>Expected Time</strong>'
                 },
                 style: {
@@ -292,6 +365,10 @@ $(document).ready(function() {
                     my: 'bottom center',
                     at: 'top center',
                     target: $(this)
+                },
+                hide: {
+                    event: 'click',
+                    inactive: 500
                 }
             });
 
@@ -351,10 +428,40 @@ $(document).ready(function() {
         midClick: true
     });
 
+    function newPostPopupUpdateSuggestions(tags) {
+        suggestions = getSuggestions(tags);
+        //console.log(suggestions);
+        $("#newQuestionPopupSuggestions").html("");
+        for(i = 0; i < suggestions.length; i++) {
+            tag = suggestions[i];
+            time = tagTimes[allTags.indexOf(tag)];
+            html = '<span data-tagTime="' + time + '" class="suggestedTag tag">' + tag + '</span>';
+            $("#newQuestionPopupSuggestions").append(html);
+            rebindSuggestionClick();
+        }
+    }
+
+    function rebindSuggestionClick() {
+        $(".suggestedTag").click(function(event) {
+            //console.log("clicked");
+            tagName = $(this).text();
+            $("#postTagsField").tagit("createTag", tagName);
+            newPostPopupUpdateSuggestions($("#postTagsField").tagit("assignedTags"));
+            
+        });
+        updateTooltips();
+    }
+
     $("#postTagsField").tagit({
         availableTags: allTags,
-        afterTagAdded: newPostPopupUpdateTime,
-        afterTagRemoved: newPostPopupUpdateTime,
+        afterTagAdded: function(event, ui) {
+            newPostPopupUpdateTime();
+            newPostPopupUpdateSuggestions($("#postTagsField").tagit("assignedTags"));
+        },
+        afterTagRemoved: function(event, ui) {
+            newPostPopupUpdateTime();
+            newPostPopupUpdateSuggestions($("#postTagsField").tagit("assignedTags"));
+        },
         tagLimit: 5
     });
 
@@ -370,6 +477,7 @@ $(document).ready(function() {
         $(".questionLayout:last").effect("highlight", {color: "orange"}, 2000);
         
     });
+    
 
     $("#newAnswerSubmitButton").click(function() {
         //console.log("clicked");
@@ -420,6 +528,8 @@ $(document).ready(function() {
 	$(document).on('change keyup paste','.text', function() {
 		log_message('Changed content of ' + $(this).prop('id') + ' to ' +
 					$(this).val() + ';timestamp: ' + get_timestamp());
-	}); 
+	});
+
+    
 
 });
