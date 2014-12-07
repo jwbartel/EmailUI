@@ -35,7 +35,7 @@ width: 99%;
 }
 
 #navigation {
-	margin: 0px 40px 0px 10px;
+	margin: 0px auto 0px 10px;
 }
 
 #new_message_editor {
@@ -185,3 +185,8 @@ textarea {
     resize: none;
 }
 
+.btn-select{
+	margin: 0px auto 0px auto;
+	background-color: #3690ce;
+	color: white;
+}

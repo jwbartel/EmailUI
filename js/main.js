@@ -430,6 +430,7 @@ $(document).ready(function() {
                 var expected = contactsToString(testData.correctSet);
                 
                 /* Display test scenario instructions */
+                $('#results').find('.modal-body').empty();
                 $('#results').find('.modal-body').append("<strong>Selected</strong>: " + selected);
                 $('#results').find('.modal-body').append("<br><strong>Expected</strong>: " + expected);
                 $('#results').modal('toggle');
