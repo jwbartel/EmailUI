@@ -367,8 +367,7 @@ $(document).ready(function() {
                     target: $(this)
                 },
                 hide: {
-                    event: 'click',
-                    inactive: 500
+                    event: 'click mouseleave'
                 }
             });
 
