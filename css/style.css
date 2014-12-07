@@ -26,8 +26,16 @@ width: 99%;
 	margin-left: 20px;
 }
 
+#poke{
+	margin-top: 5px;
+}
+
+#reply{
+	margin-top: 5px;
+}
+
 #navigation {
-	margin: 0px 40px 0px 10px;
+	margin: 0px auto 0px 10px;
 }
 
 #new_message_editor {
@@ -55,9 +63,18 @@ color: #FFFF80;
 }
 
 #predictions {
-	display: none;
 	width: 100%;
     padding-bottom:10px;
+}
+
+.longResponse{
+	color:red;
+	padding-right: 5px;
+}
+.fastResponse{
+	color:green;
+	padding-right: 5px;
+
 }
 
 #prediction_menu_options {
@@ -155,7 +172,52 @@ input#to_field:focus {
 	background-color: #DAEDF5;
 }
 
+.contact{
+	background-color: #FF9900;
+}
+
+.contact:hover {
+	cursor: pointer;
+	background-color: #993300;
+}
+
 textarea {
     resize: none;
 }
 
+#replayMenu{
+position: absolute;
+top: 20px;
+left: 310px;
+}
+
+#title{
+	float: left;
+}
+
+.replay{
+	float: left;
+	display: inline-block;
+	margin-left: 20px;
+	text-align: center;
+}
+
+.replay:hover, .replayHover{
+color: red;
+}
+
+h4 {
+    float: left;
+    width: auto;
+    text-align: center;
+    margin-top: 8px;
+}
+#time{
+	width: 20px;
+}
+
+#stats{
+	position: absolute;
+	top: 30px;
+	left: 620px;
+}

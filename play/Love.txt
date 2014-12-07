@@ -1,0 +1,183 @@
+Started Test 01 on: Sun Dec 07 2014 16:18:18 GMT-0500 (EST)
+Mouse Coordinates 635 34; timestamp: 12.645
+Mouse Coordinates 709 82; timestamp: 12.659
+Mouse Coordinates 777 130; timestamp: 12.674
+Mouse Coordinates 816 155; timestamp: 12.689
+Entered element paren; timestamp: 14.335
+Mouse Coordinates 783 259; timestamp: 14.335
+Clicked element paren; timestamp: 14.426
+Clicked element paren; timestamp: 14.567
+Left element paren; timestamp: 14.618
+Mouse Coordinates 783 259; timestamp: 14.991
+Mouse Coordinates 744 255; timestamp: 15.009
+Mouse Coordinates 142 181; timestamp: 15.145
+Mouse Coordinates 140 181; timestamp: 15.153
+Mouse Coordinates 138 178; timestamp: 15.327
+Mouse Coordinates 130 169; timestamp: 15.344
+Mouse Coordinates 119 156; timestamp: 15.361
+Mouse Coordinates 107 143; timestamp: 15.378
+Mouse Coordinates 99 134; timestamp: 15.395
+Entered element nav_inbox; timestamp: 15.413
+Mouse Coordinates 94 128; timestamp: 15.414
+Mouse Coordinates 87 119; timestamp: 15.429
+Left element nav_inbox; timestamp: 15.448
+Entered element nav_new_message; timestamp: 15.449
+Mouse Coordinates 84 116; timestamp: 15.449
+Mouse Coordinates 80 112; timestamp: 15.464
+Mouse Coordinates 76 108; timestamp: 15.481
+Mouse Coordinates 73 106; timestamp: 15.498
+Mouse Coordinates 69 103; timestamp: 15.519
+Mouse Coordinates 67 101; timestamp: 15.532
+Mouse Coordinates 66 101; timestamp: 15.549
+Mouse Coordinates 66 99; timestamp: 15.566
+Mouse Coordinates 65 99; timestamp: 15.583
+Clicked element nav_new_message; timestamp: 15.805
+Mouse Coordinates 70 99; timestamp: 16.073
+Left element nav_new_message; timestamp: 16.092
+Mouse Coordinates 101 99; timestamp: 16.093
+Entered element email0; timestamp: 16.109
+Mouse Coordinates 155 102; timestamp: 16.109
+Left element email0; timestamp: 16.124
+Entered element email1; timestamp: 16.125
+Mouse Coordinates 329 126; timestamp: 16.125
+Mouse Coordinates 450 154; timestamp: 16.143
+Left element email1; timestamp: 16.193
+Mouse Coordinates 563 183; timestamp: 16.194
+Mouse Coordinates 599 192; timestamp: 16.201
+Mouse Coordinates 610 194; timestamp: 16.21
+Mouse Coordinates 620 195; timestamp: 16.226
+Mouse Coordinates 620 197; timestamp: 16.244
+Mouse Coordinates 621 197; timestamp: 16.411
+Mouse Coordinates 629 194; timestamp: 16.427
+Mouse Coordinates 653 181; timestamp: 16.476
+Entered element to_field; timestamp: 16.485
+Mouse Coordinates 671 169; timestamp: 16.485
+Mouse Coordinates 683 163; timestamp: 16.497
+Mouse Coordinates 691 159; timestamp: 16.515
+Mouse Coordinates 702 153; timestamp: 16.53
+Mouse Coordinates 709 151; timestamp: 16.547
+Mouse Coordinates 712 149; timestamp: 16.563
+Left element to_field; timestamp: 16.618
+Mouse Coordinates 721 145; timestamp: 16.619
+Mouse Coordinates 724 147; timestamp: 17.317
+Mouse Coordinates 725 147; timestamp: 17.663
+Entered element to_field; timestamp: 17.682
+Mouse Coordinates 727 149; timestamp: 17.682
+Mouse Coordinates 728 150; timestamp: 17.697
+Mouse Coordinates 729 151; timestamp: 17.715
+Mouse Coordinates 730 152; timestamp: 17.736
+Mouse Coordinates 731 152; timestamp: 17.749
+Clicked element to_field; timestamp: 17.926
+Mouse Coordinates 734 153; timestamp: 18.963
+Mouse Coordinates 736 156; timestamp: 18.98
+Mouse Coordinates 739 159; timestamp: 18.997
+Mouse Coordinates 740 160; timestamp: 19.014
+Mouse Coordinates 741 161; timestamp: 19.031
+Mouse Coordinates 741 162; timestamp: 19.261
+Mouse Coordinates 741 163; timestamp: 19.286
+Mouse Coordinates 741 163; timestamp: 19.312
+Mouse Coordinates 741 164; timestamp: 19.332
+Mouse Coordinates 744 169; timestamp: 19.35
+Left element to_field; timestamp: 19.417
+Mouse Coordinates 748 183; timestamp: 19.422
+Mouse Coordinates 749 185; timestamp: 19.446
+Suggested contacts: Carmelo Anthony<melo@nyk.com> 
+Mouse Coordinates 749 188; timestamp: 19.92
+Entered element ; timestamp: 19.94
+Mouse Coordinates 747 202; timestamp: 19.944
+Left element ; timestamp: 19.957
+Mouse Coordinates 744 217; timestamp: 19.96
+Entered element cc_field; timestamp: 19.974
+Mouse Coordinates 738 233; timestamp: 19.975
+Mouse Coordinates 737 241; timestamp: 19.989
+Mouse Coordinates 735 250; timestamp: 20.006
+Mouse Coordinates 734 255; timestamp: 20.024
+Mouse Coordinates 734 257; timestamp: 20.038
+Left element cc_field; timestamp: 20.056
+Mouse Coordinates 733 261; timestamp: 20.058
+Mouse Coordinates 733 265; timestamp: 20.072
+Mouse Coordinates 733 268; timestamp: 20.088
+Mouse Coordinates 731 272; timestamp: 20.105
+Mouse Coordinates 731 275; timestamp: 20.123
+Mouse Coordinates 731 277; timestamp: 20.141
+Entered element subect_field; timestamp: 20.159
+Mouse Coordinates 731 279; timestamp: 20.159
+Mouse Coordinates 731 284; timestamp: 20.175
+Mouse Coordinates 731 288; timestamp: 20.192
+Mouse Coordinates 731 290; timestamp: 20.21
+Mouse Coordinates 731 291; timestamp: 20.226
+Mouse Coordinates 731 293; timestamp: 20.243
+Changed content of subect_field to S;timestamp: 22.348
+Changed content of subect_field to S;timestamp: 22.428
+Changed content of subect_field to Sa;timestamp: 23.02
+Changed content of subect_field to Sat;timestamp: 23.157
+Changed content of subect_field to Satu;timestamp: 23.453
+Changed content of subect_field to Satur;timestamp: 23.604
+Changed content of subect_field to Saturda;timestamp: 23.9
+Changed content of subect_field to Saturday;timestamp: 24.014
+Changed content of subect_field to Saturday;timestamp: 24.101
+Changed content of subect_field to Saturday ;timestamp: 24.285
+Changed content of subect_field to Saturday G;timestamp: 24.564
+Changed content of subect_field to Saturday G;timestamp: 24.572
+Changed content of subect_field to Saturday Ga;timestamp: 24.684
+Changed content of subect_field to Saturday Gam;timestamp: 24.838
+Changed content of subect_field to Saturday Game;timestamp: 25.004
+Changed content of subect_field to Saturday Game?;timestamp: 25.46
+Changed content of subect_field to Saturday Game?;timestamp: 25.468
+Mouse Coordinates 727 294; timestamp: 25.613
+Mouse Coordinates 721 303; timestamp: 25.63
+Left element subect_field; timestamp: 25.649
+Mouse Coordinates 719 315; timestamp: 25.65
+Entered element message_field; timestamp: 25.665
+Mouse Coordinates 717 338; timestamp: 25.665
+Mouse Coordinates 717 367; timestamp: 25.681
+Mouse Coordinates 717 403; timestamp: 25.699
+Mouse Coordinates 717 423; timestamp: 25.715
+Mouse Coordinates 720 439; timestamp: 25.733
+Mouse Coordinates 721 447; timestamp: 25.75
+Mouse Coordinates 722 450; timestamp: 25.767
+Mouse Coordinates 722 451; timestamp: 25.784
+Mouse Coordinates 724 452; timestamp: 25.8
+Mouse Coordinates 722 452; timestamp: 26.165
+Mouse Coordinates 721 453; timestamp: 26.198
+Mouse Coordinates 721 454; timestamp: 26.199
+Changed content of subect_field to Saturday Game?;timestamp: 26.215
+Changed content of message_field to W;timestamp: 26.876
+Changed content of message_field to W;timestamp: 26.917
+Changed content of message_field to Wa;timestamp: 27.084
+Changed content of message_field to Wan;timestamp: 27.164
+Changed content of message_field to Wann;timestamp: 27.324
+Changed content of message_field to Wanna ;timestamp: 27.54
+Changed content of message_field to Wanna ;timestamp: 27.66
+Changed content of message_field to Wanna p;timestamp: 27.892
+Changed content of message_field to Wanna pla;timestamp: 28.084
+Changed content of message_field to Wanna play;timestamp: 28.212
+Changed content of message_field to Wanna play;timestamp: 28.332
+Changed content of message_field to Wanna play?;timestamp: 28.956
+Changed content of message_field to Wanna play?;timestamp: 28.98
+Mouse Coordinates 721 459; timestamp: 29.305
+Changed content of message_field to Wanna play? ;timestamp: 29.308
+Mouse Coordinates 716 486; timestamp: 29.322
+Mouse Coordinates 709 515; timestamp: 29.338
+Mouse Coordinates 702 535; timestamp: 29.355
+Mouse Coordinates 692 558; timestamp: 29.372
+Mouse Coordinates 678 585; timestamp: 29.389
+Left element message_field; timestamp: 29.407
+Mouse Coordinates 668 600; timestamp: 29.407
+Entered element send; timestamp: 29.426
+Mouse Coordinates 661 604; timestamp: 29.426
+Mouse Coordinates 658 606; timestamp: 29.44
+Mouse Coordinates 657 610; timestamp: 29.457
+Mouse Coordinates 655 610; timestamp: 29.474
+Mouse Coordinates 655 611; timestamp: 29.491
+Mouse Coordinates 653 613; timestamp: 29.508
+Mouse Coordinates 651 619; timestamp: 29.525
+Mouse Coordinates 650 622; timestamp: 29.543
+Mouse Coordinates 648 626; timestamp: 29.559
+Mouse Coordinates 645 630; timestamp: 29.576
+Mouse Coordinates 644 631; timestamp: 29.594
+Mouse Coordinates 644 630; timestamp: 29.783
+Mouse Coordinates 644 629; timestamp: 29.808
+Mouse Coordinates 645 626; timestamp: 29.825
+Changed content of message_field to Wanna play? ;timestamp: 29.998
+Ended Test 01 on: Sun Dec 07 2014 16:18:48 GMT-0500 (EST)

@@ -133,8 +133,8 @@ public class Driver {
  		content = "Hey man, I'll be flying to Memphis for the playoffs, sorry!";
  		inbox[1] = new Email(c[1], self, dateSent, subject, content);
 
-		TestCase t = new TestCase(inbox, sentMessages, c,group, "flat", instructions, correctSet);
-		
+		//TestCase t = new TestCase(inbox, sentMessages, c,group, "flat", instructions, correctSet);
+		TestCase t = new TestCase(inbox, sentMessages, c,group, "paren", instructions, correctSet);
 		return t;
 		
 							 

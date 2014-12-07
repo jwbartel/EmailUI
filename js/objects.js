@@ -32,11 +32,13 @@ Contact.all = {};
 
 /* Global index value assigned to every prediction group so it can
  * be easily indexed out of the 'all' array */
-var index = 0;
+//var colors = new Array();
 
+var index = 0;
+var colors = new Array("#4D4D4D","#9933FF","#FF0000", "#00CC66", "#CC9900");
 var PredictionGroup = function(json) {
     this.contacts = json.contacts;
-    this.subgroups = new Array();
+    this.subgroups = json.subgroups;
     var deleted = false; //a flag used to do lazy deletion
     this.index = index;
 
@@ -55,7 +57,9 @@ var PredictionGroup = function(json) {
     this.buildFlatInterface = function() {
         var sb = new StringBuilder();
         for (var i = 0; i < this.subgroups.length; i++) {
-            sb.append(this.subgroups[i].buildFlatInterface());
+            var sg = new PredictionGroup(this.subgroups[i]);
+			var sgstr = sg.buildFlatInterface();
+			sb.append(sgstr);
         }
         
         for (var i = 0; i < this.contacts.length; i++) {
@@ -66,28 +70,102 @@ var PredictionGroup = function(json) {
         return sb.toString();
     }
 
-    this.buildHierarchicalInterface = function() {
+    this.buildHierarchicalInterface = function(recur) {
         var sb = new StringBuilder();
+		var parencolor = colors[this.index];
         //Each parenthesis will have a class name group<id> for easy selection on jQuery
-        sb.append('<a href="#" class="prediction_group tracked click group'+this.index+'" data-group_id="'+this.index+'"> ( </a>');
+        sb.append('<a href="#" class="prediction_group tracked click group'+this.index+'" data-group_id="'+this.index+'" style="color:'+parencolor+';font-weight:bold"> [ </a>');
         
         for (var i = 0; i < this.subgroups.length; i++) {
-            sb.append(this.subgroups[i].buildHierarchicalInterface());
+			var sg = new PredictionGroup(this.subgroups[i]);
+            //sb.append(this.subgroups[i].buildHierarchicalInterface());
+			var sgstr = sg.buildHierarchicalInterface(this.index);
+			sb.append(sgstr);
         }
 
         for (var j = 0; j < this.contacts.length; j++) {
             var c = this.contacts[j];
-            sb.append('<span class="prediction_wrapper wrapper">')
-            sb.append('<a href="#"><span class="label label-info">');
-            sb.append('<span class="prediction tracked click" id="'+c.email+'">'+c.name+'</span>');
-            sb.append('<span class="glyphicon glyphicon-remove remove tracked click" data-group_id="'+this.index+'" data-contact_id="'+j+'"></span>');
-            sb.append('</span></a>');
-            sb.append('</span>&nbsp;');
+			sb.append('<a href="#" id="'+c.emailAddress+'"');
+//			if(recur==-1){
+//				sb.append('data-group_id="0"');
+//				}
+//			else if(recur==0){
+//				sb.append('data-group_id="0 '+this.index+'"');
+//				}
+//			else{
+//				sb.append('data-group_id="0 '+recur+' '+this.index+'"');
+//				}
+			if(recur==-1){
+				sb.append('class="prediction tracked click 0"');
+			}
+			else if(recur == 0){
+				sb.append('class="prediction tracked click 0 '+this.index+'"');
+			}
+			else{
+				sb.append('class="prediction tracked click 0 '+this.index+' '+recur+'"');
+			}	
+			sb.append('class="prediction tracked click" >'+c.name+'</a>&nbsp');
         }
 
-        sb.append('<a href="#" class="prediction_group tracked click group'+this.index+'" data-group_id="'+this.index+'"> ) </a>');
+        sb.append('<a href="#" class="prediction_group tracked click group'+this.index+'" data-group_id="'+this.index+'" style="color:'+parencolor+';font-weight:bold">] </a>');
         return sb.toString();
     }
+
+	this.buildTimeInterface = function() {
+		var sb = new StringBuilder();
+        for (var i = 0; i < this.subgroups.length; i++) {
+            var sg = new PredictionGroup(this.subgroups[i]);
+			var sgstr = sg.buildTimeInterface();
+			sb.append(sgstr);
+        }
+        
+        for (var i = 0; i < this.contacts.length; i++) {
+            var c = this.contacts[i];
+            var split = c.time.split(" ");
+            // time is split into two parts, value of time and the unit of time. split[1] is the days, minutes hours, ect.
+            if(split[1]=="Days" || split[1]=="days" || split[1] =="mo" || split[1] == "day" || split[1] == "Day"){
+                sb.append('<a href="#" class="prediction tracked click" id="'+c.emailAddress+'">' + c.name  +'<span class="longResponse">'+ " [" + c.time + "]" + " " +'</span>');
+            }else{
+                sb.append('<a href="#" class="prediction tracked click" id="'+c.emailAddress+'">' + c.name  +'<span class="fastResponse">'+ " [" + c.time + "]" +" " +'</span>');
+		   }
+		}
+        return sb.toString();
+	}
+	
+	this.buildHierachTimeInterface = function(recur)  {
+		var sb = new StringBuilder();
+		var parencolor = colors[this.index];
+        //Each parenthesis will have a class name group<id> for easy selection on jQuery
+        sb.append('<a href="#" class="prediction_group tracked click group'+this.index+'" data-group_id="'+this.index+'" style="color:'+parencolor+';font-weight:bold"> [ </a>');
+        for (var i = 0; i < this.subgroups.length; i++) {
+            var sg = new PredictionGroup(this.subgroups[i]);
+			var sgstr = sg.buildHierachTimeInterface();
+			sb.append(sgstr);
+        }
+		 for (var i = 0; i < this.contacts.length; i++) {
+            var c = this.contacts[i];
+            var split = c.time.split(" ");
+			sb.append('<a href="#" id="'+c.emailAddress+'"');
+			if(recur==-1){
+				sb.append('class="prediction tracked click 0">');
+			}
+			else if(recur == 0){
+				sb.append('class="prediction tracked click 0 '+this.index+'">');
+			}
+			else{
+				sb.append('class="prediction tracked click 0 '+this.index+' '+recur+'">');
+				}
+            // time is split into two parts, value of time and the unit of time. split[1] is the days, minutes hours, ect.
+            if(split[1]=="Days" || split[1]=="days" || split[1] =="mo" || split[1] == "day" || split[1] == "Day"){
+                sb.append('' + c.name  +'<span class="longResponse">'+ " [" + c.time + "]" + " " +'</span>');
+            }else{
+                sb.append('' + c.name  +'<span class="fastResponse">'+ " [" + c.time + "]" +" " +'</span>');
+		   }
+		}
+		sb.append('<a href="#" class="prediction_group tracked click group'+this.index+'" data-group_id="'+this.index+'" style="color:'+parencolor+';font-weight:bold">] </a>');
+		
+        return sb.toString();
+	}
 
     PredictionGroup.all.push(this);
     index++;    

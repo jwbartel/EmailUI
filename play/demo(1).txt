@@ -1,0 +1,341 @@
+Started Test 11 on: Mon Nov 24 2014 16:28:47 GMT-0500 (EST)
+Mouse Coordinates 313 23; timestamp: 0.409
+Mouse Coordinates 262 47; timestamp: 0.425
+Mouse Coordinates 220 65; timestamp: 0.44
+Mouse Coordinates 193 78; timestamp: 0.458
+Mouse Coordinates 171 87; timestamp: 0.472
+Mouse Coordinates 164 89; timestamp: 0.487
+Mouse Coordinates 160 90; timestamp: 0.506
+Mouse Coordinates 158 90; timestamp: 0.522
+Mouse Coordinates 163 89; timestamp: 0.554
+Mouse Coordinates 201 89; timestamp: 0.57
+Mouse Coordinates 268 113; timestamp: 0.587
+Mouse Coordinates 325 138; timestamp: 0.604
+Mouse Coordinates 390 170; timestamp: 0.621
+Mouse Coordinates 444 197; timestamp: 0.639
+Mouse Coordinates 489 216; timestamp: 0.658
+Mouse Coordinates 515 226; timestamp: 0.674
+Mouse Coordinates 535 232; timestamp: 0.689
+Mouse Coordinates 550 236; timestamp: 0.706
+Mouse Coordinates 560 240; timestamp: 0.723
+Entered element timeNparen; timestamp: 0.741
+Mouse Coordinates 573 244; timestamp: 0.744
+Mouse Coordinates 587 248; timestamp: 0.757
+Mouse Coordinates 597 252; timestamp: 0.774
+Mouse Coordinates 606 254; timestamp: 0.789
+Mouse Coordinates 614 257; timestamp: 0.807
+Mouse Coordinates 621 259; timestamp: 0.823
+Mouse Coordinates 630 261; timestamp: 0.84
+Mouse Coordinates 644 263; timestamp: 0.863
+Mouse Coordinates 656 265; timestamp: 0.875
+Mouse Coordinates 665 268; timestamp: 0.896
+Mouse Coordinates 673 269; timestamp: 0.909
+Left element timeNparen; timestamp: 0.927
+Mouse Coordinates 676 270; timestamp: 0.928
+Mouse Coordinates 677 270; timestamp: 0.943
+Mouse Coordinates 677 269; timestamp: 0.981
+Mouse Coordinates 677 269; timestamp: 1.339
+Entered element paren; timestamp: 1.358
+Mouse Coordinates 684 269; timestamp: 1.36
+Mouse Coordinates 689 269; timestamp: 1.374
+Mouse Coordinates 694 269; timestamp: 1.39
+Mouse Coordinates 699 269; timestamp: 1.407
+Mouse Coordinates 702 269; timestamp: 1.425
+Mouse Coordinates 703 269; timestamp: 1.441
+Clicked element paren; timestamp: 1.589
+Contacts: LeBron James;Kevin Durant;Carmelo Anthony;
+Left element paren; timestamp: 1.605
+Mouse Coordinates 699 269; timestamp: 1.823
+Mouse Coordinates 675 265; timestamp: 1.84
+Mouse Coordinates 614 261; timestamp: 1.857
+Mouse Coordinates 503 255; timestamp: 1.874
+Mouse Coordinates 318 242; timestamp: 1.908
+Mouse Coordinates 318 242; timestamp: 1.911
+Mouse Coordinates 249 229; timestamp: 1.925
+Mouse Coordinates 219 220; timestamp: 1.943
+Mouse Coordinates 205 216; timestamp: 1.96
+Mouse Coordinates 200 214; timestamp: 1.978
+Mouse Coordinates 197 214; timestamp: 2.197
+Mouse Coordinates 183 214; timestamp: 2.216
+Mouse Coordinates 167 214; timestamp: 2.233
+Mouse Coordinates 148 214; timestamp: 2.249
+Mouse Coordinates 135 214; timestamp: 2.266
+Mouse Coordinates 120 211; timestamp: 2.283
+Mouse Coordinates 107 208; timestamp: 2.3
+Mouse Coordinates 96 205; timestamp: 2.317
+Mouse Coordinates 83 202; timestamp: 2.333
+Mouse Coordinates 76 200; timestamp: 2.35
+Mouse Coordinates 70 198; timestamp: 2.367
+Mouse Coordinates 66 196; timestamp: 2.383
+Mouse Coordinates 65 196; timestamp: 2.4
+Mouse Coordinates 64 196; timestamp: 2.418
+Mouse Coordinates 64 195; timestamp: 2.485
+Mouse Coordinates 64 194; timestamp: 2.619
+Mouse Coordinates 64 189; timestamp: 2.637
+Mouse Coordinates 64 180; timestamp: 2.654
+Mouse Coordinates 64 167; timestamp: 2.672
+Mouse Coordinates 64 156; timestamp: 2.69
+Mouse Coordinates 62 145; timestamp: 2.707
+Mouse Coordinates 61 137; timestamp: 2.722
+Mouse Coordinates 59 132; timestamp: 2.74
+Mouse Coordinates 57 128; timestamp: 2.757
+Mouse Coordinates 55 123; timestamp: 2.774
+Mouse Coordinates 54 119; timestamp: 2.791
+Mouse Coordinates 53 116; timestamp: 2.808
+Mouse Coordinates 52 114; timestamp: 2.825
+Mouse Coordinates 51 113; timestamp: 2.843
+Mouse Coordinates 50 112; timestamp: 2.86
+Mouse Coordinates 48 111; timestamp: 2.877
+Mouse Coordinates 47 111; timestamp: 2.894
+Entered element nav_new_message; timestamp: 2.912
+Mouse Coordinates 46 110; timestamp: 2.912
+Mouse Coordinates 45 110; timestamp: 2.931
+Mouse Coordinates 44 109; timestamp: 2.945
+Clicked element nav_new_message; timestamp: 3.196
+Left element nav_new_message; timestamp: 3.513
+Mouse Coordinates 49 109; timestamp: 3.516
+Mouse Coordinates 66 109; timestamp: 3.53
+Mouse Coordinates 127 114; timestamp: 3.547
+Entered element email0; timestamp: 3.564
+Mouse Coordinates 209 121; timestamp: 3.566
+Left element email0; timestamp: 3.581
+Entered element email1; timestamp: 3.583
+Mouse Coordinates 273 129; timestamp: 3.585
+Mouse Coordinates 351 140; timestamp: 3.598
+Mouse Coordinates 393 145; timestamp: 3.613
+Mouse Coordinates 435 150; timestamp: 3.63
+Mouse Coordinates 458 153; timestamp: 3.649
+Mouse Coordinates 488 156; timestamp: 3.663
+Mouse Coordinates 508 158; timestamp: 3.68
+Mouse Coordinates 525 159; timestamp: 3.7
+Mouse Coordinates 538 161; timestamp: 3.714
+Mouse Coordinates 552 161; timestamp: 3.731
+Left element email1; timestamp: 3.75
+Mouse Coordinates 564 161; timestamp: 3.753
+Mouse Coordinates 575 162; timestamp: 3.766
+Mouse Coordinates 584 162; timestamp: 3.783
+Mouse Coordinates 610 162; timestamp: 3.84
+Mouse Coordinates 618 162; timestamp: 3.852
+Mouse Coordinates 623 162; timestamp: 3.868
+Entered element to_field; timestamp: 3.888
+Mouse Coordinates 628 162; timestamp: 3.892
+Mouse Coordinates 631 162; timestamp: 3.902
+Mouse Coordinates 634 162; timestamp: 3.918
+Mouse Coordinates 637 162; timestamp: 3.935
+Mouse Coordinates 643 162; timestamp: 3.972
+Mouse Coordinates 644 162; timestamp: 3.988
+Mouse Coordinates 645 162; timestamp: 4.006
+Mouse Coordinates 645 162; timestamp: 4.025
+Changed content of to_field to k;timestamp: 4.717
+Changed content of to_field to kev;timestamp: 4.932
+Changed content of to_field to kev;timestamp: 5.036
+Mouse Coordinates 645 163; timestamp: 5.443
+Mouse Coordinates 649 168; timestamp: 5.46
+Left element to_field; timestamp: 5.477
+Mouse Coordinates 653 175; timestamp: 5.484
+Mouse Coordinates 657 184; timestamp: 5.496
+Mouse Coordinates 659 188; timestamp: 5.51
+Mouse Coordinates 662 193; timestamp: 5.527
+Mouse Coordinates 663 197; timestamp: 5.544
+Mouse Coordinates 664 198; timestamp: 5.561
+Mouse Coordinates 665 199; timestamp: 5.579
+Mouse Coordinates 665 197; timestamp: 5.883
+Mouse Coordinates 665 196; timestamp: 5.901
+Mouse Coordinates 665 194; timestamp: 5.918
+Mouse Coordinates 664 191; timestamp: 5.936
+Mouse Coordinates 664 190; timestamp: 5.953
+Mouse Coordinates 663 189; timestamp: 5.97
+Mouse Coordinates 662 189; timestamp: 5.988
+Suggested contacts: Carmelo Anthony<melo@nyk.com> 
+Mouse Coordinates 664 189; timestamp: 6.685
+Mouse Coordinates 671 187; timestamp: 6.702
+Mouse Coordinates 679 186; timestamp: 6.719
+Mouse Coordinates 688 184; timestamp: 6.735
+Mouse Coordinates 703 181; timestamp: 6.752
+Mouse Coordinates 723 176; timestamp: 6.77
+Mouse Coordinates 749 172; timestamp: 6.791
+Mouse Coordinates 777 170; timestamp: 6.809
+Entered element to_field; timestamp: 6.825
+Mouse Coordinates 794 169; timestamp: 6.827
+Mouse Coordinates 809 169; timestamp: 6.84
+Mouse Coordinates 819 169; timestamp: 6.857
+Mouse Coordinates 826 169; timestamp: 6.872
+Mouse Coordinates 830 169; timestamp: 6.889
+Left element to_field; timestamp: 6.908
+Mouse Coordinates 833 171; timestamp: 6.91
+Mouse Coordinates 834 173; timestamp: 6.922
+Mouse Coordinates 836 176; timestamp: 6.941
+Mouse Coordinates 837 178; timestamp: 6.956
+Mouse Coordinates 837 180; timestamp: 6.973
+Mouse Coordinates 837 181; timestamp: 6.989
+Mouse Coordinates 837 183; timestamp: 7.006
+Mouse Coordinates 837 185; timestamp: 7.023
+Mouse Coordinates 837 189; timestamp: 7.04
+Mouse Coordinates 837 194; timestamp: 7.059
+Entered element goat@heat.com 0 1; timestamp: 7.077
+Mouse Coordinates 835 196; timestamp: 7.081
+Mouse Coordinates 833 198; timestamp: 7.092
+Mouse Coordinates 832 200; timestamp: 7.109
+Mouse Coordinates 830 201; timestamp: 7.126
+Mouse Coordinates 828 203; timestamp: 7.144
+Mouse Coordinates 825 204; timestamp: 7.161
+Mouse Coordinates 823 205; timestamp: 7.179
+Mouse Coordinates 820 206; timestamp: 7.198
+Mouse Coordinates 817 207; timestamp: 7.213
+Mouse Coordinates 816 207; timestamp: 7.234
+Mouse Coordinates 814 208; timestamp: 7.247
+Mouse Coordinates 813 208; timestamp: 7.264
+Mouse Coordinates 812 208; timestamp: 7.281
+Mouse Coordinates 811 208; timestamp: 7.3
+Clicked element goat@heat.com 0 1; timestamp: 7.498
+Mouse Coordinates 810 208; timestamp: 7.953
+Mouse Coordinates 807 211; timestamp: 7.971
+Left element goat@heat.com 0 1; timestamp: 7.99
+Mouse Coordinates 800 215; timestamp: 7.993
+Mouse Coordinates 793 221; timestamp: 8.007
+Entered element cc_field; timestamp: 8.024
+Mouse Coordinates 784 225; timestamp: 8.027
+Mouse Coordinates 776 231; timestamp: 8.041
+Mouse Coordinates 768 235; timestamp: 8.057
+Mouse Coordinates 763 240; timestamp: 8.073
+Mouse Coordinates 758 243; timestamp: 8.09
+Mouse Coordinates 755 245; timestamp: 8.107
+Mouse Coordinates 752 247; timestamp: 8.124
+Mouse Coordinates 751 248; timestamp: 8.141
+Mouse Coordinates 750 249; timestamp: 8.159
+Mouse Coordinates 750 250; timestamp: 8.176
+Mouse Coordinates 750 251; timestamp: 8.208
+Mouse Coordinates 749 251; timestamp: 8.232
+Mouse Coordinates 749 252; timestamp: 9.561
+Mouse Coordinates 749 258; timestamp: 9.577
+Left element cc_field; timestamp: 9.595
+Mouse Coordinates 751 263; timestamp: 9.598
+Mouse Coordinates 753 269; timestamp: 9.611
+Mouse Coordinates 754 273; timestamp: 9.629
+Mouse Coordinates 756 278; timestamp: 9.648
+Entered element subect_field; timestamp: 9.667
+Mouse Coordinates 757 281; timestamp: 9.669
+Mouse Coordinates 758 282; timestamp: 9.681
+Mouse Coordinates 759 283; timestamp: 9.699
+Mouse Coordinates 759 284; timestamp: 9.715
+Mouse Coordinates 759 285; timestamp: 9.731
+Mouse Coordinates 759 286; timestamp: 9.752
+Mouse Coordinates 760 286; timestamp: 9.776
+Changed content of subect_field to S;timestamp: 11.693
+Changed content of subect_field to S;timestamp: 11.708
+Changed content of subect_field to Sur;timestamp: 12.79
+Changed content of subect_field to Sure;timestamp: 12.956
+Changed content of subect_field to Sure;timestamp: 13.044
+Mouse Coordinates 760 288; timestamp: 13.143
+Mouse Coordinates 760 292; timestamp: 13.16
+Mouse Coordinates 760 296; timestamp: 13.177
+Mouse Coordinates 760 301; timestamp: 13.194
+Mouse Coordinates 759 309; timestamp: 13.212
+Left element subect_field; timestamp: 13.232
+Mouse Coordinates 759 316; timestamp: 13.237
+Mouse Coordinates 758 325; timestamp: 13.246
+Mouse Coordinates 757 331; timestamp: 13.263
+Entered element message_field; timestamp: 13.281
+Mouse Coordinates 757 337; timestamp: 13.283
+Mouse Coordinates 757 342; timestamp: 13.297
+Mouse Coordinates 757 346; timestamp: 13.314
+Mouse Coordinates 757 350; timestamp: 13.331
+Mouse Coordinates 757 357; timestamp: 13.348
+Mouse Coordinates 757 361; timestamp: 13.366
+Mouse Coordinates 757 366; timestamp: 13.383
+Mouse Coordinates 757 371; timestamp: 13.401
+Mouse Coordinates 757 375; timestamp: 13.417
+Mouse Coordinates 757 377; timestamp: 13.435
+Mouse Coordinates 757 377; timestamp: 13.458
+Changed content of subect_field to Sure;timestamp: 13.499
+Mouse Coordinates 757 376; timestamp: 13.609
+Mouse Coordinates 757 373; timestamp: 13.636
+Changed content of message_field to I;timestamp: 14.828
+Changed content of message_field to I;timestamp: 14.836
+Changed content of message_field to I';timestamp: 15.3
+Changed content of message_field to I'l;timestamp: 15.436
+Changed content of message_field to I'll;timestamp: 15.596
+Changed content of message_field to I'll ;timestamp: 15.723
+Changed content of message_field to I'll y;timestamp: 15.868
+Changed content of message_field to I'll you;timestamp: 16.044
+Changed content of message_field to I'll you ;timestamp: 16.108
+Changed content of message_field to I'll you ;timestamp: 16.203
+Changed content of message_field to I'll you;timestamp: 18.429
+Changed content of message_field to I'll yo;timestamp: 18.54
+Changed content of message_field to I'll y;timestamp: 18.643
+Changed content of message_field to I'll ;timestamp: 18.804
+Changed content of message_field to I'll se;timestamp: 18.988
+Changed content of message_field to I'll se;timestamp: 19.044
+Changed content of message_field to I'll see ;timestamp: 19.251
+Changed content of message_field to I'll see y;timestamp: 19.342
+Changed content of message_field to I'll see yo;timestamp: 19.413
+Changed content of message_field to I'll see you ;timestamp: 19.595
+Changed content of message_field to I'll see you ;timestamp: 19.612
+Changed content of message_field to I'll see you t;timestamp: 19.755
+Changed content of message_field to I'll see you th;timestamp: 19.851
+Changed content of message_field to I'll see you this;timestamp: 19.94
+Changed content of message_field to I'll see you this ;timestamp: 20.011
+Changed content of message_field to I'll see you this ;timestamp: 20.019
+Changed content of message_field to I'll see you this ;timestamp: 20.083
+Changed content of message_field to I'll see you this d;timestamp: 20.251
+Changed content of message_field to I'll see you this ;timestamp: 20.835
+Changed content of message_field to I'll see you this b;timestamp: 21.852
+Changed content of message_field to I'll see you this f;timestamp: 22.643
+Changed content of message_field to I'll see you this f;timestamp: 22.675
+Changed content of message_field to I'll see you this fr;timestamp: 22.867
+Changed content of message_field to I'll see you this fri;timestamp: 22.987
+Changed content of message_field to I'll see you this fr;timestamp: 23.283
+Changed content of message_field to I'll see you this f;timestamp: 23.427
+Changed content of message_field to I'll see you this ;timestamp: 23.507
+Changed content of message_field to I'll see you this D;timestamp: 24.075
+Changed content of message_field to I'll see you this D;timestamp: 24.091
+Changed content of message_field to I'll see you this Dr;timestamp: 24.459
+Changed content of message_field to I'll see you this D;timestamp: 24.651
+Changed content of message_field to I'll see you this ;timestamp: 24.771
+Changed content of message_field to I'll see you this F;timestamp: 25.019
+Changed content of message_field to I'll see you this F;timestamp: 25.043
+Changed content of message_field to I'll see you this Fr;timestamp: 25.419
+Changed content of message_field to I'll see you this Fri;timestamp: 25.611
+Changed content of message_field to I'll see you this Frida;timestamp: 25.963
+Changed content of message_field to I'll see you this Friday;timestamp: 26.035
+Changed content of message_field to I'll see you this Friday;timestamp: 26.123
+Changed content of message_field to I'll see you this Friday!;timestamp: 26.475
+Changed content of message_field to I'll see you this Friday!;timestamp: 26.508
+Changed content of message_field to I'll see you this Friday! ;timestamp: 26.651
+Mouse Coordinates 752 373; timestamp: 26.952
+Mouse Coordinates 715 391; timestamp: 26.969
+Mouse Coordinates 684 396; timestamp: 26.986
+Mouse Coordinates 645 398; timestamp: 27.002
+Left element message_field; timestamp: 27.021
+Mouse Coordinates 582 398; timestamp: 27.025
+Mouse Coordinates 526 391; timestamp: 27.039
+Mouse Coordinates 502 385; timestamp: 27.055
+Mouse Coordinates 478 379; timestamp: 27.073
+Mouse Coordinates 460 375; timestamp: 27.09
+Mouse Coordinates 454 373; timestamp: 27.106
+Mouse Coordinates 453 373; timestamp: 27.124
+Mouse Coordinates 453 372; timestamp: 27.139
+Mouse Coordinates 454 372; timestamp: 27.304
+Mouse Coordinates 459 540; timestamp: 27.784
+Mouse Coordinates 474 551; timestamp: 27.801
+Mouse Coordinates 493 563; timestamp: 27.818
+Mouse Coordinates 511 572; timestamp: 27.835
+Mouse Coordinates 542 587; timestamp: 27.854
+Mouse Coordinates 568 598; timestamp: 27.871
+Mouse Coordinates 579 605; timestamp: 27.889
+Mouse Coordinates 591 612; timestamp: 27.906
+Mouse Coordinates 598 617; timestamp: 27.921
+Mouse Coordinates 602 622; timestamp: 27.94
+Entered element send; timestamp: 27.956
+Mouse Coordinates 605 627; timestamp: 27.959
+Mouse Coordinates 607 630; timestamp: 27.973
+Mouse Coordinates 610 633; timestamp: 27.988
+Mouse Coordinates 611 634; timestamp: 28.005
+Mouse Coordinates 611 635; timestamp: 28.022
+Mouse Coordinates 612 635; timestamp: 28.039
+Mouse Coordinates 613 635; timestamp: 28.112
+Mouse Coordinates 613 635; timestamp: 28.137
+Mouse Coordinates 614 635; timestamp: 28.161
+Mouse Coordinates 615 635; timestamp: 28.179
+Changed content of message_field to I'll see you this Friday! ;timestamp: 28.306
+Ended Test 11 on: Mon Nov 24 2014 16:29:15 GMT-0500 (EST)

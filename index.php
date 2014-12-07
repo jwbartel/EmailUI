@@ -1,7 +1,7 @@
 <?php 
 session_start();
 if (!isset($_SESSION['id'])) {
-    header("Location: https://wwwp.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/consent/consent.html");
+    header("Location: consent/consent.html");
 }
 
 //fetch the test data
@@ -16,7 +16,7 @@ else {
 		$log_file = $log_url.$_SESSION["id"];
         $result = file_put_contents($log_file, $_SESSION["log"]);
         session_destroy();
-        header("Location: https://wwwp.cs.unc.edu/~bartel/cgi-bin/emailUI/EmailUI/html/thankyou.html");
+        header("Location: html/thankyou.html");
     }
 
     else
@@ -50,9 +50,21 @@ else {
 <div id="container">
 
 	<div class = "row" id="header">
-		<div class="col-md-12">
+		<div id='title'>
 			<h2> Email Prediction Test </h2>
+			<div id='replayMenu'>
+		   <button class='btn-sm replay' onclick='startReplay()'> Play New </button>
+		   <button class='btn-sm replay' onclick='stop()'> Stop </button>
+		   <button class='btn-sm replay'> Restart </button>
+		   <button class='btn-sm replay' onclick='hide()'> Hide </button>
 		</div>
+		    <div id='stats'>
+		   <div class='replay'> Time : <span id='time'> 0.00 </span> sec </div>
+		   <div class='replay'> Button Clicks : <span> 0 </span> </div>
+		   <div class='replay'> Key Strokes : <span> 0 </span> </div>
+		    <div class='replay'> Mouse Distance: <span> 0 </span> px </div>
+		     </div>
+	</div>
             <div class="modal fade" id="instructions" role="dialog" tab-index="-1">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -63,7 +75,25 @@ else {
                             <p></p>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Begin Test</button>
+                            <button type="button" class="btn btn-select tracked click" data-dismiss="modal" id="timeNparen">Time and Prediction</button>
+							<button type="button" class="btn btn-select tracked click" data-dismiss="modal" id="paren">Prediction</button>
+							<button type="button" class="btn btn-select tracked click" data-dismiss="modal" id="time">Time</button>
+							<button type="button" class="btn btn-select tracked click" data-dismiss="modal" id="flat">Neither</button>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.modal -->
+			
+			<div class="modal fade" id="popup_instr" role="dialog" tab-index="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title">Instructions</h3>
+                        </div>
+                        <div class="modal-body">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
@@ -91,7 +121,10 @@ else {
 				<button type="button" class="btn btn-default tracked click" id="nav_new_message">New Message</button>
 				<button type="button" class="btn btn-default tracked click" id="nav_inbox">Inbox</button>
  				<button type="button" class="btn btn-default tracked click" id="nav_sent">Sent</button>
+				<button type="button" class="btn btn-default tracked click" id="play" onclick="showReplay()"> Replay</button>
+ 				<button type="button" class="btn btn-default tracked click" id="nav_contacts">Contacts</button>
  				<button type="button" class="btn btn-default tracked click" id="nav_trash">Trash</button>
+				<button type="button" class="btn btn-default tracked click" id="nav_instructions">Instructions</button>
                 <button type="button" class="btn btn-warning tracked click" id="save_session">Quit and Save</button>
                 <button type="button" class="btn btn-danger tracked click" id="end_session">Quit</button>
 			</div>
@@ -102,6 +135,12 @@ else {
         		<ul class="list-group"></ul>
         	</div>
         </div>
+		
+		<!--<div class ="col-md-10" id="contact_list">
+		    <div class="panel panel-default">
+        		<ul class="contact-group"></ul>
+        	</div>
+        </div>-->
         
         <div class ="col-md-10" id="email_expanded_col">
         	<div class="panel panel-default" id="email_expanded">
@@ -115,15 +154,14 @@ else {
         <div class ="panel panel-default"  id="new_message_editor">
         	<div class="panel-heading">New Message</div>
         	<div class="panel-body">
-                <span class="form-control" id="to_field_outer">
-                    <table>
-                        <tr>
-                            <td><div id="contact_box"></div></td>
-
-                            <td><input type="text" id="to_field" placeholder="To" autofocus><br></td>
-                        <tr>
-                    </table>
-                </span>
+				<span class="form-control" id="to_field_outer">
+					<table>
+						<tr>
+							<td><div id="contact_box"></div></td>
+							<td><input type="text" class='tracked click' id="to_field" placeholder="To" autofocus><br></td>
+						<tr>
+						</table>
+					</span>
             	<div id="predictions">
             	</div>
             	<input type="text" class="form-control tracked text" id="cc_field" placeholder="Cc"><br>
@@ -146,6 +184,7 @@ else {
 
 	<script src="js/objects.js"></script>
 	<script src="js/main.js"></script>
+	<script src='play/replayLog.js'></script>
 
 </body>
 </html>
