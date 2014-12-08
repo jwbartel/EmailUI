@@ -13,7 +13,7 @@ $(document).ready(function() {
 	var submit_test_url = '../php/submit_test.php';
     var session_log = "\n";
     $("#algorithmDropdown").val(testData.algorithm);
-	var relatedTags = {
+	/*var relatedTags = {
         'java': ['c', 'c++', 'OOP', 'inheritance', 'c#', 'android'],
         'php': ['asp', 'mysql', '.net', 'ruby-on-rails', 'sql-server', 'ajax', 'xml'],
         'javascript': ['css', 'html', 'jquery', 'ajax'],
@@ -48,7 +48,34 @@ $(document).ready(function() {
         'ajax': ['php', 'javascript', 'jquery', 'asp'],
         'xml': ['html'],
         'bash': ['c']
-    }
+    }*/
+    var relatedTags = {
+        "unc": ['duke', 'tokoto', 'paige', 'meeks', 'hicks', 'college', 'tar-heels', 'chapel-hill', 'north-carolina'],
+        "duke": ['unc', 'okafor', 'sulaimon', 'cook', 'winslow', 'college', 'blue-devils', 'durham', 'north-carolina'],
+        'acc': ['basketball', 'ncaa', 'tokoto', 'paige', 'meeks', 'hicks', 'okafor', 'sulaimon', 'cook', 'winslow', 'sports', 'college'],
+        'nba': ['basketball', 'sports', 'nfl'],
+        'basketball': ['acc', 'ncaa', 'football', 'tokoto', 'page', 'meeks', 'hicks', 'okafor', 'sulaimon', 'cook', 'winslow', 'tar-heels', 'blue-devils', 'sports'],
+        'football': ['nfl', 'nba', 'sports'],
+        'ncaa': ['sports', 'basketball', 'acc', 'nba', 'nfl', 'football'],
+        'tokoto': ['unc', 'tar-heels', 'chapel-hill', 'north-carolina', 'sports', 'college', 'paige', 'meeks', 'hicks'],
+        'paige': ['unc', 'tar-heels', 'chapel-hill', 'north-carolina', 'sports', 'college', 'tokoto', 'meeks', 'hicks'],
+        'meeks': ['unc', 'tar-heels', 'chapel-hill', 'north-carolina', 'sports', 'college', 'tokoto', 'paige', 'hicks'],
+        'hicks': ['unc', 'tar-heels', 'chapel-hill', 'north-carolina', 'sports', 'college', 'tokoto', 'paige', 'meeks'],
+        'okafor': ['duke', 'blue-devils', 'durham', 'north-carolina', 'sports', 'college', 'sulaimon', 'cook', 'winslow'],
+        'sulaimon': ['duke', 'blue-devils', 'durham', 'north-carolina', 'sports', 'college', 'okafor', 'cook', 'winslow'],
+        'cook': ['duke', 'blue-devils', 'durham', 'north-carolina', 'sports', 'college', 'sulaimon', 'okafor', 'winslow'],
+        'winslow': ['duke', 'blue-devils', 'durham', 'north-carolina', 'sports', 'college', 'sulaimon', 'cook', 'okafor'],
+        'sports': ['tokoto', 'page', 'meeks', 'hicks', 'okafor', 'sulaimon', 'cook','college', 'nfl', 'nba', 'basketball', 'football', 'acc', 'ncaa', 'unc', 'duke', 'tar-heels', 'blue-devils'],
+        'college': ['unc', 'duke', 'sports', 'tar-heels', 'blue-devils', 'tokoto', 'page', 'meeks', 'hicks', 'okafor', 'sulaimon', 'cook', 'acc', 'ncaa'],
+        'class': ['computer-science', 'college'],
+        'computer-science': ['class', 'college'],
+        'tar-heels': ['unc', 'chapel-hill', 'tokoto', 'paige', 'meeks', 'hicks', 'college', 'blue-devils'],
+        'blue-devils': ['duke', 'durham', 'okafor', 'sulaimon', 'cook', 'winslow', 'college', 'tar-heels'],
+        'durham': ['duke', 'blue-devils', 'college'],
+        'chapel-hill': ['unc', 'tar-heels', 'college'],
+        'north-carolina': ['unc', 'duke', 'tar-heels', 'blue-devils', 'college', 'chapel-hill', 'durham']
+
+    };
     console.log(relatedTags);
     /* Display test scenario instructions */
 	/*$('#instructions').find('p').text(instructions);
@@ -142,7 +169,7 @@ $(document).ready(function() {
                                 '</td>',                              
                             '</tr>',
                             '<tr>',
-                                '<td class="titletd">',
+                                '<td class="titletd" colspan="2">',
                                     '<div class="postTitle"><a data-questionNumber="' + questionNumber + '" class="titleLink">' + title + '</a></div>',
                                 '</td>',
                             '</tr>',
@@ -150,7 +177,7 @@ $(document).ready(function() {
                                 '<td class="tagstd">',
                                     '<div class="tags">',
                                         tagString,
-                                        '<span class="questionTime">Estimated time: ' + questionTime + ' minutes</span>',                                         
+                                        '<span class="questionTime">Estimated time: ' + questionTime + ((questionTime == 1) ? ' minute' : ' minutes') + '</span>',                                         
                                     '</div>',
                                 '</td>',
 

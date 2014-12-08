@@ -18,37 +18,39 @@ public class Driver {
 			System.out.println("Not enough arguments");
 			return;
 		}
-		
+
 		String file = args[1];
-		if (args[0].equals("write")) 
+		if (args[0].equals("write"))
 			write(file);
-		
-		else if (args[0].equals("read")) 
-			read(file);	
+
+		else if (args[0].equals("read"))
+			read(file);
 	}
+
 	public static void write(String folder) {
-		
+
 		Properties prop = new Properties();
 		Gson gson = new Gson();
 		OutputStream output = null;
-		
+
 		SOTestCase t1 = generateTest();
-		
+
 		try {
-		
-			output = new FileOutputStream(folder+"/test1");
-			String json = gson.toJson(t1);			
+
+			output = new FileOutputStream(folder + "/test1");
+			String json = gson.toJson(t1);
 			prop.setProperty("json", json);
 			prop.store(output, null);
-			
-			/*output = new FileOutputStream(folder+"/test2");
-			json = gson.toJson(t1);			
-			prop.setProperty("json", json);
-			prop.store(output, null);*/
+			System.out.println(prop);
+			/*
+			 * output = new FileOutputStream(folder+"/test2"); json =
+			 * gson.toJson(t1); prop.setProperty("json", json);
+			 * prop.store(output, null);
+			 */
 
 		} catch (IOException e) {
 			e.printStackTrace();
-			
+
 		} finally {
 			if (output != null) {
 				try {
@@ -58,39 +60,37 @@ public class Driver {
 				}
 			}
 		}
-		
+
 	}
 
 	public static void read(String file) {
-		
+
 		Properties prop = new Properties();
 		InputStream input = null;
 		String testFolder;
 		String[] testFiles;
 		try {
-			
+
 			input = new FileInputStream(file);
 			prop.load(input);
 			String configTests = prop.getProperty("testFiles");
 			testFolder = prop.getProperty("testFolder");
 			testFiles = configTests.split(",");
-			
-			for (int i = 0; i < testFiles.length;i++) {
-				try{
-					input = new FileInputStream(testFolder+ "/" +testFiles[i]);
+
+			for (int i = 0; i < testFiles.length; i++) {
+				try {
+					input = new FileInputStream(testFolder + "/" + testFiles[i]);
 					prop.load(input);
 					System.out.print(prop.getProperty("json"));
 					System.out.print(";");
-				}
-				catch (IOException e) {
+				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}
-			
 
 		} catch (IOException e) {
 			e.printStackTrace();
-			
+
 		} finally {
 			if (input != null) {
 				try {
@@ -100,136 +100,165 @@ public class Driver {
 				}
 			}
 		}
-		
+
 	}
-	
+
 	public static SOTestCase generateTest() {
 		int numQuestions = 2;
-		String[] tagSet = {"java",
-						"php",
-						"javascript",
-						"perl",
-						"ruby",
-						"python-2",
-						"python-3",
-						"asp",
-						"c",
-						"c++",
-						"css",
-						"html",
-						"assembly",
-						"prolog",
-						"SAS",
-						"R",
-						"OOP",
-						"hadoop",
-						"inheritance",
-						"memory",
-						"c#",
-						"android",
-						"jquery",
-						"ios",
-						"mysql",
-						"objective-c",
-						"iphone",
-						".net",
-						"ruby-on-rails",
-						"ruby",
-						"sql-server",
-						"ajax",
-						"xml",
-						"bash"};
-		
-		int[] tagTimeSet = {1,
-							1,
-							3,
-							3,
-							2,
-							2,
-							4,
-							5,
-							4,
-							2,
-							1,
-							18,
-							100,
-							34,
-							56,
-							29,
-							23,
-							53,
-							18,
-							99,
-							12,
-							5,
-							9,
-							10,
-							84,
-							35,
-							201,
-							88,
-							29,
-							46,
-							64,
-							92,
-							13,
-							43};
+		String[] tagSet = { "unc", "duke", "acc", "nba", "basketball",
+				"football", "nfl", "ncaa", "tokoto", "paige", "meeks", "hicks",
+				"okafor", "sulaimon", "cook", "winslow", "sports", "college",
+				"class", "computer-science", "tar-heels", "blue-devils",
+				"durham", "chapel-hill", "north-carolina" };
+
+		int[] tagTimeSet = { 1, 1, 2, 1, 1, 1, 3, 5, 8, 5, 9, 14, 8, 5, 19, 2,
+				1, 3, 41, 84, 10, 11, 32, 34, 21 };
 
 		Random r = new Random();
-		
+
 		Contact[] posters = new Contact[numQuestions];
-		posters[0] = new Contact("James Gosling","james.gosling@java.com");
-		posters[1] = new Contact("Bill Gates", "bill.gates@microsoft.com");
-		
-		String[] titles = {"I need help with making an array!",
-							"Does anyone know about HashMaps?"};
-		
-		String[] bodyTexts = {"I don't know how to make an array in Java. Any ideas?",
-								"I'm confused about what a HashMap is. Anybody care to explain this to me?"};
-		
+		posters[0] = new Contact("John Doe", "john.doe@person.com");
+		posters[1] = new Contact("Bob Smith", "bob.smith@person.com");
+
+		String[] titles = { "Do you think Duke or UNC will win this season?",
+				"Which do you like better: college basketball or the NBA?" };
+
+		String[] bodyTexts = {
+				"I think UNC will win this year. Their players are much better in comparison to Duke's lineup this season.",
+				"I think that college basketball has more action but watching the professional level players play is much more interesting. What about you?" };
+
 		String[][] tags = new String[numQuestions][];
-		tags[0] = new String[2];
-		tags[1] = new String[3];
-		tags[0][0] = tagSet[r.nextInt(tagSet.length)];
-		tags[0][1] = tagSet[r.nextInt(tagSet.length)];
-		tags[1][0] = tagSet[r.nextInt(tagSet.length)];
-		tags[1][1] = tagSet[r.nextInt(tagSet.length)];
-		tags[1][2] = tagSet[r.nextInt(tagSet.length)];
-		
+		tags[0] = new String[5];
+		tags[1] = new String[4];
+		tags[0][0] = tagSet[0];
+		tags[0][1] = tagSet[1];
+		tags[0][2] = tagSet[2];
+		tags[0][3] = tagSet[20];
+		tags[0][4] = tagSet[21];
+		tags[1][0] = tagSet[17];
+		tags[1][1] = tagSet[16];
+		tags[1][2] = tagSet[3];
+		tags[1][3] = tagSet[7];
+
 		Contact[] responders = new Contact[5];
 		responders[0] = new Contact("Tim Cook", "tim.cook@apple.com");
-		responders[1] = new Contact("Linus Torvalds","linus.torvalds@linux.org");
-		responders[2] = new Contact("Sergey Brin","sergey.brin@google.com");
+		responders[1] = new Contact("Linus Torvalds",
+				"linus.torvalds@linux.org");
+		responders[2] = new Contact("Sergey Brin", "sergey.brin@google.com");
 		responders[3] = new Contact("Larry Page", "larry.page@google.com");
-		responders[4] = new Contact("Mark Zuckerberg", "mark.zuckerberg@facebook.com");
-		
+		responders[4] = new Contact("Mark Zuckerberg",
+				"mark.zuckerberg@facebook.com");
+
 		SOAnswer[][] answerSet = new SOAnswer[numQuestions][];
-		answerSet[0] = new SOAnswer[3];
-		answerSet[1] = new SOAnswer[1];
-		answerSet[0][0] = new SOAnswer("Just add me as a friend and I'll give you the answer.", responders[4], 14, new Date(1072915260L + (long) (Math.random() * (new Date().getTime() - 1072915260L))));
-		answerSet[0][1] = new SOAnswer("iMessage me at 555-123-456", responders[0], 20, new Date(1072915260L + (long) (Math.random() * (new Date().getTime() - 1072915260L))));
-		answerSet[0][2] = new SOAnswer("Try running `man array`.", responders[1], 2, new Date(1072915260L + (long) (Math.random() * (new Date().getTime() - 1072915260L))));
-		answerSet[1][0] = new SOAnswer("+1 me and then we'll talk.", responders[2], 23, new Date(1072915260L + (long) (Math.random() * (new Date().getTime() - 1072915260L))));
-		
-		
-		
+		answerSet[0] = new SOAnswer[0];
+		answerSet[1] = new SOAnswer[0];
+		/*answerSet[0][0] = new SOAnswer(
+				"Just add me as a friend and I'll give you the answer.",
+				responders[4], 14, new Date(
+						1072915260L + (long) (Math.random() * (new Date()
+								.getTime() - 1072915260L))));
+		answerSet[0][1] = new SOAnswer("iMessage me at 555-123-456",
+				responders[0], 20, new Date(
+						1072915260L + (long) (Math.random() * (new Date()
+								.getTime() - 1072915260L))));
+		answerSet[0][2] = new SOAnswer("Try running `man array`.",
+				responders[1], 2, new Date(
+						1072915260L + (long) (Math.random() * (new Date()
+								.getTime() - 1072915260L))));
+		answerSet[1][0] = new SOAnswer("+1 me and then we'll talk.",
+				responders[2], 23, new Date(
+						1072915260L + (long) (Math.random() * (new Date()
+								.getTime() - 1072915260L))));*/
 		SOQuestion[] questions = new SOQuestion[numQuestions];
-		for(int i = 0; i < numQuestions; i++) {
-			long generatedLong = 1072915260L + (long) (Math.random() * (new Date().getTime() - 1072915260L));
-			questions[i] = new SOQuestion(posters[i], answerSet[i], new Date(generatedLong), titles[i], bodyTexts[i], tags[i], r.nextInt(50));
+		for (int i = 0; i < numQuestions; i++) {
+			long currTime = System.currentTimeMillis();
+			long diff = r.nextInt(10) * 60 * 1000;
+			currTime -= diff;
+			long generatedLong = 1072915260L + (long) (Math.random() * (new Date()
+					.getTime() - 1072915260L));
+			questions[i] = new SOQuestion(posters[i], answerSet[i], new Date(
+					currTime), titles[i], bodyTexts[i], tags[i], r.nextInt(50));
 		}
-		
-		
-		
-		
-		
+
 		String instructions = "I don't know what I should put here so this is just place holder text.";
 		String algorithm = "minimum";
-		SOTestCase testCase = new SOTestCase(questions, tagSet, tagTimeSet, instructions, algorithm);
-		
+		SOTestCase testCase = new SOTestCase(questions, tagSet, tagTimeSet,
+				instructions, algorithm);
+		/*
+		 * String[] tagSet = {"java", "php", "javascript", "perl", "ruby",
+		 * "python-2", "python-3", "asp", "c", "c++", "css", "html", "assembly",
+		 * "prolog", "SAS", "R", "OOP", "hadoop", "inheritance", "memory", "c#",
+		 * "android", "jquery", "ios", "mysql", "objective-c", "iphone", ".net",
+		 * "ruby-on-rails", "ruby", "sql-server", "ajax", "xml", "bash"};
+		 * 
+		 * int[] tagTimeSet = {1, 1, 3, 3, 2, 2, 4, 5, 4, 2, 1, 18, 100, 34, 56,
+		 * 29, 23, 53, 18, 99, 12, 5, 9, 10, 84, 35, 201, 88, 29, 46, 64, 92,
+		 * 13, 43};
+		 * 
+		 * Random r = new Random();
+		 * 
+		 * Contact[] posters = new Contact[numQuestions]; posters[0] = new
+		 * Contact("James Gosling","james.gosling@java.com"); posters[1] = new
+		 * Contact("Bill Gates", "bill.gates@microsoft.com");
+		 * 
+		 * String[] titles = {"I need help with making an array!",
+		 * "Does anyone know about HashMaps?"};
+		 * 
+		 * String[] bodyTexts =
+		 * {"I don't know how to make an array in Java. Any ideas?",
+		 * "I'm confused about what a HashMap is. Anybody care to explain this to me?"
+		 * };
+		 * 
+		 * String[][] tags = new String[numQuestions][]; tags[0] = new
+		 * String[2]; tags[1] = new String[3]; tags[0][0] =
+		 * tagSet[r.nextInt(tagSet.length)]; tags[0][1] =
+		 * tagSet[r.nextInt(tagSet.length)]; tags[1][0] =
+		 * tagSet[r.nextInt(tagSet.length)]; tags[1][1] =
+		 * tagSet[r.nextInt(tagSet.length)]; tags[1][2] =
+		 * tagSet[r.nextInt(tagSet.length)];
+		 * 
+		 * Contact[] responders = new Contact[5]; responders[0] = new
+		 * Contact("Tim Cook", "tim.cook@apple.com"); responders[1] = new
+		 * Contact("Linus Torvalds","linus.torvalds@linux.org"); responders[2] =
+		 * new Contact("Sergey Brin","sergey.brin@google.com"); responders[3] =
+		 * new Contact("Larry Page", "larry.page@google.com"); responders[4] =
+		 * new Contact("Mark Zuckerberg", "mark.zuckerberg@facebook.com");
+		 * 
+		 * SOAnswer[][] answerSet = new SOAnswer[numQuestions][]; answerSet[0] =
+		 * new SOAnswer[3]; answerSet[1] = new SOAnswer[1]; answerSet[0][0] =
+		 * new SOAnswer("Just add me as a friend and I'll give you the answer.",
+		 * responders[4], 14, new Date(1072915260L + (long) (Math.random() *
+		 * (new Date().getTime() - 1072915260L)))); answerSet[0][1] = new
+		 * SOAnswer("iMessage me at 555-123-456", responders[0], 20, new
+		 * Date(1072915260L + (long) (Math.random() * (new Date().getTime() -
+		 * 1072915260L)))); answerSet[0][2] = new
+		 * SOAnswer("Try running `man array`.", responders[1], 2, new
+		 * Date(1072915260L + (long) (Math.random() * (new Date().getTime() -
+		 * 1072915260L)))); answerSet[1][0] = new
+		 * SOAnswer("+1 me and then we'll talk.", responders[2], 23, new
+		 * Date(1072915260L + (long) (Math.random() * (new Date().getTime() -
+		 * 1072915260L))));
+		 * 
+		 * 
+		 * 
+		 * SOQuestion[] questions = new SOQuestion[numQuestions]; for(int i = 0;
+		 * i < numQuestions; i++) { long generatedLong = 1072915260L + (long)
+		 * (Math.random() * (new Date().getTime() - 1072915260L)); questions[i]
+		 * = new SOQuestion(posters[i], answerSet[i], new Date(generatedLong),
+		 * titles[i], bodyTexts[i], tags[i], r.nextInt(50)); }
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 * String instructions =
+		 * "I don't know what I should put here so this is just place holder text."
+		 * ; String algorithm = "minimum"; SOTestCase testCase = new
+		 * SOTestCase(questions, tagSet, tagTimeSet, instructions, algorithm);
+		 */
+
 		return testCase;
-		
-							 
+
 	}
 
 }
