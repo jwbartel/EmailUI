@@ -21,6 +21,7 @@ else {
 
     else
         $data = $data[$_SESSION["current_test"]];
+		//$_SESSION["current_test"]++;
 }
 
 ?>

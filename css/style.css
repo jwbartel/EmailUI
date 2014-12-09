@@ -189,4 +189,9 @@ textarea {
 	margin: 0px auto 0px auto;
 	background-color: #3690ce;
 	color: white;
+	min-width: 60px;
 }
+
+.btn-select:hover{
+	background-color: #2B73A5;
+	color: white;}
