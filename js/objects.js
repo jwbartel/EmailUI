@@ -74,7 +74,7 @@ var PredictionGroup = function(json) {
         var sb = new StringBuilder();
 		var parencolor = colors[this.index];
         //Each parenthesis will have a class name group<id> for easy selection on jQuery
-        sb.append('<a href="#" class="prediction_group tracked click group'+this.index+'" data-group_id="'+this.index+'" style="color:'+parencolor+';font-weight:bold"> [ </a>');
+        sb.append('<a href="#" class="prediction_group tracked click group'+this.index+'" id="group'+this.index+'" data-group_id="'+this.index+'" style="color:'+parencolor+';font-weight:bold"> [ </a>');
         
         for (var i = 0; i < this.subgroups.length; i++) {
 			var sg = new PredictionGroup(this.subgroups[i]);
@@ -107,7 +107,7 @@ var PredictionGroup = function(json) {
 			sb.append('class="prediction tracked click" >'+c.name+'</a>&nbsp');
         }
 
-        sb.append('<a href="#" class="prediction_group tracked click group'+this.index+'" data-group_id="'+this.index+'" style="color:'+parencolor+';font-weight:bold">] </a>');
+       sb.append('<a href="#" class="prediction_group tracked click group'+this.index+'" id="group'+this.index+'" data-group_id="'+this.index+'" style="color:'+parencolor+';font-weight:bold"> ] </a>');
         return sb.toString();
     }
 
@@ -124,9 +124,9 @@ var PredictionGroup = function(json) {
             var split = c.time.split(" ");
             // time is split into two parts, value of time and the unit of time. split[1] is the days, minutes hours, ect.
             if(split[1]=="Days" || split[1]=="days" || split[1] =="mo" || split[1] == "day" || split[1] == "Day"){
-                sb.append('<a href="#" class="prediction tracked click" id="'+c.emailAddress+'">' + c.name  +'<span class="longResponse">'+ " [" + c.time + "]" + " " +'</span>');
+                sb.append('<a href="#" class=" kak prediction tracked click" id="'+c.emailAddress+'">' + c.name  +'<span class="longResponse">'+ " [" + c.time + "]" + " " +'</span>');
             }else{
-                sb.append('<a href="#" class="prediction tracked click" id="'+c.emailAddress+'">' + c.name  +'<span class="fastResponse">'+ " [" + c.time + "]" +" " +'</span>');
+                sb.append('<a href="#" class="yay prediction tracked click" id="'+c.emailAddress+'">' + c.name  +'<span class="fastResponse">'+ " [" + c.time + "]" +" " +'</span>');
 		   }
 		}
         return sb.toString();
@@ -136,7 +136,7 @@ var PredictionGroup = function(json) {
 		var sb = new StringBuilder();
 		var parencolor = colors[this.index];
         //Each parenthesis will have a class name group<id> for easy selection on jQuery
-        sb.append('<a href="#" class="prediction_group tracked click group'+this.index+'" data-group_id="'+this.index+'" style="color:'+parencolor+';font-weight:bold"> [ </a>');
+        sb.append('<a href="#" class=" LOLO prediction_group tracked click group'+this.index+'" data-group_id="'+this.index+'" style="color:'+parencolor+';font-weight:bold"> [ </a>');
         for (var i = 0; i < this.subgroups.length; i++) {
             var sg = new PredictionGroup(this.subgroups[i]);
 			var sgstr = sg.buildHierachTimeInterface();

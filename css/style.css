@@ -36,6 +36,7 @@ width: 99%;
 
 #navigation {
 	margin: 0px auto 0px 10px;
+	min-width: 100px;
 }
 
 #new_message_editor {
@@ -206,12 +207,6 @@ left: 310px;
 color: red;
 }
 
-h4 {
-    float: left;
-    width: auto;
-    text-align: center;
-    margin-top: 8px;
-}
 #time{
 	width: 20px;
 }
@@ -220,4 +215,11 @@ h4 {
 	position: absolute;
 	top: 30px;
 	left: 620px;
+}
+
+.btn-select{
+margin: 0px auto 0px auto;
+background-color: #3690ce;
+color: white;
+min-width: 60px;
 }

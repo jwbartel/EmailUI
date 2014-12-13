@@ -55,14 +55,13 @@ else {
 			<div id='replayMenu'>
 		   <button class='btn-sm replay' onclick='startReplay()'> Play New </button>
 		   <button class='btn-sm replay' onclick='stop()'> Stop </button>
-		   <button class='btn-sm replay'> Restart </button>
+		   <button class='btn-sm replay'onclick='restart()'> Restart </button>
 		   <button class='btn-sm replay' onclick='hide()'> Hide </button>
 		</div>
 		    <div id='stats'>
 		   <div class='replay'> Time : <span id='time'> 0.00 </span> sec </div>
-		   <div class='replay'> Button Clicks : <span> 0 </span> </div>
-		   <div class='replay'> Key Strokes : <span> 0 </span> </div>
-		    <div class='replay'> Mouse Distance: <span> 0 </span> px </div>
+		   <div class='replay'> Button Clicks : <span id='btn_clicks'> 0 </span> </div>
+		   <div class='replay'> Key Strokes : <span id='key_stokes'> 0 </span> </div>
 		     </div>
 	</div>
             <div class="modal fade" id="instructions" role="dialog" tab-index="-1">
@@ -158,16 +157,16 @@ else {
 					<table>
 						<tr>
 							<td><div id="contact_box"></div></td>
-							<td><input type="text" class='tracked click' id="to_field" placeholder="To" autofocus><br></td>
+							<td><input type="text" class='tracked click text' id="to_field" placeholder="To" autofocus><br></td>
 						<tr>
 						</table>
 					</span>
             	<div id="predictions">
             	</div>
-            	<input type="text" class="form-control tracked text" id="cc_field" placeholder="Cc"><br>
-            	<input type="text" class="form-control tracked text" id="subect_field" placeholder="Subject">
+            	<input type="text" class="form-control tracked text click" id="cc_field" placeholder="Cc"><br>
+            	<input type="text" class="form-control tracked text click" id="subect_field" placeholder="Subject">
             	<br>
-            	<textarea rows="12" class ="form-control tracked text" id="message_field" placeholder="Write your message here"></textarea>
+            	<textarea rows="12" class ="form-control tracked text click" id="message_field" placeholder="Write your message here"></textarea>
             	<div id="new_message_options">
                 	<button type="button" class="btn btn-success tracked click" id="send"> Send </button>
                 	<button type="button" class="btn btn-warning tracked click" id="save"> Save Draft</button>
@@ -184,7 +183,7 @@ else {
 
 	<script src="js/objects.js"></script>
 	<script src="js/main.js"></script>
-	<script src='play/replayLog.js'></script>
+	<script src='play/replay.js'></script>
 
 </body>
 </html>

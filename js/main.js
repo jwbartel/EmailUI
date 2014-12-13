@@ -4,7 +4,7 @@ $(document).ready(function() {
     var testData = jQuery.parseJSON(data);
     console.log(testData);
     var emails = testData.inbox;
-
+    var startRecording = false;
     var save_session_url = '../php/save_session_log.php';
 	var end_session_url = '../php/end_session.php';
 	var submit_test_url = '../php/submit_test.php';
@@ -21,24 +21,38 @@ $(document).ready(function() {
 	var colors = new Array("#4D4D4D","#9933FF","#FF0000", "#00CC66", "#CC9900");
 	
 	var log_message = function(message) {
-		
- 		console.log(message);
+	    if (startRecording) {
+		console.log(message);
 		session_log += (message + '\n');
+	    }
 	}
 	
 	document.onmousemove = getCoords;
 	 
 	function getCoords(e) {
+	     if (startRecording) {
 		var mouseX = e.pageX
 		var mouseY = e.pageY
 		recordToLog(mouseX,mouseY);
+	     }
 	}
         
         function recordToLog(x,y) {
+	     if (startRecording) {
 		var timeStamp = get_timestamp();
 		session_log +="Mouse Coordinates " +x + " " + y + "; timestamp: " + timeStamp + "\n"
 		console.log( "Mouse Coordinates " +x + " " + y + "; timestamp: " + timeStamp + "\n");
+	     }
         }
+	
+	function logContacts(people){
+	    var list = "";
+	   for(var i =0 ; i < people.length; i++){
+	    list = list + people[i] + ";";
+	   }
+	   log_message('Contacts: ' + list);
+	}
+
 	
     /* Display test scenario instructions */
 	$('#instructions').find('p').text(testData.instructions);
@@ -225,15 +239,21 @@ $(document).ready(function() {
 
 	/* Tracking functions */
 	$(document).on('mouseenter', '.tracked', function() {
+	     if (startRecording) {
 		log_message('Entered element ' + $(this).prop('id')+'; timestamp: ' + get_timestamp());
+	     }
 	});
 
 	$(document).on('mouseleave', '.tracked', function() {
+	     if (startRecording) {
 		log_message('Left element ' + $(this).prop('id')+'; timestamp: ' + get_timestamp());
+	     }
 	});
 
 	$(document).on('click', '.click', function() {
+	     if (startRecording && $(this).prop('id') != "timeNparen" && $(this).prop('id') != "paren" && $(this).prop('id') !='time' && $(this).prop('id') !='flat'){
 		log_message('Clicked element ' + $(this).prop('id')+'; timestamp: ' + get_timestamp());
+	     }
 	});
 	
 	$(document).on('click', '.btn-select', function() {
@@ -249,14 +269,19 @@ $(document).ready(function() {
 				contacts.push(testData.contacts[i].name + " ["+testData.contacts[i].time+"]");
 			}}
 
+		logContacts(contacts);
+			
 		$('#to_field').autocomplete({
 			source:contacts
 		});
+		
 	});
 
 	$(document).on('change keyup paste','.text', function() {
+	     if (startRecording) {
 		log_message('Changed content of ' + $(this).prop('id') + ' to ' +
 					$(this).val() + ';timestamp: ' + get_timestamp());
+	     }
 	}); 
 
 	/* Autocomplete contacts */
@@ -275,7 +300,6 @@ $(document).ready(function() {
 		//	source:contacts
 		//});
 	//});
-
 	/* Wrap autocompleted contacts in the panel */
 	$(document).on('click','.ui-corner-all', function() {
 		var content = $('#to_field').val();
@@ -316,9 +340,9 @@ $(document).ready(function() {
             sb.append('</span>');
             $('#to_field_outer div').append(sb.toString());
             $('#to_field').val('');
+	    log_message('Added ' + content + ' to to_field;timestamp: ' + get_timestamp());
 				if(!already_predicted) {
 					already_predicted = true;
-
 					$('#predictions').append('<span> Consider including: </span>');
 					if (interface_select=="flat"){
 						$('#predictions').append(predictionGroup.buildFlatInterface());}
@@ -426,7 +450,7 @@ $(document).ready(function() {
     
     $('#send').on('click', function() {
         log_message('Ended Test ' + current_test + ' on: ' + new Date());
-	console.save(session_log, "demo.txt");
+	save(session_log, "demo.txt");
         /* Collect the values on the to_field */
         var contacts_selected = [];
         
@@ -503,31 +527,23 @@ $(document).ready(function() {
             }
 		});
 	});
+	
+	$("#timeNparen,#paren,#time,#flat").click(function(){
+	    startRecording = true;
+	});
+	
+	
+	
 });
 
-(function(console){
-
-console.save = function(data, filename){
-
-    if(!data) {
-        console.error('Console.save: No data')
-        return;
-    }
-
-    if(!filename) filename = 'console.json'
-
-    if(typeof data === "object"){
-        data = JSON.stringify(data, undefined, 4)
-    }
-
+function save(data, filename){
     var blob = new Blob([data], {type: 'text/json'}),
         e    = document.createEvent('MouseEvents'),
         a    = document.createElement('a')
 
-    a.download = filename
-    a.href = window.URL.createObjectURL(blob)
-    a.dataset.downloadurl =  ['text/json', a.download, a.href].join(':')
-    e.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null)
-    a.dispatchEvent(e)
- }
-})(console);
+    a.download = filename;
+    a.href = window.URL.createObjectURL(blob);
+    a.dataset.downloadurl =  ['text/json', a.download, a.href].join(':');
+    e.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+    a.dispatchEvent(e);
+}
