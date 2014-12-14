@@ -53,7 +53,9 @@ else {
 		<div id='title'>
 			<h2> Email Prediction Test </h2>
 			<div id='replayMenu'>
-		   <button class='btn-sm replay' onclick='startReplay()'> Play New </button>
+			<input type="button" id="get_file" value="Grab file">
+			<input type="file" id="my_file">
+		  <!-- <button class='btn-sm replay' onclick='startReplay()'> Play New </button>-->
 		   <button class='btn-sm replay' onclick='stop()'> Stop </button>
 		   <button class='btn-sm replay'onclick='restart()'> Restart </button>
 		   <button class='btn-sm replay' onclick='hide()'> Hide </button>

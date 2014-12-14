@@ -8,7 +8,8 @@ $(document).ready(function() {
     var save_session_url = '../php/save_session_log.php';
 	var end_session_url = '../php/end_session.php';
 	var submit_test_url = '../php/submit_test.php';
-    var session_log = "\n";
+    var session_log = "";
+        var url_base = 'http://localhost:8888/';
     
 	var already_predicted = false;
 	var first_click = true;
@@ -450,7 +451,17 @@ $(document).ready(function() {
     
     $('#send').on('click', function() {
         log_message('Ended Test ' + current_test + ' on: ' + new Date());
-	save(session_log, "demo.txt");
+		$.ajax(url_base + "play/save_log.php",
+					  {type: "POST",
+						  dataType: "json",
+						  data: {log: session_log},
+						  success: function(result, status, jqXHR) {
+						    alert(result);
+					      },
+						  error: function(jqXHR, status, error) {
+						    alert('hello');
+						  alert(jqXHR.responseText);
+				    }});
         /* Collect the values on the to_field */
         var contacts_selected = [];
         
