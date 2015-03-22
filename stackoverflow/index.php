@@ -7,16 +7,22 @@ if (!isset($_SESSION['id'])) {
 //fetch the test data
 
 else {
-
-    $data = exec('php php/read_config.php');
+    include("php/read_config.php");
+    //echo $output;
+    $data = $output;
+    //$data = exec('php php/read_config.php');
     $data = explode(";",$data); //each test case is separated by semi colons
     $_SESSION["number_of_tests"] = count($data) - 1;
+    $log_url = 'logs/';
+    //echo $_SESSION["number_of_tests"];
+
     
     if ($_SESSION["current_test"] == $_SESSION["number_of_tests"]) {
 		$log_file = $log_url.$_SESSION["id"];
         $result = file_put_contents($log_file, $_SESSION["log"]);
         session_destroy();
-        header("Location: html/thankyou.html");
+        //header("Location: html/thankyou.html");
+        //echo "redirected";
     }
 
     else
